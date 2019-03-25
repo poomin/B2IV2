@@ -1,0 +1,142 @@
+.footer {
+    background-color: #f5f5f5;
+}
+
+/*ajax page wait loader*/
+#ajax-page-loader {
+    position: fixed;
+    z-index: 1000;
+}
+
+#ajax-page-loader.fullscreen {
+    padding: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: none;
+    background-color: #fff;
+    box-shadow: none;
+}
+
+#ajax-page-loader.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+#ajax-page-loader .circular {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+
+/*set slider*/
+.slide-register {
+    position: absolute;
+    bottom: 20px;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+}
+
+/*set a menu header*/
+.a-menu.active {
+    color: crimson;
+}
+.a-menu {
+    text-align: right;
+    font-weight: bold;
+    color: grey;
+}
+.a-menu:hover{
+    color: black;
+}
+
+
+/*set for home*/
+.page-content {
+    background-image: url('../images/Home-page-BG.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.font-24 {
+    font-size: 24px;
+}
+.font-23 {
+    font-size: 23px;
+}
+.font-22 {
+    font-size: 22px;
+}
+.font-21 {
+    font-size: 21px;
+}
+.font-20 {
+    font-size: 20px;
+}
+.font-19 {
+    font-size: 19px;
+}
+.font-18 {
+    font-size: 18px;
+}
+.font-17 {
+    font-size: 17px;
+}
+.font-16 {
+    font-size: 16px;
+}
+.font-15 {
+    font-size: 15px;
+}
+.font-14 {
+    font-size: 14px;
+}
+
+
+/*set hell of fame*/
+.card-hover {
+    /*width: 100%;*/
+    /*height: 100%;*/
+
+}
+.card-middle {
+    transition: 0.5s ease;
+    left: 0;
+    opacity: 1;
+    width: 100%;
+    text-align: center;
+}
+.card-image {
+     transition: 0.5s ease;
+     opacity: 0.3;
+     display: block;
+     width: 100%;
+     height: auto;
+     backface-visibility: hidden;
+     text-align: center;
+ }
+.card-hover:hover{
+    transition: 1s ease;
+    background-color: red !important;
+}
+.card-hover:hover .card-image {
+    transition: 0.5s ease;
+    opacity: 1;
+
+    -webkit-transform: scale(1.08);
+    transform: scale(1.08);
+}
+
+.card-hover:hover .card-middle {
+    opacity: 0;
+    transition: 0.5s ease;
+
+}
+
+.image-zoom:hover {
+    -webkit-transform: scale(1.08);
+    transform: scale(1.08);
+}

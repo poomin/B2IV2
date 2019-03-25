@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Bootstrap Cherry Template">
+    <meta name="generator" content="Cherry V.1">
+    <title>Fx @Admin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <!-- Custom fonts for this template-->
+    <link href="./font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- main style -->
+    <link href="./css/main.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .dt-content-left{
+            /*width:50%;*/
+            /*float:left;*/
+        }
+
+        .dt-laptop-slider{
+            /*width:100%;*/
+            /*height: 100%;*/
+            /*float: right;*/
+            /*margin-right: -150px;*/
+            background: url('./images/frams.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            /*background-position: top left;*/
+            /*background-size: contain;*/
+            /*width: 900px;*/
+            z-index:4;
+        }
+
+
+        .laptop-screen{
+            /*margin: 67px 167px;*/
+            /*width: 570px;*/
+            /*height: 390px;*/
+            width: 700px;
+            height: 500px;
+            /*overflow: hidden;*/
+            /*position: relative;*/
+
+        }
+
+        .app-shot{
+            position:absolute;
+            animation:round 8s infinite;
+            opacity:0;
+            z-index:-1;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+
+        }
+        @keyframes round{
+            25%{opacity:1;}
+            40%{opacity:0;}
+        }
+
+        /*img:nth-child(4){animation-delay:0s;}*/
+        /*img:nth-child(3){animation-delay:4s;}*/
+        /*img:nth-child(2){animation-delay:8s;}*/
+    </style>
+
+</head>
+<body>
+
+<div class="container border border-danger w-100 h-100">
+    <div class="dt-laptop-slider border border-success">
+        <div class="laptop-screen border border-warning">
+            <img class='app-shot' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShxiUGLWMglzRCDK57M0c3UvdSRHAjIrKcFTTlpYSZ79SbXMWP" alt="" />
+            <img class='app-shot' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBJ9aFgMiRAPcortRIjzCWLxZ-tVryihXdR-UOVtWMO76YLbog" alt="" />
+            <img class='app-shot' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV_vCLtv0WB4NWYRk86m7ELtvXdzlAyFghFoubMCHZpDnKcDkAyg" alt="" />
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<footer class="footer fixed-bottom pb-3 pt-2">
+    <div class="container">
+        <span class="text-muted">Place sticky footer content here.</span>
+    </div>
+</footer>
+
+<!-- loader -->
+<div id="ajax-page-loader" class="show fullscreen">
+    <div class="circular">
+        <img src="./images/ajax-loader.gif">
+    </div>
+</div>
+
+
+<script src="./jquery/jquery.min.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+
+<script>
+
+$(window).bind("load", function() {
+    setTimeout(function() {
+        $('#ajax-page-loader').remove();
+    }, 1);
+});
+
+
+
+</script>
+
+</body>
+</html>

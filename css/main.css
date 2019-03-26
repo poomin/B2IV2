@@ -1,5 +1,10 @@
-.footer {
+
+body {
     background-color: #f5f5f5;
+}
+
+.footer {
+    background-color: gray;
 }
 
 /*ajax page wait loader*/
@@ -61,6 +66,17 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.page-background {
+    min-height: 700px;
+    background-image: url('../images/Home-page-BG.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.h-c{
+    color: crimson;
+}
+
 .font-24 {
     font-size: 24px;
 }

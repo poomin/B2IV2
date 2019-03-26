@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Bootstrap Cherry Template">
+    <meta name="generator" content="Cherry V.1">
+    <title>B2i</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="./font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- main style -->
+    <link href="./css/main.css" rel="stylesheet" type="text/css">
+
+</head>
+<body class="pb-5">
+<div class="container">
+    <div class="page-menu" style="margin-top: -20px;">
+        <nav class="navbar navbar-expand-lg">
+            <!--<div class="container">-->
+            <a href="index.html" style="z-index: 10;">
+                <img class="image-zoom" src="./images/B2i-logo.png" style="width: 160px;">
+            </a>
+            <div class="collapse navbar-collapse" style="margin-top: -50px;">
+                <ul class="nav nav-fill w-100">
+                    <li class="nav-item">
+                        <a class="nav-link a-menu" href="/index.html">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link a-menu" href="/page-information.html">คลังข้อมูล</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link a-menu" href="/page-hall.html">HALL OFF FAME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link a-menu" href="/page-news.html">ข่าว / ประกาศ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link a-menu" href="/page-connect.html">ติดต่อเรา</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link a-menu active" href="/page-login.html">สมัคร/เข้าสู่ระบบ</a>
+                    </li>
+                </ul>
+            </div>
+            <!--</div>-->
+        </nav>
+    </div>
+
+    <div class="pb-5 mb-5 bg-white" style="margin-top: -80px;">
+
+        <div class="row justify-content-center" style="padding-top: 50px; min-height: 550px;">
+            <div class="col-6">
+                <form method="post">
+
+                    <div class="text-center pb-3">
+                        <h3 class="h-c">สมัครสมาชิก</h3>
+                        <hr>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-control">Username</label>
+                        <input class="form-control" type="text" name="username" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="label-control">Password</label>
+                            <input id="inputPassword" class="form-control" type="password" name="password" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="label-control">Confirm password</label>
+                            <input id="inputConfirm" class="form-control" type="password" name="confirm" onchange="confirmPassword();" required>
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="label-control">ชื่อ</label>
+                            <input class="form-control" type="text" name="name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="label-control">นามสกุล</label>
+                            <input class="form-control" type="text" name="surname" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-control">Email</label>
+                        <input class="form-control" type="email" name="email" required>
+                    </div>
+
+                    <p>สถานะ</p>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="role" id="idRoleStudent" value="student" checked>
+                        <label class="form-check-label" for="idRoleStudent">นักเรียน / นักศึกษา</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="role" id="idRoleTeacher" value="teacher">
+                        <label class="form-check-label" for="idRoleTeacher">ครู / อาจารย์</label>
+                    </div>
+
+                    <div class="form-group pt-3">
+                        <label class="label-control" for="idSchool">โรงเรียน / สถานศึกษา
+                            <button class="btn btn-success btn-sm" type="button"><i class="fa fa-plus"></i></button>
+                        </label>
+                        <select id="idSchool" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-control" for="idSchoolRegion">ภาค</label>
+                        <select class="form-control" id="idSchoolRegion" name="schoolregion">
+                            <option value="กลาง">กลาง</option>
+                            <option value="เหนือ">เหนือ</option>
+                            <option value="ตะวันออก">ตะวันออก</option>
+                            <option value="ตะวันตก">ตะวันตก</option>
+                            <option value="ตะวันออกเฉียงเหนือ">ตะวันออกเฉียงเหนือ</option>
+                            <option value="ใต้">ใต้</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-lg sr-button btn-success">Register</button>
+                        <hr>
+                        <a href="/page-login.html">เข้าสู่ระบบ</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer fixed-bottom pt-3 pb-3">
+        <div class="container">
+            <span class="text-muted">Place sticky footer content here.</span>
+        </div>
+    </footer>
+
+    <!-- loader -->
+    <div id="ajax-page-loader" class="show fullscreen">
+        <div class="circular">
+            <img src="./images/ajax-loader.gif">
+        </div>
+    </div>
+
+</div>
+
+<script src="./jquery/jquery.min.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+
+<script>
+
+    $(window).bind("load", function () {
+        setTimeout(function () {
+            $('#ajax-page-loader').remove();
+        }, 1);
+    });
+
+    $('.carousel').carousel({
+        interval: 2000
+    })
+
+
+</script>
+
+</body>
+</html>

@@ -61,6 +61,18 @@ body {
     color: grey;
 }
 .a-menu:hover{
+    font-size: 18px;
+    color: black;
+}
+.a-nav.active {
+    color: crimson;
+    font-weight: bold;
+}
+.a-nav {
+    font-size: 16px;
+    color: grey;
+}
+.a-nav:hover{
     color: black;
 }
 
@@ -124,6 +136,12 @@ body {
     font-size: 14px;
 }
 
+hr.style1 {
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
 
 /*set hell of fame*/
 .card-middle {
@@ -163,4 +181,8 @@ body {
 .image-zoom:hover {
     -webkit-transform: scale(1.08);
     transform: scale(1.08);
+}
+.icon-zoom:hover {
+    -webkit-transform: scale(1.50);
+    transform: scale(1.50);
 }

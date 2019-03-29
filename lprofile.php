@@ -50,7 +50,89 @@ $MENU_LEFT = 'profile'
                     <hr class="style1">
                 </div>
                 <div>
-                    Profile
+
+                    <form class="form-horizontal" method="post">
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="label-control">Username</label>
+                                <input class="form-control" type="text" value="<?=$_SESSION['username'];?>" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label class="label-control">Password</label>
+                                <input class="form-control" type="password" value="xxxxxxxx" disabled>
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="label-control">Confirm password</label>
+                                <input class="form-control" type="password" value="xxxxxxxx" disabled>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <a class="btn btn-sm sr-button btn-warning" data-toggle="modal" data-target=".modalEditPassword">Edit</a>
+                        </div>
+                        <hr>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label class="label-control">First Name</label>
+                                <input class="form-control" type="text" name="name" value="<?=$_SESSION['name'];?>" required>
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="label-control">Last Name</label>
+                                <input class="form-control" type="text" name="surname" value="<?=$_SESSION['surname'];?>" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="label-control">Email</label>
+                                <input class="form-control" type="email" name="email" value="<?=$_SESSION['email'];?>" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="label-control">สถานะ</label> <br>
+                                <input name="role" type="radio" value="student" <?=$_SESSION['role']=='student'?'checked':''?> disabled> นักเรียน / นักศึกษา <br>
+                                <input name="role" type="radio" value="teacher" <?=$_SESSION['role']=='teacher'?'checked':''?> disabled> ครู / อาจารย์
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="label-control">โรงเรียน / สถานศึกษา</label>
+                                <div class="row-fluid">
+                                    <select  name="schoolname" class="selectpicker form-control" data-live-search="true">
+                                        <option value=""></option>
+                                        <option value="ubut1">ubu1</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <label class="label-control">ภาค</label>
+                                <select class="form-control" name="schoolregion">
+                                    <option value="กลาง">กลาง</option>
+                                    <option value="เหนือ">เหนือ</option>
+                                    <option value="ตะวันออก">ตะวันออก</option>
+                                    <option value="ตะวันตก">ตะวันตก</option>
+                                    <option value="ตะวันออกเฉียงเหนือ">ตะวันออกเฉียงเหนือ</option>
+                                    <option value="ใต้">ใต้</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-lg sr-button btn-success">SEND</button>
+                        </div>
+
+                    </form>
+
                 </div>
 
             </div>

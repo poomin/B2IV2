@@ -5,8 +5,12 @@
  * Date: 4/1/2019
  * Time: 2:59 PM
  */
+require_once __DIR__.'/_session.php';
 
 $MENU_LEFT = 'h-index';
+require_once __DIR__.'/controller/registerController.php';
+
+
 ?>
 
 <!DOCTYPE html>
@@ -25,13 +29,36 @@ $MENU_LEFT = 'h-index';
 
     <div class="pb-5 mb-5 bg-white" style="margin-top: -80px;">
 
-        <div class="row justify-content-center" style="padding-top: 50px; min-height: 550px;">
+
+        <div class="row justify-content-center" style="padding-top: 50px;">
+
+            <!-- alert status -->
+            <div class="col-12">
+                <?php require_once __DIR__.'/_alert.php';?>
+            </div>
+
             <div class="col-6">
+
                 <form class="register-validation" method="post" novalidate>
 
                     <div class="text-center pb-3">
                         <h3 class="h-c">สมัครสมาชิก</h3>
                         <hr>
+                    </div>
+
+                    <div class="form-group pt-3">
+                        <label class="label-control" for="idSchool">โรงเรียน / สถานศึกษา
+                            <button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-target="#modalAddSchool">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </label>
+                        <select id="idSchool" name="school_name" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Please select a school ..." required>
+                            <?php foreach ($SCHOOLS as $item): ?>
+                                <option value="<?php echo $item['school_name'];?>">
+                                    <?php echo $item['school_name'].'('.$item['province'].')';?>
+                                </option>
+                            <?php endforeach;?>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -59,7 +86,6 @@ $MENU_LEFT = 'h-index';
                             <div class="help-block with-errors"></div>
                         </div>
                     </div>
-
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -96,18 +122,6 @@ $MENU_LEFT = 'h-index';
                         <label class="form-check-label" for="idRoleTeacher">ครู / อาจารย์</label>
                     </div>
 
-                    <div class="form-group pt-3">
-                        <label class="label-control" for="idSchool">โรงเรียน / สถานศึกษา
-                            <button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-target="#modalAddSchool">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </label>
-                        <select id="idSchool" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-
                     <div class="form-group">
                         <label class="label-control" for="idSchoolRegion">ภาค</label>
                         <select class="form-control" id="idSchoolRegion" name="schoolregion">
@@ -120,6 +134,7 @@ $MENU_LEFT = 'h-index';
                         </select>
                     </div>
                     <div class="text-center">
+                        <input type="text" name="fn" value="insertUser" hidden>
                         <button type="submit" class="btn btn-lg sr-button btn-success">Register</button>
                         <hr>
                         <a href="/index-login.php">เข้าสู่ระบบ</a>
@@ -137,11 +152,7 @@ $MENU_LEFT = 'h-index';
     <?php require_once __DIR__.'/_main_footer.php';?>
 </footer>
 
-
-<script src="./jquery/jquery.min.js"></script>
-<script src="./bootstrap/js/bootstrap.min.js"></script>
-<script src="./bootstrap/js/bootstrap-validate.js"></script>
-<script src="./js/loader.js"></script>
+<?php require_once __DIR__.'/_main_script.php';?>
 
 
 <script>

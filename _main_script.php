@@ -8,7 +8,12 @@
 ?>
 
 <script src="./jquery/jquery.min.js"></script>
+<script src="./bootstrap/js/popper.js"></script>
 <script src="./bootstrap/js/bootstrap.min.js"></script>
+<script src="./bootstrap/js/bootstrap-select.js"></script>
+<script src="./bootstrap/js/bootstrap-validate.js"></script>
+
+<script src="./js/loader.js"></script>
 <script>
 
     $(window).bind("load", function () {

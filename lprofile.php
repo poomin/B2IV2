@@ -5,10 +5,11 @@
  * Date: 28/3/2562
  * Time: 07:02 หลังเที่ยง
  */
+require_once __DIR__.'/_session.php';
+require_once __DIR__.'/_session_login.php';
 
 
 $MENU_LEFT = 'profile'
-
 
 
 ?>

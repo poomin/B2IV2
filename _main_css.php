@@ -16,6 +16,9 @@
 <!-- Bootstrap core CSS -->
 <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+<!-- Bootstrap select css -->
+<link href="./bootstrap/css/bootstrap-select.min.css" rel="stylesheet">
+
 <!-- Custom fonts for this template-->
 <link href="./font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 

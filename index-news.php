@@ -60,9 +60,8 @@ $MENU_LEFT = 'h-news';
     <?php require_once __DIR__.'/_main_footer.php';?>
 </footer>
 
-<script src="./jquery/jquery.min.js"></script>
-<script src="./bootstrap/js/bootstrap.min.js"></script>
-<script src="./js/loader.js"></script>
+<?php require_once __DIR__.'/_main_script.php';?>
+
 
 </body>
 </html>

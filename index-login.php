@@ -5,9 +5,11 @@
  * Date: 4/1/2019
  * Time: 12:37 PM
  */
+require_once __DIR__.'/_session.php';
+
 
 $MENU_LEFT = 'h-login';
-
+require_once __DIR__.'/controller/loginController.php';
 
 ?>
 
@@ -29,8 +31,14 @@ $MENU_LEFT = 'h-login';
     <div class="pb-5 mb-5 bg-white" style="margin-top: -80px;">
 
         <div class="row justify-content-center" style="padding-top: 50px; min-height: 550px;">
+
+            <!-- alert status -->
+            <div class="col-12">
+                <?php require_once __DIR__.'/_alert.php';?>
+            </div>
+
             <div class="col-6">
-                <form class="form-horizontal" method="post">
+                <form class="login-validation" method="post" novalidate>
 
                     <div class="text-center pb-3">
                         <h3 class="h-c">เข้าสู่ระบบ</h3>
@@ -40,14 +48,21 @@ $MENU_LEFT = 'h-login';
                     <div class="form-group">
                         <label class="label-control">Username</label>
                         <input class="form-control" type="text" name="username" required>
+                        <div class="invalid-feedback">
+                            Please input username!
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="label-control">Password</label>
                         <input class="form-control" type="password" name="password" required>
+                        <div class="invalid-feedback">
+                            Please input password!
+                        </div>
                     </div>
 
                     <div class="text-center">
+                        <input type="text" name="fn" value="login" hidden>
                         <button type="submit" class="btn btn-lg sr-button btn-success">Login</button>
                         <hr>
                         <a href="/index-register.php">สมัครสมาชิก</a>
@@ -67,9 +82,25 @@ $MENU_LEFT = 'h-login';
 </footer>
 
 
-<script src="./jquery/jquery.min.js"></script>
-<script src="./bootstrap/js/bootstrap.min.js"></script>
-<script src="./js/loader.js"></script>
+<?php require_once __DIR__.'/_main_script.php';?>
+
+<script>
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var formLogin = document.getElementsByClassName('login-validation');
+            var validation = Array.prototype.filter.call(formLogin, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 
 </body>
 </html>

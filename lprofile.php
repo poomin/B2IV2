@@ -51,7 +51,36 @@ require_once __DIR__.'/controller/profileController.php';
                     <h2 class="h-c"><i class="fa fa-user icon-zoom"></i> Profile</h2>
                     <hr class="style1">
                 </div>
-                <div>
+
+                <div class="p-0">
+
+                    <!-- show image -->
+                    <div class="text-center pb-3">
+                        <img class="rounded-circle" id="imageShow" src="<?php echo $this_user_image;?>" alt="image" style="width: 200px; height: 200px;">
+                    </div>
+                    <!-- form upload image -->
+                    <div id="loadFileImage" class="text-center">
+                        <div class="form-inline" id="show_progressBar_image" hidden>
+                            <div class="progress" style="float:left; width: 90%; margin-right: 5px;">
+                                <div id="progressBar_image" class="progress-bar" role="progressbar"
+                                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 0%;">0%
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-danger btn-sm"
+                                    onclick="cancelUploadFile()">
+                                <span class="fa fa-remove"></span>
+                            </button>
+                        </div>
+                        <div id="image">
+                            <div class="box-img-ready">
+                                <label class="rounded alert-info p-2" style="cursor: pointer;" for="file_image">
+                                    <h4 id="upload_image"><span class="label"><i class="fa fa-upload"></i> Image Upload</span></h4>
+                                    <input id="file_image" user_id="<?php echo $this_user_id;?>" accept="image/*" type="file" style="display:none;" onchange="showLoadImage(this)">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
                     <form class="profile-validation" method="post" novalidate>
 
@@ -88,6 +117,10 @@ require_once __DIR__.'/controller/profileController.php';
 
                         <hr>
 
+                        <!-- alert status -->
+                        <div class="p-0">
+                            <?php require_once __DIR__.'/_alert.php';?>
+                        </div>
 
                         <div class="form-group pt-3">
                             <label class="label-control" for="idSchool">โรงเรียน / สถานศึกษา </label>
@@ -158,6 +191,7 @@ require_once __DIR__.'/controller/profileController.php';
                         </div>
 
                         <div class="text-center">
+                            <input type="text" name="fn" value="editUser" hidden>
                             <button type="submit" class="btn btn-lg btn-success">SAVE EDIT</button>
                         </div>
 
@@ -197,6 +231,87 @@ require_once __DIR__.'/controller/profileController.php';
             });
         }, false);
     })();
+
+    var ajax_image;
+    function showLoadImage(input) {
+        if (input.files && input.files[0]) {
+            ajax_image = new XMLHttpRequest();
+
+            $('#show_progressBar_image').removeAttr('hidden');
+            var progressBar = "progressBar_image";
+            var user_id = input.getAttribute("user_id");
+
+            var form_data = new FormData();
+            form_data.append("fileToUpload", input.files[0]);
+            ajax_image.upload.addEventListener("progress", progressHandler, false);
+            ajax_image.addEventListener("load", completeHandler, false);
+            ajax_image.addEventListener("error", errorHandler, false);
+            ajax_image.addEventListener("abort", abortHandler, false);
+            ajax_image.open("POST","/upload/upload_file.php?type=profile&user_id=" + user_id);
+            ajax_image.send(form_data);
+
+            function progressHandler(event) {
+                var percent = (event.loaded / event.total) * 100;
+                $("#" + progressBar).css('width', Math.round(percent) + "%");
+                $("#" + progressBar).html(Math.round(percent) + "%");
+            }
+
+            function completeHandler(event) {
+                var data_return = JSON.parse(event.target.responseText);
+                if (data_return['status'] == 'ok') {
+                    var src = '/upload/profile/'+data_return['new_name'];
+                    $('#imageShow').attr('src',src+'?'+(Math.floor((Math.random()*10000)+1)));
+
+                    $('#show_progressBar_image').attr('hidden',true);
+                    $("#" + progressBar).css('width', "0%");
+                    $("#" + progressBar).html("0%");
+
+                    $('#loadFileImage').addClass('hidden');
+                    $('#saveLoadFileImage').removeClass('hidden');
+
+                    alert("Update image success.");
+
+                } else {
+                    ajax_image.abort();
+                    alert("Error:" + data_return['message']);
+                    $("#" + progressBar).css('width', "0%");
+                    $("#" + progressBar).html("0%");
+                }
+            }
+
+            function errorHandler(event) {
+                ajax_image.abort();
+                alert("Upload Failed");
+                $('#show_progressBar_image').attr('hidden',true);
+                $("#" + progressBar).css('width', "0%");
+                $("#" + progressBar).html("0%");
+
+            }
+
+            function abortHandler(event) {
+                ajax_image.abort();
+                alert("Upload Aborted");
+                $('#show_progressBar_image').attr('hidden',true);
+                $("#" + progressBar).css('width', "0%");
+                $("#" + progressBar).html("0%");
+            }
+
+        }
+        else {
+            alert("Not found file input!!!");
+        }
+
+    }
+
+    function cancelUploadFile() {
+        ajax_image.abort();
+        $('#show_progressBar_image').attr('hidden',true);
+        $("#file_image").val("");
+    }
+
+
+
+
 </script>
 
 </body>

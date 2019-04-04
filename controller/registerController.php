@@ -14,7 +14,6 @@ $MSchool = new SchoolModel();
 $SCHOOLS = [];
 
 
-
 $fn = $MUser->getInput('fn');
 
 //---- add school

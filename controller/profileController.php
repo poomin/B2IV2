@@ -23,8 +23,44 @@ $this_user_schoolregion = '';
 $this_user_role = '';
 $this_user_image =isset($LOGIN_USER_IMAGE)?$LOGIN_USER_IMAGE:'/images/profile.png';
 
+//------------------ function
+
+$fn = $MUser->getInput('fn');
+if($fn=='editUser'){
+
+    $p_name = $MUser->getInput('name');
+    $p_surname = $MUser->getInput('surname');
+    $p_email = $MUser->getInput('email');
+    $p_school_name = $MUser->getInput('school_name');
+    $p_schoolregion = $MUser->getInput('schoolregion');
+
+    $raw = [
+        'email'=>$p_email,
+        'name'=>$p_name,
+        'surname'=>$p_surname,
+        'schoolname'=>$p_school_name,
+        'schoolregion'=>$p_schoolregion
+    ];
+    $condition = [
+        'id'=>$this_user_id,
+    ];
+
+    $user_row = $MUser->editThis($raw,$condition);
+
+    if($user_row >0){
+        $_SESSION['action_status']='success';
+        $_SESSION['action_message']='Edit user profile success.';
+
+    }else{
+        $_SESSION['action_status']='warning';
+        $_SESSION['action_message']='Edit user profile fail!!!';
+    }
 
 
+
+
+
+}
 
 
 

@@ -7,7 +7,7 @@
  */
 require_once __DIR__.'/_session.php';
 
-$MENU_LEFT = 'h-index';
+$MENU_LEFT = 'h-login';
 require_once __DIR__.'/controller/registerController.php';
 
 

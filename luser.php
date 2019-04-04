@@ -5,11 +5,12 @@
  * Date: 28/3/2562
  * Time: 07:02 หลังเที่ยง
  */
+require_once __DIR__.'/_session.php';
+require_once __DIR__.'/_session_login.php';
 
+$MENU_LEFT = 'user';
 
-$MENU_LEFT = 'user'
-
-
+require_once __DIR__.'/controller/userController.php';
 
 ?>
 
@@ -17,6 +18,8 @@ $MENU_LEFT = 'user'
 <html lang="en">
 <head>
     <?php require_once __DIR__.'/_main_css.php';?>
+
+    <?php require_once __DIR__.'/_datatable_css.php';?>
 </head>
 <body>
 
@@ -50,7 +53,32 @@ $MENU_LEFT = 'user'
                     <hr class="style1">
                 </div>
                 <div>
-                    จัดการสมาชิก
+                    <table class="this-table table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Username</th>
+                            <th>Name Surname</th>
+                            <th>School</th>
+                            <th>Region</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($USERS as $key=>$item): ?>
+                        <tr>
+                            <td> <?php echo ($key+1); ?> </td>
+                            <td> <?php echo $item['username']; ?> </td>
+                            <td> <?php echo $item['name'].' '.$item['surname']; ?> </td>
+                            <td> <?php echo $item['schoolname']; ?> </td>
+                            <td> <?php echo $item['schoolregion']; ?> </td>
+                            <td> <?php echo $item['role']; ?> </td>
+                            <td>  </td>
+                        </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
                 </div>
 
             </div>
@@ -68,6 +96,15 @@ $MENU_LEFT = 'user'
 
 <!-- main script -->
 <?php require_once __DIR__.'/_main_script.php';?>
+
+<?php require_once __DIR__.'/_datatable_script.php';?>
+
+
+<script>
+    $(document).ready(function() {
+        $('.this-table').DataTable();
+    } );
+</script>
 
 </body>
 </html>

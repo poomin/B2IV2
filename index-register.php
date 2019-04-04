@@ -37,8 +37,13 @@ require_once __DIR__.'/controller/registerController.php';
                 <?php require_once __DIR__.'/_alert.php';?>
             </div>
 
-            <div class="col-6">
+            <div class="alert alert-success col-8" role="alert">
+                <h4 class="alert-heading">เร็วๆนี้!</h4>
+                <hr>
+                <p class="mb-0">ขออภัย ทางระบบยังไม่เปิดให้สมัครสมาชิกในขณะนี้ ทางทีมงานจะเปิดให้สมัครสมาชิกและยื่นเสนอโครงการภายในวันที่ <strong> 22 เมษายน 2562 </strong> ทางทีมงานขอขอบคุณที่ท่านให้ความสมใจกับโครงการ Bridge 2 Inventor 2019</p>
+            </div>
 
+            <div class="col-6">
                 <form class="register-validation" method="post" novalidate>
 
                     <div class="text-center pb-3">
@@ -135,7 +140,7 @@ require_once __DIR__.'/controller/registerController.php';
                     </div>
                     <div class="text-center">
                         <input type="text" name="fn" value="insertUser" hidden>
-                        <button type="submit" class="btn btn-lg sr-button btn-success">Register</button>
+                        <button type="submit" class="btn btn-lg sr-button btn-success" disabled>Register</button>
                         <hr>
                         <a href="/index-login.php">เข้าสู่ระบบ</a>
                     </div>

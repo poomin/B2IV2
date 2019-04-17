@@ -15,10 +15,10 @@
 
 <script src="./js/loader.js"></script>
 <script>
+    //tooltip
+    $(document).ready(function(){
 
-    $(window).bind("load", function () {
-        setTimeout(function () {
-            $('#ajax-page-loader').remove();
-        }, 100);
+        $('[data-toggle="tooltip"]').tooltip();
+
     });
 </script>

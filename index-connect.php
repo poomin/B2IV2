@@ -5,6 +5,9 @@
  * Date: 4/1/2019
  * Time: 12:54 PM
  */
+require_once __DIR__.'/_session.php';
+require_once __DIR__.'/_session_index.php';
+
 $MENU_LEFT = 'h-connect';
 
 ?>

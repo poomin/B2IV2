@@ -5,683 +5,338 @@
  * Date: 2/22/2019
  * Time: 3:37 PM
  */
-require_once __DIR__.'/../_session.php';
-require_once __DIR__.'/../controller/config.php';
 
-function ipAddr(){
-    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-        //ip from share internet
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
-    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-        //ip pass from proxy
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+
+function formatDmy($dmy){
+    $cut = explode('/',$dmy);
+    if(count($cut)>=2){
+        return $cut[2].'-'.$cut[1].'-'.$cut[0];
     }else{
-        $ip = $_SERVER['REMOTE_ADDR'];
-    }
-    return $ip;
-}
-
-
-
-
-
-
-$fn = getInput('fn');
-//send email
-if($fn=='fxPass'){
-    $user_id = getInput('member_id');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/sendConfirmEmail';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$user_id,
-        'language'=>$language
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    echo json_encode($result);
-    exit();
-}
-elseif($fn=='fxAccount'){
-    $user_id = getInput('member_id');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/sendConfirmAccount';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$user_id,
-        'language'=>$language
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    echo json_encode($result);
-    exit();
-}
-elseif($fn=='fxForget'){
-    $user_id = getInput('member_id');
-    $language = getInput('language');
-    $url = getInput('url');
-
-    $HOST_URL = '/api/sendForgetPassFx';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$user_id,
-        'url'=>$url,
-        'language'=>$language
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    echo json_encode($result);
-    exit();
-}
-elseif($fn=='fxMt4'){
-    $user_id = getInput('member_id');
-    $language = getInput('language');
-    $url = getInput('url');
-    $login = getInput('login');
-
-    $HOST_URL = '/api/sendForgetPassMt4';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$user_id,
-        'url'=>$url,
-        'login'=>$login,
-        'language'=>$language
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    echo json_encode($result);
-    exit();
-}
-
-//verify account
-elseif($fn=='accountPass'){
-    $user_id = getInput('member_id');
-    $language = getInput('language');
-    $HOST_URL = '/api/verifyFxUserConfirm';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$user_id,
-        'language'=> $language,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='accountReject'){
-
-    $user_id = getInput('member_id');
-    $message = getInput('message');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/verifyFxUserReject';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$user_id,
-        'verify_account_message'=>$message,
-        'language'=> $language,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-
-elseif($fn=='bankPass'){
-
-    $bank_id = getInput('bank_id');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/verifyBankConfirm';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$bank_id,
-        'language'=> $language,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='bankReject'){
-
-    $bank_id = getInput('bank_id');
-    $message = getInput('message');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/verifyBankReject';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$bank_id,
-        'message'=>$message,
-        'language'=> $language,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-
-//payment
-elseif($fn=='transferPass'){
-
-    $transfer_id = getInput('transfer_id');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/transferBankApprove';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$transfer_id,
-        'language'=> $language,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='transferReject'){
-
-    $transfer_id = getInput('transfer_id');
-    $message = getInput('message');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/transferBankReject';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$transfer_id,
-        'message'=>$message,
-        'language'=> $language,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-
-elseif($fn=='paysecPass'){
-
-    $cartid = getInput('cartid');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/paysecApprove';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'cartid'=>$cartid,
-        'language'=> $language,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='paysecReject'){
-
-    $cartid = getInput('cartid');
-    $message = getInput('message');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/paysecReject';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'cartid'=>$cartid,
-        'message'=>$message,
-        'language'=> $language,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='paysecUpdateCheck'){
-
-    $cartid = getInput('cartid');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/paysecCheck';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'cartid'=>$cartid,
-        'language'=> $language
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-
-//withdrawal
-elseif($fn=='withdrawalReject'){
-
-    $transfer_id = getInput('transfer_bank_id');
-    $message = getInput('message');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/withdrawalBankReject';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$transfer_id,
-        'message'=>$message,
-        'language'=> $language,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='withdrawalPass'){
-
-    $transfer_id = getInput('transfer_id');
-    $language = getInput('language');
-
-    $HOST_URL = '/api/withdrawalBankApprove';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$transfer_id,
-        'language'=> $language,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-
-//transaction
-elseif($fn=='transactionFxMt4'){
-
-    $mt4_login = getInput('mt4_login');
-    $HOST_URL = '/api/transactionFxMt4';
-    $HOST_METHOD = 'GET';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'mt4_login'=>$mt4_login
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
+        return date('Y-m-d');
     }
 }
 
 
-//log
-elseif($fn=='logUser'){
 
-    $member_id = getInput('member_id');
-    $HOST_URL = '/api/logUser';
-    $HOST_METHOD = 'GET';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'id'=>$member_id
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='logBookBank'){
+$fn = isset($_REQUEST['fn'])?$_REQUEST['fn']:'';
 
-    $member_id = getInput('member_id');
-    $HOST_URL = '/api/logUserBank';
-    $HOST_METHOD = 'GET';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'user_id'=>$member_id
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='logTransfer'){
+//>>>>>>>>>> user
+if($fn == 'addUserImage'){
+    require_once __DIR__.'/../model/UserModel.php';
+    $MUser = new UserModel();
+    $user_id = $MUser->getInput('uid');
+    $src = $MUser->getInput('src');
 
-    $mt4_login = getInput('mt4_login');
-    $HOST_URL = '/api/logMt4Trade';
-    $HOST_METHOD = 'GET';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'mt4_login'=>$mt4_login
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='logPaysec'){
+    $update_rows = $MUser->editThis(['image_path'=>$src],['id'=>$user_id]);
 
-    $mt4_login = getInput('mt4_login');
-    $HOST_URL = '/api/logPaysec';
-    $HOST_METHOD = 'GET';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'mt4_login'=>$mt4_login
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='logBank'){
-
-    $mt4_login = getInput('mt4_login');
-    $HOST_URL = '/api/logTransferBank';
-    $HOST_METHOD = 'GET';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'mt4_login'=>$mt4_login
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
+    echo json_encode(['status'=>true]);
+    exit(0);
 }
 
 
-//management
-elseif($fn=='manageStatus'){
-    $password = getInput('password');
-    $member_email = getInput('member_email');
-    $mt4_login = getInput('mt4_login');
-    $status = getInput('status');
 
-    $HOST_URL = '/api/manageAccountStatus';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'password'=> $password,
-        'member_email' => $member_email,
-        'mt4_login' => $mt4_login,
-        'status'=> $status,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='manageDeposit'){
-    $password = getInput('password');
-    $member_email = getInput('member_email');
-    $mt4_login = getInput('mt4_login');
-    $status = getInput('status');
-    $amount = getInput('amount');
+//>>>>>>>>>>>>> WEB
+elseif($fn == 'addEditWebInfo'){
+    require_once __DIR__.'/../model/WebModel.php';
+    $MWeb = new WebModel();
 
-    $HOST_URL = '/api/manageDeposit';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'password'=> $password,
-        'member_email' => $member_email,
-        'mt4_login' => $mt4_login,
-        'amount' => $amount,
-        'type'=> $status,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='manageWithdraw'){
-    $password = getInput('password');
-    $member_email = getInput('member_email');
-    $mt4_login = getInput('mt4_login');
-    $status = getInput('status');
-    $amount = getInput('amount');
+    $web_id = $MWeb->getInput('web_id');
+    $web_home = $MWeb->getInput('web_home');
 
-    $HOST_URL = '/api/manageWithdrawal';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'password'=> $password,
-        'member_email' => $member_email,
-        'mt4_login' => $mt4_login,
-        'amount' => $amount,
-        'type'=> $status,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
-    }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
-    }
-}
-elseif($fn=='managePass'){
-    $password = getInput('password');
-    $member_email = getInput('member_email');
-    $mt4_login = getInput('mt4_login');
-    $new_pass = getInput('new_password');
-    $type = getInput('type','investor');
+    $update_rows =  $MWeb->editThis(['web_home'=>$web_home],['id'=>$web_id]);
 
-    $HOST_URL = '/api/manageSetPasswordMt4';
-    $HOST_METHOD = 'POST';
-    $HOST_DATA = [
-        'user_email'=> $USER_EM,
-        'login_token'=> $USER_TK,
-        'password'=> $password,
-        'member_email' => $member_email,
-        'mt4_login' => $mt4_login,
-        'new_password'=> $new_pass,
-        'type'=> $type,
-        'ip_address'=> ipAddr()
-    ];
-    $result = getUrl($HOST_URL , $HOST_DATA , $HOST_METHOD);
-    if(isset($result['code'])){
-        echo json_encode($result);
-        exit();
+    if($update_rows >0){
+        echo json_encode(['status'=>true]);
+        exit(0);
     }else{
-        echo json_encode([
-            'code'=>201,
-            'status_text'=> 'Connect URL ERR.',
-            'result'=>[]
-        ]);
-        exit();
+        echo json_encode(['status'=>false]);
+        exit(0);
     }
+
+
 }
+elseif($fn == 'getWebInfo'){
+    require_once __DIR__.'/../model/WebModel.php';
+    $MWeb = new WebModel();
+
+    $web_id = $MWeb->getInput('web_id');
+
+    $result =  $MWeb->selectThis(['id'=>$web_id]);
+
+    if(isset($result['id'])){
+        echo json_encode(['status'=>true , 'data'=>$result['web_home']]);
+        exit(0);
+    }else{
+        echo json_encode(['status'=>false , 'data'=>'']);
+        exit(0);
+    }
+
+
+}
+elseif($fn == 'addEditWebInformation'){
+    require_once __DIR__.'/../model/WebModel.php';
+    $MWeb = new WebModel();
+
+    $web_id = $MWeb->getInput('web_id');
+    $web_information = $MWeb->getInput('web_information');
+
+    $update_rows =  $MWeb->editThis(['web_info'=>$web_information],['id'=>$web_id]);
+
+    if($update_rows >0){
+        echo json_encode(['status'=>true]);
+        exit(0);
+    }else{
+        echo json_encode(['status'=>false]);
+        exit(0);
+    }
+
+
+}
+elseif($fn == 'getWebInformation'){
+    require_once __DIR__.'/../model/WebModel.php';
+    $MWeb = new WebModel();
+
+    $web_id = $MWeb->getInput('web_id');
+
+    $result =  $MWeb->selectThis(['id'=>$web_id]);
+
+    if(isset($result['id'])){
+        echo json_encode(['status'=>true , 'data'=>$result['web_info']]);
+        exit(0);
+    }else{
+        echo json_encode(['status'=>false , 'data'=>'']);
+        exit(0);
+    }
+
+
+}
+//-------- image
+elseif ($fn=='addWebImage'){
+    require_once __DIR__.'/../model/WebImageModel.php';
+    $MWebImage = new WebImageModel();
+
+    $web_id = $MWebImage->getInput('wid');
+    $web_image = $MWebImage->getInput('src');
+
+    $update_rows =  $MWebImage->insertThis(['web_id'=>$web_id , 'web_image'=>$web_image]);
+
+    if($update_rows > 0){
+        echo json_encode(['status'=>true]);
+        exit(0);
+    }else{
+        echo json_encode(['status'=>false]);
+        exit(0);
+    }
+
+
+}
+
+
+//>>>>>>>>>>>>> News
+elseif($fn == 'addNews'){
+    require_once __DIR__.'/../model/NewsModel.php';
+    $MNews = new NewsModel();
+
+    $title = $MNews->getInput('title');
+    $image = $MNews->getInput('image');
+    $detail = $MNews->getInput('detail');
+    $news_type = $MNews->getInput('type');
+
+    $raw = [
+      'title'=>$title,
+      'image'=>$image,
+      'detail'=>$detail,
+      'news_type'=>$news_type
+    ];
+
+    $add_id =  $MNews->insertThis($raw);
+
+    if($add_id >0){
+        echo json_encode(['status'=>true , 'id'=>$add_id]);
+        exit(0);
+    }else{
+        echo json_encode(['status'=>false , 'id'=>0]);
+        exit(0);
+    }
+
+
+}
+elseif($fn == 'editNews'){
+    require_once __DIR__.'/../model/NewsModel.php';
+    $MNews = new NewsModel();
+
+    $news_id = $MNews->getInput('newsId');
+    $title = $MNews->getInput('title');
+    $image = $MNews->getInput('image');
+    $detail = $MNews->getInput('detail');
+    $news_type = $MNews->getInput('type');
+
+    $raw = [
+        'title'=>$title,
+        'image'=>$image,
+        'detail'=>$detail,
+        'news_type'=>$news_type
+    ];
+
+    $condition = [
+        'id'=>$news_id
+    ];
+
+    $update_rows =  $MNews->editThis($raw,$condition);
+
+    if($update_rows >0){
+        echo json_encode(['status'=>true]);
+        exit(0);
+    }else{
+        echo json_encode(['status'=>false]);
+        exit(0);
+    }
+
+
+}
+
+//>>>>>>>>>>>>> Hall
+elseif ($fn=='addHall'){
+    require_once __DIR__.'/../model/HallModel.php';
+    $MHall = new HallModel();
+
+    $project_name = $MHall->getInput('project_name');
+    $project_name_en = $MHall->getInput('project_name_en');
+    $image = $MHall->getInput('image');
+    $adviser_name = $MHall->getInput('adviser_name');
+    $student_1 = $MHall->getInput('student_1');
+    $student_2 = $MHall->getInput('student_2');
+    $student_3 = $MHall->getInput('student_3');
+    $student_4 = $MHall->getInput('student_4');
+    $detail = $MHall->getInput('detail');
+
+    $raw = [
+        'project_name'=>$project_name,
+        'project_name_en'=>$project_name_en,
+        'image'=>$image,
+        'adviser_name'=>$adviser_name,
+        'student_1'=>$student_1,
+        'student_2'=>$student_2,
+        'student_3'=>$student_3,
+        'student_4'=>$student_4,
+        'detail'=>$detail
+    ];
+
+    $add_id =  $MHall->insertThis($raw);
+
+    if($add_id >0){
+        echo json_encode(['status'=>true , 'id'=>$add_id]);
+        exit(0);
+    }else{
+        echo json_encode(['status'=>false , 'id'=>0]);
+        exit(0);
+    }
+
+
+}
+elseif ($fn=='editHall'){
+    require_once __DIR__.'/../model/HallModel.php';
+    $MHall = new HallModel();
+
+    $hall_id = $MHall->getInput('hall_id');
+    $project_name = $MHall->getInput('project_name');
+    $project_name_en = $MHall->getInput('project_name_en');
+    $image = $MHall->getInput('image');
+    $adviser_name = $MHall->getInput('adviser_name');
+    $student_1 = $MHall->getInput('student_1');
+    $student_2 = $MHall->getInput('student_2');
+    $student_3 = $MHall->getInput('student_3');
+    $student_4 = $MHall->getInput('student_4');
+    $detail = $MHall->getInput('detail');
+
+    $raw = [
+        'project_name'=>$project_name,
+        'project_name_en'=>$project_name_en,
+        'image'=>$image,
+        'adviser_name'=>$adviser_name,
+        'student_1'=>$student_1,
+        'student_2'=>$student_2,
+        'student_3'=>$student_3,
+        'student_4'=>$student_4,
+        'detail'=>$detail
+    ];
+    $condition = [
+        'id'=>$hall_id
+    ];
+
+    $update_rows =  $MHall->editThis($raw,$condition);
+
+    if($update_rows >0){
+        echo json_encode(['status'=>true]);
+        exit(0);
+    }else{
+        echo json_encode(['status'=>false]);
+        exit(0);
+    }
+
+
+}
+elseif ($fn=='loadHall'){
+    require_once __DIR__.'/../model/HallModel.php';
+    $MHall = new HallModel();
+
+    $page = $MHall->getInput('page');
+    $page = ($page==0)?1*9:$page*9;
+    $sql = ' order by create_at DESC limit '.$page.' , 9 ';
+
+    $result = $MHall->selectSqlAll($sql);
+
+
+    echo json_encode(['status'=>true , 'result'=>$result]);
+    exit(0);
+
+
+}
+
+//>>>>>>>>>>>>> Phase
+elseif ($fn=='insertUpdatePhase'){
+    require_once __DIR__.'/../model/MainPhaseModel.php';
+    $MPhase = new MainPhaseModel();
+    $main_id = $MPhase->getInput('mainId');
+    $sq = $MPhase->getInput('sq');
+    $title = $MPhase->getInput('title');
+    $detail = $MPhase->getInput('detail');
+    $upload_doc = $MPhase->getInput('doc');
+    $upload_pdf = $MPhase->getInput('pdf');
+    $upload_image = $MPhase->getInput('image');
+    $upload_video = $MPhase->getInput('video');
+    $date_start = $MPhase->getInput('dateStart');
+    $date_start = formatDmy($date_start);
+    $date_end = $MPhase->getInput('dateEnd');
+    $date_end = formatDmy($date_end);
+
+    $raw = [
+        'main_id'=>$main_id,
+        'sq'=>$sq,
+        'title'=>$title,
+        'detail'=>$detail,
+        'upload_doc'=>$upload_doc,
+        'upload_pdf'=>$upload_pdf,
+        'upload_image'=>$upload_image,
+        'upload_video'=>$upload_video,
+        'date_start'=>$date_start,
+        'date_end'=>$date_end
+    ];
+    $condition=[
+      'main_id'=>$main_id,
+      'sq'=>$sq,
+    ];
+
+    $insert_rows = $MPhase->insertThis($raw);
+    if($insert_rows<=0){
+        $update_rows = $MPhase->editThis($raw,$condition);
+    }
+
+    echo json_encode(['status'=>true]);
+    exit(0);
+}
+
+
 
 
 

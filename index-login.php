@@ -6,6 +6,9 @@
  * Time: 12:37 PM
  */
 require_once __DIR__.'/_session.php';
+require_once __DIR__.'/_session_index.php';
+
+require_once __DIR__.'/_session.php';
 
 
 $MENU_LEFT = 'h-login';

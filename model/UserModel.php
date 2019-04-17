@@ -36,6 +36,7 @@ class UserModel extends _DBPDO
         $this_db = $this->DB;
 
         $data_sql = $this->convertArrayToUpdate($input,$condition);
+
         if(count($data_sql['params'])<=0){
             return 0;
         }else {
@@ -90,7 +91,7 @@ class UserModel extends _DBPDO
         return $result;
 
     }
-    function selectAllThis($condition){
+    function selectThisAll($condition){
         //set parameter
         $this_db = $this->DB;
 

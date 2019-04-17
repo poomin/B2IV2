@@ -6,7 +6,12 @@
  * Time: 12:26 PM
  */
 
+require_once __DIR__.'/_session.php';
+require_once __DIR__.'/_session_index.php';
+
 $MENU_LEFT = 'h-news';
+
+require_once __DIR__.'/controller/indexNewsController.php';
 
 ?>
 <!DOCTYPE html>
@@ -26,31 +31,44 @@ $MENU_LEFT = 'h-news';
 
     <div class="pb-5 mb-5 page-background" style="margin-top: -80px;">
 
-        <div class="pt-5">
+        <div class="pt-2">
             <p>&nbsp;</p>
         </div>
-        <div class="alert-warning shadow-lg p-3 m-5 rounded">
-            <div class="post-body row">
-                <div class="col-4 border-0">
-                    <img class="image-zoom rounded" src="images/news.png" alt="B2i new" style="width: 250px; height: auto;">
-                </div>
-                <div class="col-8 border-0">
-                    <h5>เปิดรับสมัครแล้ว!!! Bridge 2 Inventor 2019</h5>
+        <div class="p-0">
+
+
+            <?php foreach ($NEWS as $key=>$item):?>
+                <div class="alert-warning shadow-lg p-3 m-5 rounded">
+                    <div class="post-body row">
+                        <div class="col-4 border-0 text-center">
+                            <img class="image-zoom rounded" src="<?php echo $item['image'];?>" alt="B2i new" style="width: 250px; height: auto;">
+                        </div>
+                        <div class="col-8 border-0">
+                            <h5 class="font-weight-bolder"><?php echo $item['title'];?></h5>
+                            <hr>
+                            <p>
+                                <span class="crop-text">
+                                    <?php echo strip_tags($item['detail']);?>
+                                </span>
+                                <a href="/index-news-read.php?nid=<?php echo $item['id'];?>">อ่านต่อ</a>
+
+                            </p>
+                        </div>
+                    </div>
                     <hr>
-                    <p>อีกหนึ่งกิจกรรมดีๆ เพื่อเสริมสร้างสังคมไทยไร้อุบัติเหตุ พร้อมส่งมอบความรักและความปลอดภัยในการเดินทางผ่านเทคโนโลยีและความคิดสร้างสรรค์ บริดจสโตน พร้อมด้วยมหาวิทยาลัยอุบลราชธานี และมหาวิทยาลัยนเรศวร ขอเชิญน้องๆ
-                        ระดับ มัธยมศึกษาตอนปลาย จากทั่วทั้งประเทศ รวมทีมเข้าร่วมเวทีประกวดสิ่งประดิษฐ์จากระบบสมองกลฝังตัว ในหัวข้อ "นวัตกรรมเพื่อความปลอดภัยในการเดินทาง"</p>
-                </div>
-            </div>
-            <hr>
-            <div class="post-footer">
+                    <div class="post-footer">
                     <span class="text-dark">
-                        <i class="fa fa-calendar"></i> 27/03/2019
-                        <i class="fa fa-eye" style="padding-left: 10px;"></i> 10
-                        <i class="fa fa-comments" style="padding-left: 10px;"></i> 5
-                        <i class="fa fa-pencil" style="padding-left: 10px;"></i> ประกาศ
+                        <i class="fa fa-calendar"></i> <?php echo date('d/m/Y',strtotime($item['create_at']));?>
+                        <i class="fa fa-eye" style="padding-left: 10px;"></i> <?php echo $item['view_count'];?>
+                        <i class="fa fa-comments" style="padding-left: 10px;"></i> <?php echo $item['comment_count'];?>
+                        <i class="fa fa-pencil" style="padding-left: 10px;"></i> <?php echo $item['news_type'];?>
                     </span>
-            </div>
+                    </div>
+                </div>
+            <?php endforeach;?>
         </div>
+
+
 
     </div>
 

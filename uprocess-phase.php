@@ -5,9 +5,10 @@
  * Date: 28/3/2562
  * Time: 07:02 หลังเที่ยง
  */
+require_once __DIR__.'/_session.php';
+require_once __DIR__.'/_session_login.php';
 
-
-$MENU_LEFT = 'create'
+$MENU_LEFT = 'uprocess';
 
 
 
@@ -46,12 +47,11 @@ $MENU_LEFT = 'create'
             <div class="col-9 p-5 bg-white">
 
                 <div class="p-0">
-                    <h2 class="h-c"><i class="fa fa-gear icon-zoom"></i> Active / สร้างโครงการ</h2>
+                    <h2 class="h-c"><i class="fa fa-check-square icon-zoom"></i> โครงการที่ดำเนินการอยู่</h2>
                     <hr class="style1">
                 </div>
-                <div>
-                    Active / สร้างโครงการ
-                </div>
+
+
 
             </div>
 
@@ -68,6 +68,8 @@ $MENU_LEFT = 'create'
 
 <!-- main script -->
 <?php require_once __DIR__.'/_main_script.php';?>
+
+
 
 </body>
 </html>

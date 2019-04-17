@@ -45,7 +45,7 @@ if(!isset($LOGIN_USER_ID)){
                     <a class="nav-link a-menu <?php echo $MENU_LEFT == 'h-login'?'active':'';?>" href="/index-login.php">สมัคร/เข้าสู่ระบบ</a>
                 </li>
                 <?php else: ?>
-                    <li class="dropdown">
+                    <li class="nav-item dropdown">
 
                         <a class="nav-link a-menu dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-user"></i>
@@ -56,6 +56,7 @@ if(!isset($LOGIN_USER_ID)){
                             <li class="dropdown-item text-center">
                                 <a href="/lprofile.php">
                                     <img class="rounded-circle" src="<?php echo $LOGIN_USER_IMAGE;?>" style="width: 110px; height: 110px;">
+                                    <p>Profile</p>
                                 </a>
                             </li>
                             <div class="dropdown-divider"></div>

@@ -7,3 +7,5 @@
  */
 date_default_timezone_set("Asia/Bangkok");
 session_start();
+
+$SET_WEB = '1';

@@ -5,7 +5,9 @@
  * Date: 4/1/2019
  * Time: 2:59 PM
  */
+
 require_once __DIR__.'/_session.php';
+require_once __DIR__.'/_session_index.php';
 
 $MENU_LEFT = 'h-login';
 require_once __DIR__.'/controller/registerController.php';
@@ -57,7 +59,7 @@ require_once __DIR__.'/controller/registerController.php';
                                 <i class="fa fa-plus"></i>
                             </button>
                         </label>
-                        <select id="idSchool" name="school_name" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Please select a school ..." required>
+                        <select id="idSchool" name="school_name" class="selectpicker form-control" data-live-search="true" title="Please select a school ..." required>
                             <?php foreach ($SCHOOLS as $item): ?>
                                 <option value="<?php echo $item['school_name'];?>">
                                     <?php echo $item['school_name'].'('.$item['province'].')';?>
@@ -92,7 +94,21 @@ require_once __DIR__.'/controller/registerController.php';
                         </div>
                     </div>
 
-                    <div class="form-row">
+                    <p>คำนำหน้าชื่อ</p>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="name_title" id="idNameTitleMiss" value="นางสาว" checked>
+                        <label class="form-check-label" for="idNameTitleMiss">นางสาว</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="name_title" id="idNameTitleMrs" value="นาง" >
+                        <label class="form-check-label" for="idNameTitleMrs">นาง</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="name_title" id="idNameTitleMr" value="นาย" >
+                        <label class="form-check-label" for="idNameTitleMr">นาย</label>
+                    </div>
+
+                    <div class="form-row pt-2">
                         <div class="form-group col-md-6">
                             <label class="label-control">ชื่อ</label>
                             <input class="form-control" type="text" name="name" required>
@@ -184,6 +200,8 @@ require_once __DIR__.'/controller/registerController.php';
             });
         }, false);
     })();
+
+    $('.selectpicker').selectpicker('refresh');
 </script>
 
 

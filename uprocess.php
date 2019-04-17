@@ -5,11 +5,12 @@
  * Date: 28/3/2562
  * Time: 07:02 หลังเที่ยง
  */
+require_once __DIR__.'/_session.php';
+require_once __DIR__.'/_session_login.php';
 
+$MENU_LEFT = 'uprocess';
 
-$MENU_LEFT = 'uprocess'
-
-
+require_once __DIR__.'/controller/userPhaseController.php';
 
 ?>
 
@@ -46,11 +47,49 @@ $MENU_LEFT = 'uprocess'
             <div class="col-9 p-5 bg-white">
 
                 <div class="p-0">
-                    <h2 class="h-c"><i class="fa fa-check-square icon-zoom"></i> โครงการที่ดำเนินการอยู่</h2>
+                    <div class="text-center p-2">
+                        <h4 class="font-weight-bolder h-c"><?php echo $this_main_name.' '.$this_main_year;?></h4>
+                        <h4 class="h-c">( <?php echo $this_main_name_en.' '.$this_main_year;?> )</h4>
+                    </div>
                     <hr class="style1">
                 </div>
-                <div>
-                    โครงการที่ดำเนินการอยู่
+
+                <!-- alert status -->
+                <div class="p-0">
+                    <?php require_once __DIR__.'/_alert.php';?>
+                </div>
+
+
+
+                <div class="p-0">
+
+                    <table class="this-table table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Project</th>
+                            <?php foreach ($TABLE_HEADER as $key=>$item): ?>
+                                <th><?php echo $item['title']; ?></th>
+                            <?php endforeach;?>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($PROJECTS as $key=>$item):?>
+                            <tr>
+                                <td><?php echo ($key+1); ?></td>
+                                <td>
+                                    <a href="/ucreate.php?pid=<?php echo $item['id']; ?>"><?php echo $item['name'];?></a>
+                                </td>
+                                <?php foreach ($item['phase_state'] as $k=>$i):?>
+                                <td><?php echo $i;?></td>
+                                <?php endforeach;?>
+                                <td></td>
+                            </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+
                 </div>
 
             </div>
@@ -68,6 +107,8 @@ $MENU_LEFT = 'uprocess'
 
 <!-- main script -->
 <?php require_once __DIR__.'/_main_script.php';?>
+
+
 
 </body>
 </html>

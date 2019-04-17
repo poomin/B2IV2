@@ -173,12 +173,12 @@ class _DBPDO
             $value.= " WHERE ";
             foreach ($where as $k=>$item){
                 if($item!=""){
-                    $params[':'.$k]=$item;
+                    $params[':c'.$k]=$item;
                     if($check_first){
                         $check_first = !$check_first;
-                        $value.=" ".$k."=:".$k;
+                        $value.=" ".$k."=:c".$k;
                     }else{
-                        $value.=" AND ".$k."=:".$k;
+                        $value.=" AND ".$k."=:c".$k;
                     }
                 }
             }
@@ -199,12 +199,12 @@ class _DBPDO
         $value= " WHERE ";
         foreach ($where as $k=>$item){
             if($item!=""){
-                $params[':'.$k]=$item;
+                $params[':c'.$k]=$item;
                 if($check_first){
                     $check_first = !$check_first;
-                    $value.=" ".$k."=:".$k;
+                    $value.=" ".$k."=:c".$k;
                 }else{
-                    $value.=" AND ".$k."=:".$k;
+                    $value.=" AND ".$k."=:c".$k;
                 }
             }
         }

@@ -22,14 +22,6 @@ require_once __DIR__.'/controller/profileController.php';
 </head>
 <body>
 
-<!-- loader -->
-<div id="ajax-page-loader" class="show fullscreen">
-    <div class="circular">
-        <img src="./images/ajax-loader.gif">
-    </div>
-</div>
-
-
 <div class="page-full container-fluid">
 
     <!-- top menu -->
@@ -50,6 +42,11 @@ require_once __DIR__.'/controller/profileController.php';
                 <div class="p-0">
                     <h2 class="h-c"><i class="fa fa-user icon-zoom"></i> Profile</h2>
                     <hr class="style1">
+                </div>
+
+                <!-- alert status -->
+                <div class="p-0">
+                    <?php require_once __DIR__.'/_alert.php';?>
                 </div>
 
                 <div class="p-0">
@@ -82,8 +79,8 @@ require_once __DIR__.'/controller/profileController.php';
                         </div>
                     </div>
 
+                    <hr>
                     <form class="profile-validation" method="post" novalidate>
-
 
                         <div class="form-group">
                             <label class="label-control">Username</label>
@@ -112,19 +109,14 @@ require_once __DIR__.'/controller/profileController.php';
                         </div>
 
                         <div class="text-center">
-                            <button type="button" class="btn btn-warning">Edit</button>
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalChangePassword">Change password</button>
                         </div>
 
                         <hr>
 
-                        <!-- alert status -->
-                        <div class="p-0">
-                            <?php require_once __DIR__.'/_alert.php';?>
-                        </div>
-
                         <div class="form-group pt-3">
                             <label class="label-control" for="idSchool">โรงเรียน / สถานศึกษา </label>
-                            <select id="idSchool" name="school_name" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Please select a school ..." required>
+                            <select id="idSchool" name="school_name" class="selectpicker form-control" data-live-search="true" title="Please select a school ..." required>
                                 <?php foreach ($SCHOOLS as $item): ?>
                                     <option value="<?php echo $item['school_name'];?>"  <?php echo $item['school_name']==$this_user_schoolname?'selected':'';?> >
                                         <?php echo $item['school_name'].'('.$item['province'].')';?>
@@ -132,6 +124,21 @@ require_once __DIR__.'/controller/profileController.php';
                                 <?php endforeach;?>
                             </select>
                         </div>
+
+                        <p>คำนำหน้าชื่อ</p>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="name_title" id="idNameTitleMiss" value="นางสาว" <?php echo $this_user_name_title=='นางสาว'?'checked':''; ?> >
+                            <label class="form-check-label" for="idNameTitleMiss">นางสาว</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="name_title" id="idNameTitleMrs" value="นาง" <?php echo $this_user_name_title=='นาง'?'checked':''; ?> >
+                            <label class="form-check-label" for="idNameTitleMrs">นาง</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="name_title" id="idNameTitleMr" value="นาย" <?php echo $this_user_name_title=='นาย'?'checked':''; ?> >
+                            <label class="form-check-label" for="idNameTitleMr">นาย</label>
+                        </div>
+
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -172,8 +179,8 @@ require_once __DIR__.'/controller/profileController.php';
 
                         <p>สถานะ</p>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="role" id="idRoleStudent" value="student" checked disabled>
-                            <label class="form-check-label" for="idRoleStudent">
+                            <input class="form-check-input" type="radio" name="role" id="idRole" value="<?php echo $this_user_role;?>" checked disabled>
+                            <label class="form-check-label" for="idRole">
                                 <?php
                                     if($this_user_role=='admin'){
                                         echo "Admin";
@@ -183,7 +190,7 @@ require_once __DIR__.'/controller/profileController.php';
                                         echo "กรรมการ";
                                     }elseif($this_user_role=='teacher'){
                                         echo "ครู / อาจารย์";
-                                    }elseif($this_user_role=='admin'){
+                                    }elseif($this_user_role=='student'){
                                         echo "นักเรียน / นักศึกษา";
                                     }
                                 ?>
@@ -192,7 +199,7 @@ require_once __DIR__.'/controller/profileController.php';
 
                         <div class="text-center">
                             <input type="text" name="fn" value="editUser" hidden>
-                            <button type="submit" class="btn btn-lg btn-success">SAVE EDIT</button>
+                            <button type="submit" class="btn btn-lg btn-warning">SAVE EDIT</button>
                         </div>
 
                     </form>
@@ -210,6 +217,11 @@ require_once __DIR__.'/controller/profileController.php';
 <footer class="footer">
     <?php require_once __DIR__.'/_main_footer.php';?>
 </footer>
+
+
+<!-- modal -->
+<?php require_once __DIR__.'/modal_changePassword.php';?>
+
 
 
 <!-- main script -->
@@ -269,7 +281,7 @@ require_once __DIR__.'/controller/profileController.php';
                     $('#loadFileImage').addClass('hidden');
                     $('#saveLoadFileImage').removeClass('hidden');
 
-                    alert("Update image success.");
+                    updateImage(user_id,src);
 
                 } else {
                     ajax_image.abort();
@@ -302,13 +314,31 @@ require_once __DIR__.'/controller/profileController.php';
         }
 
     }
-
     function cancelUploadFile() {
         ajax_image.abort();
         $('#show_progressBar_image').attr('hidden',true);
         $("#file_image").val("");
     }
-
+    function updateImage(uid,src) {
+        var req = $.ajax({
+            type: 'POST',
+            url: '/service/API.php',
+            data: {
+                fn: 'addUserImage',
+                uid: uid,
+                src: src
+            },
+            dataType: 'JSON'
+        });
+        req.done(function (res) {
+            if(res.status){
+                alert('Update image success.');
+                window.location.reload();
+            }else{
+                alert('Update image false!!!!');
+            }
+        });
+    }
 
 
 

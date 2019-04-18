@@ -52,6 +52,7 @@ elseif ($fn== 'insertUser'){
     $p_username = $MUser->getInput('username');
     $p_password = $MUser->getInput('password');
     $p_email = $MUser->getInput('email');
+    $p_phone = $MUser->getInput('phone');
     $p_name_title = $MUser->getInput('name_title');
     $p_name = $MUser->getInput('name');
     $p_surname = $MUser->getInput('surname');
@@ -63,6 +64,7 @@ elseif ($fn== 'insertUser'){
         'username'=>$p_username,
         'password'=> md5($p_password),
         'email'=>$p_email,
+        'phone'=>$p_phone,
         'name_title'=> $p_name_title,
         'name'=>$p_name,
         'surname'=>$p_surname,

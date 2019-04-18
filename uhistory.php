@@ -23,11 +23,7 @@ $MENU_LEFT = 'uhistory';
 <body>
 
 <!-- loader -->
-<div id="ajax-page-loader" class="show fullscreen">
-    <div class="circular">
-        <img src="./images/ajax-loader.gif">
-    </div>
-</div>
+<?php require_once __DIR__.'/_main_loader.php';?>
 
 
 <div class="page-full container-fluid">

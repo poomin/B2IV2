@@ -9,11 +9,13 @@ require_once __DIR__.'/../model/MainProjectModel.php';
 require_once __DIR__.'/../model/MainPhaseModel.php';
 
 require_once __DIR__.'/../model/ProjectModel.php';
+require_once __DIR__.'/../model/ProjectPhaseModel.php';
 
 $MMain = new MainProjectModel();
 $MPhase = new MainPhaseModel();
 
 $MPro = new ProjectModel();
+$MProPhase = new ProjectPhaseModel();
 
 $TABLE_HEADER = [];
 $PROJECTS = [];
@@ -34,7 +36,7 @@ if(isset($result['id'])){
 
 
 
-    //phase
+    //phase setup
     $sql = 'where main_id='.$this_main_id.' order by sq ASC';
     $result = $MPhase->selectSqlAll($sql);
     if(count($result)>0){
@@ -42,9 +44,9 @@ if(isset($result['id'])){
     }
     $MAIN_PHASE_KEY = [];
     foreach ($TABLE_HEADER as $key=>$item){
+        unset($item['detail']);
         $MAIN_PHASE_KEY[$item['sq']] = $item;
     }
-
 
     //project
     $result = $MPro->selectAllByUid($this_user_id);
@@ -52,12 +54,51 @@ if(isset($result['id'])){
         //set status phase [close , open , wait , fail , pass];
         $PROJECTS = $result;
         foreach ($PROJECTS as $key=>$item) {
+
+            //project phase
+            $PHASE_KEY = [];
+            $sql = 'where project_id='.$item['id'].' order by sq ASC';
+            $result = $MProPhase->selectSqlAll($sql);
+            foreach ($result as $k=>$i){
+                $PHASE_KEY[$i['sq']] = $i;
+            }
+
             $phase_state = [];
+            $this_fail = false;
             foreach ($MAIN_PHASE_KEY as $k=>$i){
 
-                $i_status = 'close';
+                $dateNow = strtotime(date('Y-m-d'));
+                $dateStart = strtotime($i['date_start']);
+                $dateEnd = strtotime($i['date_end']);
 
+                if($dateNow < $dateStart) {
+                    $i_status = 'close';
+                }elseif($this_fail){
+                    $i_status = 'close';
+                }else{
+                    if($dateStart <= $dateNow && $dateNow<= $dateEnd){
+                        $i_status = 'open';
+                        if(isset($PHASE_KEY[$i['sq']])){
+                            if($PHASE_KEY[$i['sq']]['phase_status'] == 'FAIL'){
+                                $i_status = 'fail';
+                                $this_fail = true;
+                            }elseif($PHASE_KEY[$i['sq']]['phase_status'] == 'PASS'){
+                                $i_status = 'pass';
+                            }
+                        }
 
+                    }else{
+                        $i_status = 'wait';
+                        if(isset($PHASE_KEY[$i['sq']])){
+                            if($PHASE_KEY[$i['phase_status']] == 'FAIL'){
+                                $i_status = 'fail';
+                                $this_fail = true;
+                            }elseif($PHASE_KEY[$i['phase_status']] == 'PASS'){
+                                $i_status = 'pass';
+                            }
+                        }
+                    }
+                }
 
                 $phase_state[] =  $i_status;
             }
@@ -65,11 +106,8 @@ if(isset($result['id'])){
 
             $PROJECTS[$key]['phase_state'] = $phase_state;
         }
+
     }
-
-
-
-
 
 
 }

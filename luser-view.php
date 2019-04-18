@@ -132,6 +132,14 @@ require_once __DIR__.'/controller/userViewController.php';
                         </div>
 
                         <div class="form-group">
+                            <label class="label-control">Phone</label>
+                            <input class="form-control" type="text" name="phone" value="<?php echo $this_user_phone;?>" disabled>
+                            <div class="invalid-feedback">
+                                Please input phone!
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="label-control">ภาค</label>
                             <input class="form-control" type="text" name="email" value="<?php echo $this_user_schoolregion;?>" disabled>
                         </div>

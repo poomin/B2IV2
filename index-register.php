@@ -133,6 +133,14 @@ require_once __DIR__.'/controller/registerController.php';
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="label-control">Phone</label>
+                        <input class="form-control" type="text" name="phone" required>
+                        <div class="invalid-feedback">
+                            Please input phone!
+                        </div>
+                    </div>
+
                     <p>สถานะ</p>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="role" id="idRoleStudent" value="student" checked>

@@ -25,6 +25,7 @@ if($this_user_id==''){
 
 $this_user_username = '';
 $this_user_email = '';
+$this_user_phone = '';
 $this_user_name_title = '';
 $this_user_name = '';
 $this_user_surname = '';
@@ -42,12 +43,14 @@ if($fn=='editUser'){
     $p_name = $MUser->getInput('name');
     $p_surname = $MUser->getInput('surname');
     $p_email = $MUser->getInput('email');
+    $p_phone = $MUser->getInput('phone');
     $p_school_name = $MUser->getInput('school_name');
     $p_schoolregion = $MUser->getInput('schoolregion');
     $p_role = $MUser->getInput('role');
 
     $raw = [
         'email'=>$p_email,
+        'phone'=>$p_phone,
         'name_title'=>$p_name_title,
         'name'=>$p_name,
         'surname'=>$p_surname,
@@ -116,6 +119,7 @@ $result = $MUser->selectThis(['id'=>$this_user_id]);
 if($result){
     $this_user_username = $result['username'];
     $this_user_email = $result['email'];
+    $this_user_phone = $result['phone'];
     $this_user_name_title = $result['name_title'];
     $this_user_name = $result['name'];
     $this_user_surname = $result['surname'];

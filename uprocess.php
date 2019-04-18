@@ -22,11 +22,7 @@ require_once __DIR__.'/controller/userPhaseController.php';
 <body>
 
 <!-- loader -->
-<div id="ajax-page-loader" class="show fullscreen">
-    <div class="circular">
-        <img src="./images/ajax-loader.gif">
-    </div>
-</div>
+<?php require_once __DIR__.'/_main_loader.php';?>
 
 
 <div class="page-full container-fluid">
@@ -82,7 +78,24 @@ require_once __DIR__.'/controller/userPhaseController.php';
                                     <a href="/ucreate.php?pid=<?php echo $item['id']; ?>"><?php echo $item['name'];?></a>
                                 </td>
                                 <?php foreach ($item['phase_state'] as $k=>$i):?>
-                                <td><?php echo $i;?></td>
+                                <td>
+                                    <?php
+                                    $i_text = strtoupper($i);
+                                    $i_class= 'text-secondary';
+                                    $i_sq = ($k+1);
+                                    $i_pro_id = $item['id'];
+                                    if($i=='open'){
+                                        $i_class = 'text-primary';
+                                    }elseif($i=='fail'){
+                                        $i_class = 'text-danger';
+                                    }elseif($i=='pass'){
+                                        $i_class = 'text-success';
+                                    }elseif($i=='wait'){
+                                        $i_class = 'text-warning';
+                                    }
+                                    ?>
+                                    <a class="<?php echo $i_class;?> font-weight-bolder" href="/uprocess-phase.php?pid=<?php echo $i_pro_id;?>&nsq=<?php echo $i_sq; ?>"><?php echo $i_text;?></a>
+                                </td>
                                 <?php endforeach;?>
                                 <td></td>
                             </tr>

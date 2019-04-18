@@ -25,6 +25,7 @@ if($this_user_id==''){
 
 $this_user_username = '';
 $this_user_email = '';
+$this_user_phone = '';
 $this_user_name_title = '';
 $this_user_name = '';
 $this_user_surname = '';
@@ -47,6 +48,7 @@ $result = $MUser->selectThis(['id'=>$this_user_id]);
 if($result){
     $this_user_username = $result['username'];
     $this_user_email = $result['email'];
+    $this_user_phone = $result['phone'];
     $this_user_name_title = $result['name_title'];
     $this_user_name = $result['name'];
     $this_user_surname = $result['surname'];

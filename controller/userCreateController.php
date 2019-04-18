@@ -46,6 +46,7 @@ $this_pro_name_en = '';
 
 $fn = $MMain->getInput('fn');
 if($fn=='createProject'){
+
     $p_main_id = $MPro->getInput('main_id');
     $p_name = $MPro->getInput('name');
     $p_name_en = $MPro->getInput('name_en');
@@ -55,46 +56,52 @@ if($fn=='createProject'){
 
     $p_student_list = $MPro->getInput('studentList');
 
-    $raw = [
-        'main_id'=>$p_main_id,
-        'name'=>$p_name,
-        'name_en'=>$p_name_en,
-        'project_status'=>$p_project_status,
-        'project_school'=>$p_school,
-        'project_region'=>$p_region,
-    ];
-    $p_project_id = $MPro->insertThis($raw);
-    if($p_project_id>0){
-
-        $raw = [
-            'project_id'=>$p_project_id,
-            'user_id'=>$this_user_id,
-            'member_type'=>'ADVISER'
-        ];
-        $result = $MMember->insertThis($raw);
-
-        if($p_student_list!=''){
-            $cut = explode('-',$p_student_list);
-            foreach ($cut as $item){
-                $i_user_id = $item;
-                $raw = [
-                    'project_id'=>$p_project_id,
-                    'user_id'=>$i_user_id,
-                    'member_type'=>'STUDENT'
-                ];
-                $result = $MMember->insertThis($raw);
-            }
-        }
-
-        $_SESSION['action_status']='success';
-        $_SESSION['action_message']='Create Project success.';
-
-        header( "location: /uprocess.php" );
-        exit(0);
-
+    $result = $MPro->selectThisAll(['main_id'=>$p_main_id,'project_school'=>$p_school]);
+    if(count($result) >= 2){
+        $_SESSION['action_status']='error';
+        $_SESSION['action_message']='กำหนดให้เสนอโครงการได้ไม่เกินโรงเรียนละ 2 โครงการ';
     }else{
-        $_SESSION['action_status']='warning';
-        $_SESSION['action_message']='Create Project fail!!!';
+        $raw = [
+            'main_id'=>$p_main_id,
+            'name'=>$p_name,
+            'name_en'=>$p_name_en,
+            'project_status'=>$p_project_status,
+            'project_school'=>$p_school,
+            'project_region'=>$p_region,
+        ];
+        $p_project_id = $MPro->insertThis($raw);
+        if($p_project_id>0){
+
+            $raw = [
+                'project_id'=>$p_project_id,
+                'user_id'=>$this_user_id,
+                'member_type'=>'ADVISER'
+            ];
+            $result = $MMember->insertThis($raw);
+
+            if($p_student_list!=''){
+                $cut = explode('-',$p_student_list);
+                foreach ($cut as $item){
+                    $i_user_id = $item;
+                    $raw = [
+                        'project_id'=>$p_project_id,
+                        'user_id'=>$i_user_id,
+                        'member_type'=>'STUDENT'
+                    ];
+                    $result = $MMember->insertThis($raw);
+                }
+            }
+
+            $_SESSION['action_status']='success';
+            $_SESSION['action_message']='Create Project success.';
+
+            header( "location: /uprocess.php" );
+            exit(0);
+
+        }else{
+            $_SESSION['action_status']='warning';
+            $_SESSION['action_message']='Create Project fail!!!';
+        }
     }
 
 }

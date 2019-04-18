@@ -168,6 +168,15 @@ require_once __DIR__.'/controller/userEditController.php';
                         </div>
 
                         <div class="form-group">
+                            <label class="label-control">Phone</label>
+                            <input class="form-control" type="text" name="phone" value="<?php echo $this_user_phone;?>" required>
+                            <div class="invalid-feedback">
+                                Please input phone!
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
                             <label class="label-control" for="idSchoolRegion">ภาค</label>
                             <select class="form-control" id="idSchoolRegion" name="schoolregion">
                                 <option value="กลาง" <?php echo $this_user_schoolregion=='กลาง'?'selected':''; ?> >กลาง</option>

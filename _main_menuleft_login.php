@@ -42,7 +42,7 @@
         <li class="nav-item">
             <a class="nav-link a-nav <?php echo $MENU_LEFT == 'hall'?'active':'';?>" href="/lhall.php">
                 <i class="fa fa-file-video-o"></i>
-                Hall of fame
+                Hall for fame
             </a>
         </li>
 

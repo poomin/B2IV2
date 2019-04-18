@@ -11,7 +11,6 @@ require_once __DIR__.'/_session_index.php';
 
 $MENU_LEFT = 'h-hall';
 
-
 require_once __DIR__.'/controller/indexHall.php';
 
 ?>

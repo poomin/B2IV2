@@ -24,7 +24,7 @@ require_once __DIR__.'/controller/indexHall.php';
 <body>
 
 <!-- loader -->
-<?php require_once __DIR__.'/_main_loader.php';?>
+<?php //require_once __DIR__.'/_main_loader.php';?>
 
 <div class="page-full container">
 

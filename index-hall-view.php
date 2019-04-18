@@ -48,21 +48,21 @@ require_once __DIR__.'/controller/indexHallView.php';
                     </div>
                     <div class="col-6">
                         <div class="text-center">
-                            <h3><?php echo $this_project_name_en; ?></h3>
-                            <h4><?php echo $this_project_name; ?></h4>
+                            <h4><?php echo $this_project_name_en; ?></h4>
+                            <h5><?php echo $this_project_name; ?></h5>
                         </div>
                         <hr class="style1">
                         <div class="p-0">
 
                             <p><strong>อาจารย์ที่ปรึกษา</strong></p>
-                            <p><?php echo $this_adviser_name; ?></p>
+                            <p class="pl-4"><?php echo $this_adviser_name; ?></p>
 
                             <p><strong>นักเรียน/นักศึกษา</strong></p>
                             <?php
-                            if($this_student_1!='')echo '<p>'.$this_student_1.'</p>';
-                            if($this_student_2!='')echo '<p>'.$this_student_2.'</p>';
-                            if($this_student_3!='')echo '<p>'.$this_student_3.'</p>';
-                            if($this_student_4!='')echo '<p>'.$this_student_4.'</p>';
+                            if($this_student_1!='')echo '<p class="pl-4">'.$this_student_1.'</p>';
+                            if($this_student_2!='')echo '<p class="pl-4">'.$this_student_2.'</p>';
+                            if($this_student_3!='')echo '<p class="pl-4">'.$this_student_3.'</p>';
+                            if($this_student_4!='')echo '<p class="pl-4">'.$this_student_4.'</p>';
                             ?>
 
                         </div>

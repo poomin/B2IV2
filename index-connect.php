@@ -35,26 +35,45 @@ $MENU_LEFT = 'h-connect';
         <div class="row p-5 text-center">
 
             <div class="col-lg-4">
-                <div class="bg-white shadow-lg p-5 m-3 rounded">
+                <div class="bg-white shadow-lg p-3 m-1 rounded">
                     <a href="https://web.facebook.com/bridge2inventor" target="_blank">
                         <p class="btn btn-primary image-zoom" style="width: 80px;"><i class="fa fa-facebook fa-3x"></i></p>
+                        <p></p>
                         <p>Bridge2Investor</p>
                     </a>
+                    <p>&nbsp;</p>
                 </div>
 
             </div>
             <div class="col-lg-4">
-                <div class="bg-white shadow-lg p-5 m-3 rounded">
-                    <a href="mailto:Nat.tanon@live.com" target="_blank">
-                        <p class="btn btn-danger image-zoom" style="width: 80px;"><i class="fa fa-envelope fa-3x"></i></p>
-                        <p>Mail:nat.tanon@live.com</p>
-                    </a>
+                <div class="bg-white shadow-lg p-3 m-1 rounded">
+                    <p class="btn btn-danger image-zoom" style="width: 80px;"><i class="fa fa-envelope fa-3x"></i></p>
+                    <p></p>
+                    <p>
+                        <span> ศูนย์อบรบที่ 1 </span>
+                        <a href="mailto:Nat.tanon@live.com" target="_blank">
+                             Nat.tanon@live.com &nbsp;
+                        </a>
+                    </p>
+                    <p>
+                        <span> ศูนย์อบรบที่ 2 </span>
+                        <a href="mailto:Nutchanartj@nu.ac.th" target="_blank">
+                            Nutchanartj@nu.ac.th
+                        </a>
+                    </p>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="bg-white shadow-lg p-5 m-3 rounded">
+                <div class="bg-white shadow-lg pt-3 pl-3 pr-3 m-1 rounded">
                     <p class="btn btn-dark image-zoom" style="width: 80px;"><i class="fa fa-volume-control-phone fa-3x"></i></p>
-                    <p>โทร : 045-353312</p>
+                    <p>
+                        <span>ศูนย์อบรบที่ 1 045-353300 ต่อ 3399</span><br>
+                        <small> ( คุณคอยจิตร์,คุณเฉลิมชัย ) </small>
+                    </p>
+                    <p>
+                        <span>ศูนย์อบรบที่ 2 055-963951</span><br>
+                        <small>( คุณนุชนารถ ) </small>
+                    </p>
                 </div>
             </div>
 
@@ -68,21 +87,21 @@ $MENU_LEFT = 'h-connect';
         <div class="row p-5 text-center">
             <div class="col-lg-4">
                 <div class="bg-white shadow-lg p-1 m-1 rounded">
-                    <img class="image-zoom rounded-circle alert-secondary" src="images/bridgestone-logo.png" alt="Bridgestone">
+                    <img class="image-zoom w-50 rounded" src="images/logo-brigestone.png" alt="Bridgestone">
                     <h5 class="h-c pt-1 font-weight-bold">บริษัทไทยบริดจสโตน จำกัด</h5>
                     <p>&nbsp;</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="bg-white shadow-lg p-1 m-1 rounded">
-                    <img class="image-zoom rounded-circle alert-secondary" src="images/ubon-logo.png" alt="Ubu">
+                    <img class="image-zoom w-50 rounded" src="images/logo-ubu.png" alt="Ubu">
                     <h5 class="h-c pt-1 font-weight-bold">มหาวิทยาลัยอุบลราชธานี</h5>
                     <p>คณะวิศวกรรมศาสตร์และคณะวิทยาศาสาตร์</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="bg-white shadow-lg p-1 m-1 rounded">
-                    <img class="image-zoom rounded-circle alert-secondary" src="images/naresuan-logo.png" alt="Naresuan">
+                    <img class="image-zoom w-50 rounded" src="images/logo-nu.png" alt="Naresuan">
                     <h5 class="h-c pt-1 font-weight-bold">มหาวิทยาลัยนเรศวร</h5>
                     <p>คณะวิศวกรรมศาสตร์และคณะวิทยาศาสาตร์</p>
                 </div>

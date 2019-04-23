@@ -39,7 +39,7 @@ $MENU_LEFT = 'h-connect';
                     <a href="https://web.facebook.com/bridge2inventor" target="_blank">
                         <p class="btn btn-primary image-zoom" style="width: 80px;"><i class="fa fa-facebook fa-3x"></i></p>
                         <p></p>
-                        <p>Bridge2Investor</p>
+                        <p>Bridge2Inventor</p>
                     </a>
                     <p>&nbsp;</p>
                 </div>
@@ -50,13 +50,13 @@ $MENU_LEFT = 'h-connect';
                     <p class="btn btn-danger image-zoom" style="width: 80px;"><i class="fa fa-envelope fa-3x"></i></p>
                     <p></p>
                     <p>
-                        <span> ศูนย์อบรบที่ 1 </span>
+                        <span> ศูนย์อบรมที่ 1 </span>
                         <a href="mailto:Nat.tanon@live.com" target="_blank">
                              Nat.tanon@live.com &nbsp;
                         </a>
                     </p>
                     <p>
-                        <span> ศูนย์อบรบที่ 2 </span>
+                        <span> ศูนย์อบรมที่ 2 </span>
                         <a href="mailto:Nutchanartj@nu.ac.th" target="_blank">
                             Nutchanartj@nu.ac.th
                         </a>
@@ -67,11 +67,11 @@ $MENU_LEFT = 'h-connect';
                 <div class="bg-white shadow-lg pt-3 pl-3 pr-3 m-1 rounded">
                     <p class="btn btn-dark image-zoom" style="width: 80px;"><i class="fa fa-volume-control-phone fa-3x"></i></p>
                     <p>
-                        <span>ศูนย์อบรบที่ 1 045-353300 ต่อ 3399</span><br>
+                        <span>ศูนย์อบรมที่ 1 : 045-353300 ต่อ 3399</span><br>
                         <small> ( คุณคอยจิตร์,คุณเฉลิมชัย ) </small>
                     </p>
                     <p>
-                        <span>ศูนย์อบรบที่ 2 055-963951</span><br>
+                        <span>ศูนย์อบรมที่ 2 : 055-963951</span><br>
                         <small>( คุณนุชนารถ ) </small>
                     </p>
                 </div>

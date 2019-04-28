@@ -6,10 +6,12 @@
  * Time: 07:02 หลังเที่ยง
  */
 
+require_once __DIR__.'/_session.php';
+require_once __DIR__.'/_session_index.php';
 
-$MENU_LEFT = 'process'
+$MENU_LEFT = 'process';
 
-
+require_once  __DIR__.'/controller/processController.php';
 
 ?>
 
@@ -17,6 +19,8 @@ $MENU_LEFT = 'process'
 <html lang="en">
 <head>
     <?php require_once __DIR__.'/_main_css.php';?>
+
+    <?php require_once __DIR__.'/_datatable_css.php';?>
 </head>
 <body>
 
@@ -41,12 +45,57 @@ $MENU_LEFT = 'process'
             <!-- page body -->
             <div class="col-9 p-5 bg-white">
 
-                <div class="p-0">
-                    <h2 class="h-c"><i class="fa fa-check-square icon-zoom"></i> โครงการที่ดำเนินการอยู่</h2>
+                <div class="p-0 text-center">
+                    <h2 class="h-c"> <?php echo $this_main_name_en . ' ('.$this_main_year.')'; ?></h2>
+                    <h4 class="h-c"> <?php echo $this_main_name. ' ('.$this_main_year.')'; ?></h4>
+
                     <hr class="style1">
                 </div>
-                <div>
-                    โครงการที่ดำเนินการอยู่
+                <div class="pt-2">
+
+                    <table class="this-table table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ขั้นดำเนินการ</th>
+                            <th>วันที่เริ่ม</th>
+                            <th>วันที่สิ้นสุด</th>
+                            <th>โครงการทั้งหมด</th>
+                            <th>ผ่านคัดเลือก</th>
+                            <th>ไม่ผ่านคัดเลือก</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($PHASES as $key=>$item): ?>
+                        <tr>
+                            <td><?php echo ($key+1);?></td>
+                            <td>
+                                <a href="/lprocess-list.php?mid=<?php echo $this_main_id; ?>&sq=<?php echo $item['sq']; ?>&s=all">
+                                    <?php echo $item['title'];?>
+                                </a>
+                            </td>
+                            <td><?php echo date('d/m/Y',strtotime($item['date_start'])); ?> </td>
+                            <td><?php echo date('d/m/Y',strtotime($item['date_end'])); ?> </td>
+                            <td>
+                                <a class="text-secondary" href="/lprocess-list.php?mid=<?php echo $this_main_id; ?>&sq=<?php echo $item['sq']; ?>&s=all">
+                                    <h4><?php echo $item['count_all'];?></h4>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="text-success" href="/lprocess-list.php?mid=<?php echo $this_main_id; ?>&sq=<?php echo $item['sq']; ?>&s=pass">
+                                    <h4><?php echo $item['count_pass'];?></h4>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="text-danger" href="/lprocess-list.php?mid=<?php echo $this_main_id; ?>&sq=<?php echo $item['sq']; ?>&s=fail">
+                                    <h4><?php echo $item['count_fail'];?></h4>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
                 </div>
 
             </div>
@@ -64,6 +113,14 @@ $MENU_LEFT = 'process'
 
 <!-- main script -->
 <?php require_once __DIR__.'/_main_script.php';?>
+
+<?php require_once __DIR__.'/_datatable_script.php';?>
+
+<script>
+    $(document).ready(function() {
+        $('.this-table').DataTable();
+    } );
+</script>
 
 </body>
 </html>

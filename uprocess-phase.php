@@ -101,8 +101,9 @@ require_once __DIR__.'/controller/userPhaseUploadController.php';
                                 <td><?php echo ($key+1); ?></td>
                                 <td>
                                     <a href="<?php echo $item['upload_path'];?>" target="_blank">
-                                    <?php echo $item['upload_name']; ?></td>
+                                    <?php echo $item['upload_name']; ?>
                                     </a>
+                                </td>
                                 <td>
                                     <?php if(strtoupper($_STATUS)=='OPEN'): ?>
                                     <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete Doc"
@@ -185,8 +186,9 @@ require_once __DIR__.'/controller/userPhaseUploadController.php';
                                 <td><?php echo ($key+1); ?></td>
                                 <td>
                                     <a href="<?php echo $item['upload_path'];?>" target="_blank">
-                                    <?php echo $item['upload_name']; ?></td>
-                                </a>
+                                    <?php echo $item['upload_name']; ?>
+                                    </a>
+                                </td>
                                 <td>
                                     <?php if(strtoupper($_STATUS)=='OPEN'): ?>
                                     <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete Pdf"
@@ -273,8 +275,9 @@ require_once __DIR__.'/controller/userPhaseUploadController.php';
                                 </td>
                                 <td>
                                     <a href="<?php echo $item['upload_path'];?>" target="_blank">
-                                    <?php echo $item['upload_name']; ?></td>
-                                </a>
+                                    <?php echo $item['upload_name']; ?>
+                                    </a>
+                                </td>
                                 <td>
                                     <?php if(strtoupper($_STATUS)=='OPEN'): ?>
                                     <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete Pdf"
@@ -368,8 +371,9 @@ require_once __DIR__.'/controller/userPhaseUploadController.php';
                                 </td>
                                 <td>
                                     <a href="<?php echo $item['upload_path'];?>" target="_blank">
-                                    <?php echo $item['upload_name']; ?></td>
-                                </a>
+                                    <?php echo $item['upload_name']; ?>
+                                    </a>
+                                </td>
                                 <td>
                                     <?php if(strtoupper($_STATUS)=='OPEN'): ?>
                                     <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete Pdf"

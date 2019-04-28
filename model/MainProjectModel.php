@@ -143,4 +143,18 @@ class MainProjectModel extends _DBPDO
 
     }
 
+    function sqlAll($strSql){
+
+        //connect DB
+        $this->connect();
+        $params= array();
+        $result = $this->queryAll($strSql,$params);
+        //close DB
+        $this->close();
+
+
+        return $result;
+
+    }
+
 }

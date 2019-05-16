@@ -42,7 +42,6 @@ $this_pro_name = '';
 $this_pro_name_en = '';
 
 
-
 $fn = $MMain->getInput('fn');
 if($fn=='createProject'){
 
@@ -157,7 +156,6 @@ elseif($fn=='editProject'){
     }
 
 }
-
 
 
 $result = $MUser->selectThis(['id'=>$this_user_id]);

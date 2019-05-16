@@ -69,8 +69,8 @@ require_once __DIR__.'/controller/registerController.php';
                     </div>
 
                     <div class="form-group">
-                        <label class="label-control">Username</label>
-                        <input class="form-control" type="text" name="username" required>
+                        <label class="label-control">Username or Email</label>
+                        <input class="form-control" type="text" name="username" placeholder="sample@gmail.com" required>
                         <div class="invalid-feedback">
                             Please input username!
                         </div>

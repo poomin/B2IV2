@@ -160,10 +160,6 @@ elseif($fn=='editProject'){
 }
 
 
-$result = $MUser->selectThisAll(['role'=>'student']);
-if(count($result)>0){
-    $STUDENTS = $result;
-}
 
 $result = $MUser->selectThis(['id'=>$this_user_id]);
 if(isset($result['id'])){
@@ -172,6 +168,11 @@ if(isset($result['id'])){
     $this_surname = $result['surname'];
     $this_school = $result['schoolname'];
     $this_region = $result['schoolregion'];
+}
+
+$result = $MUser->selectThisAll(['role'=>'student','schoolname'=>$this_school]);
+if(count($result)>0){
+    $STUDENTS = $result;
 }
 
 $result = $MMain->selectThis(['main_status'=>'Y']);

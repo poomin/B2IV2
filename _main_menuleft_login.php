@@ -42,7 +42,7 @@
         <li class="nav-item">
             <a class="nav-link a-nav <?php echo $MENU_LEFT == 'hall'?'active':'';?>" href="/lhall.php">
                 <i class="fa fa-file-video-o"></i>
-                Hall of fame
+                Hall for fame
             </a>
         </li>
 
@@ -158,6 +158,14 @@
                 โครงการที่ดำเนินการอยู่
             </a>
         </li>
+
+        <li class="nav-item">
+            <a class="nav-link a-nav <?php echo $MENU_LEFT == 'ucheck'?'active':'';?>" href="/ucheck.php">
+                <i class="fa fa-calendar"></i>
+                โครงการ(โรงเรียน)
+            </a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link a-nav <?php echo $MENU_LEFT == 'upost'?'active':'';?>" href="/upost.php">
                 <i class="fa fa-envelope-o"></i>

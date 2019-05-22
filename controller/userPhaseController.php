@@ -17,6 +17,35 @@ $MPhase = new MainPhaseModel();
 $MPro = new ProjectModel();
 $MProPhase = new ProjectPhaseModel();
 
+
+//>>>>>>>>>>>>>> function
+$fn = $MPro->getInput('fn');
+if($fn=='modalDelete'){
+
+    $user_id = $MPro->getInput('delete_id');
+
+    $condition = [
+        'id'=>$user_id
+    ];
+
+    $user_row = $MPro->deleteThis($condition);
+    if($user_row >0){
+        $_SESSION['action_status']='success';
+        $_SESSION['action_message']='Delete user success.';
+    }
+    else{
+        $_SESSION['action_status']='warning';
+        $_SESSION['action_message']='Delete user fail!!!';
+    }
+
+}
+
+
+
+
+
+
+
 $TABLE_HEADER = [];
 $PROJECTS = [];
 $this_user_id = $LOGIN_USER_ID;

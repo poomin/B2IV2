@@ -34,7 +34,12 @@ if(isset($result['id'])) {
             $count_all = 0;
             $count_pass = 0;
             $count_fail = 0;
-            $sql= 'select phase.* from b2i_project as pro left join b2i_project_phase as phase on pro.id = phase.project_id where pro.main_id = '.$item['main_id'].' and phase.sq = '.$item['sq'];
+            $sql= 'select phase.* from b2i_project as pro left join b2i_project_phase as phase on pro.id = phase.project_id where pro.main_id = '.$item['main_id'];
+            if($item['sq'] == 1){
+                $sql = $sql. ' and ( phase.sq = '.$item['sq'] . ' or phase.sq IS NULL )';
+            }else{
+                $sql = $sql. ' and phase.sq = '.$item['sq'];
+            }
             $result = $MMain->sqlAll($sql);
             foreach ($result as $k=>$i){
                 $count_all = $count_all+1;

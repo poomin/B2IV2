@@ -97,7 +97,12 @@ require_once __DIR__.'/controller/userPhaseController.php';
                                     <a class="<?php echo $i_class;?> font-weight-bolder" href="/uprocess-phase.php?pid=<?php echo $i_pro_id;?>&nsq=<?php echo $i_sq; ?>"><?php echo $i_text;?></a>
                                 </td>
                                 <?php endforeach;?>
-                                <td></td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete user"
+                                            onclick="showModalDelete('<?php echo $item['id'];?>','<?php echo $item['name'];?>');">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </td>
                             </tr>
                         <?php endforeach;?>
                         </tbody>
@@ -116,6 +121,10 @@ require_once __DIR__.'/controller/userPhaseController.php';
 <footer class="footer">
     <?php require_once __DIR__.'/_main_footer.php';?>
 </footer>
+
+
+<!-- modal -->
+<?php require_once __DIR__.'/modal_delete.php';?>
 
 
 <!-- main script -->

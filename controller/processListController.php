@@ -43,12 +43,19 @@ if(isset($result['id'])) {
         $this_phase_title = $result['title'];
     }
 
-    $sql= 'select pro.* , phase.phase_status from b2i_project as pro left join b2i_project_phase as phase on pro.id = phase.project_id where pro.main_id = '.$this_main_id.' and phase.sq = '.$this_phase_sq;
+    $sql= 'select pro.* , phase.phase_status from b2i_project as pro left join b2i_project_phase as phase on pro.id = phase.project_id where pro.main_id = '.$this_main_id;
+    if($this_phase_sq == 1){
+        $sql = $sql. ' and ( phase.sq = '.$this_phase_sq . ' or phase.sq IS NULL )';
+    }else{
+        $sql = $sql. ' and phase.sq = '.$this_phase_sq;
+    }
+
     if(strtoupper($this_s)=='PASS'){
         $sql = $sql.' AND phase.phase_status="PASS" ';
     }elseif (strtoupper($this_s)=='FAIL'){
         $sql = $sql.' AND phase.phase_status="FAIL" ';
     }
+
     $result = $MMain->sqlAll($sql);
     if (count($result)>0){
         $PROJECTS = $result;

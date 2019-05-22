@@ -61,6 +61,7 @@ require_once  __DIR__.'/controller/processListController.php';
                         <tr>
                             <th>#</th>
                             <th>โครงการ</th>
+                            <th>ที่ปรึกษาโครงการ</th>
                             <th>โรงเรียน</th>
                             <th>ภาค</th>
                             <th>status</th>
@@ -75,6 +76,7 @@ require_once  __DIR__.'/controller/processListController.php';
                                         <?php echo $item['name'];?>
                                     </a>
                                 </td>
+                                <td><?php echo $item['ADVISER']; ?> </td>
                                 <td><?php echo $item['project_school']; ?> </td>
                                 <td><?php echo $item['project_region']; ?> </td>
                                 <td>

@@ -59,6 +59,16 @@ if(isset($result['id'])) {
     $result = $MMain->sqlAll($sql);
     if (count($result)>0){
         $PROJECTS = $result;
+        foreach ($PROJECTS as $key=>$item) {
+            $sql = 'SELECT u.* FROM b2i_user AS u LEFT JOIN b2i_project_member AS m ON m.user_id = u.id WHERE m.member_type = "ADVISER" AND m.project_id='.$item['id'];
+            $result = $MMain->sqlAll($sql);
+
+            if(count($result)>0){
+                $PROJECTS[$key]['ADVISER'] = $result[0]['name'].' '.$result[0]['surname'];
+            }else{
+                $PROJECTS[$key]['ADVISER'] = '';
+            }
+        }
     }
 }else{
     header( "location: /lprocess.php" );

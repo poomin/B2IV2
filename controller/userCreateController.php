@@ -55,7 +55,7 @@ if($fn=='createProject'){
     $p_student_list = $MPro->getInput('studentList');
 
     $result = $MPro->selectThisAll(['main_id'=>$p_main_id,'project_school'=>$p_school]);
-    if(count($result) > 2){
+    if(count($result) >= 2){
         $_SESSION['action_status']='error';
         $_SESSION['action_message']='กำหนดให้เสนอโครงการได้ไม่เกินโรงเรียนละ 2 โครงการ';
     }else{

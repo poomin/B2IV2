@@ -244,6 +244,7 @@ if($c_fail>0){
 else{
     if($this_mp_sq <= 1){
         if($t_start<= $t_this && $t_this <= $t_end){
+
             $time_house  = date("H");
             if($t_this == $t_end && intval($time_house) < 9){
                 $_STATUS = 'close';

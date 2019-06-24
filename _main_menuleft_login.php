@@ -123,6 +123,12 @@
                 โครงการที่ดำเนินการอยู่
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link a-nav <?php echo $MENU_LEFT == 'score'?'active':'';?>" href="/lscore.php">
+                <i class="fa fa-balance-scale"></i>
+                ตรวจสอบ / ให้คะแนน
+            </a>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link a-nav <?php echo $MENU_LEFT == 'history'?'active':'';?>" href="/lhistory.php">

@@ -9,9 +9,9 @@
 class _DBPDO
 {
     private $servername = "localhost";
-    private $username = "root";
-    private $password = "1234";
-    private $dbname = "x3_pointer";
+    private $username = "username";
+    private $password = "password";
+    private $dbname = "db name";
     private $conn = null;
     private $stmt = null;
 
@@ -193,6 +193,55 @@ class _DBPDO
         }
     }
 
+    function convertArrayToInsertUpdate($input, $raw){
+        if(count($input)<=0){
+            return [];
+        }else{
+            $check_first = true;
+            $params = [];
+            $v = "(";
+            $a = "(";
+            foreach ($input as $k=>$item){
+                if($item!=""){
+                    $params[':'.$k]=$item;
+                    if($check_first){
+                        $check_first = !$check_first;
+                        $v.=':'.$k;
+                        $a.=''.$k;
+                    }else{
+                        $v.=', :'.$k;
+                        $a.=', '.$k;
+                    }
+                }
+            }
+            $v.= ")";
+            $a.= ")";
+            $value = $a." VALUES ".$v;
+
+            $check_first = true;
+            $value.= " ON DUPLICATE KEY UPDATE ";
+            foreach ($raw as $k=>$item){
+                if($item!=""){
+                    $params[':c'.$k]=$item;
+                    if($check_first){
+                        $check_first = !$check_first;
+                        $value.=" ".$k."=:c".$k;
+                    }else{
+                        $value.=" , ".$k."=:c".$k;
+                    }
+                }
+            }
+
+            if(count($params) > 0 && !$check_first){
+                return ["value"=>$value,"params"=>$params];
+            }else{
+                return [];
+            }
+
+
+        }
+    }
+
     function convertArrayToCondition($where){
         $check_first = true;
         $params = [];
@@ -215,4 +264,5 @@ class _DBPDO
             return ["value"=>"" , "params"=>[]];
         }
     }
+
 }

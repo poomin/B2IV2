@@ -160,15 +160,22 @@ require_once __DIR__.'/controller/userCreateController.php';
                             }?>
                             <input id="studentListId" type="text" name="studentList" value="<?php echo $studentList; ?>" hidden>
 
-                            <?php if($EDIT):?>
+                            <?php if($PHASE_EDIT): ?>
+                                <?php if($EDIT):?>
+                                    <input type="text" name="pro_id" value="<?php echo $PID;?>" hidden>
+                                    <input type="text" name="fn" value="editProject" hidden>
+                                    <button type="submit" class="btn btn-lg sr-button btn-warning" <?php echo $DISABLE;?> >UPDATE</button>
+                                <?php else: ?>
+                                    <input type="text" name="fn" value="createProject" hidden>
+                                    <button type="submit" class="btn btn-lg sr-button btn-success" <?php echo $DISABLE;?> >CREATE</button>
+                                <?php endif;?>
 
-                                <input type="text" name="pro_id" value="<?php echo $PID;?>" hidden>
-                                <input type="text" name="fn" value="editProject" hidden>
-                                <button type="submit" class="btn btn-lg sr-button btn-warning" <?php echo $DISABLE;?> >UPDATE</button>
                             <?php else: ?>
-                                <input type="text" name="fn" value="createProject" hidden>
-                                <button type="submit" class="btn btn-lg sr-button btn-success" <?php echo $DISABLE;?> >CREATE</button>
+                                <div class="alert alert-danger" role="alert">
+                                    <h4 class="alert-heading"> หมดเวลารับสมัครโครงการ </h4>
+                                </div>
                             <?php endif;?>
+
 
                         </div>
 

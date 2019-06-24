@@ -23,6 +23,7 @@ $SCHOOLS = [];
 $STUDENTS = [];
 $MEMBERS = [];
 $EDIT = false;
+$PHASE_EDIT = false;
 $DISABLE = $LOGIN_USER_ROLE=='teacher'?'':'disabled';
 
 $this_user_id = $LOGIN_USER_ID;
@@ -165,6 +166,10 @@ if(isset($result['id'])){
     $this_surname = $result['surname'];
     $this_school = $result['schoolname'];
     $this_region = $result['schoolregion'];
+    if($result['role']=='student'){
+        header( "location: /lprofile.php" );
+        exit(0);
+    }
 }
 
 $result = $MUser->selectThisAll(['role'=>'student','schoolname'=>$this_school]);
@@ -178,6 +183,20 @@ if(isset($result['id'])) {
     $this_main_year = $result['main_year'];
     $this_main_name = $result['name'];
     $this_main_name_en = $result['name_en'];
+
+
+    //check time out
+    $result = $MPhase->selectThis(['main_id'=>$this_main_id,'sq'=>1]);
+    if(isset($result['id'])){
+        $this_mp_end = $result['date_end'];
+        $t_ymd = date('Y-m-d');
+        $t_ymd = strtotime($t_ymd);
+        $t_end = strtotime($this_mp_end);
+        if($t_end >= $t_ymd){
+            $PHASE_EDIT = true;
+        }
+    }
+
 }
 
 

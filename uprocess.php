@@ -77,6 +77,7 @@ require_once __DIR__.'/controller/userPhaseController.php';
                                 <td>
                                     <a href="/ucreate.php?pid=<?php echo $item['id']; ?>"><?php echo $item['name'];?></a>
                                 </td>
+                                <?php $i_phase1_status = 'close'; ?>
                                 <?php foreach ($item['phase_state'] as $k=>$i):?>
                                 <td>
                                     <?php
@@ -93,20 +94,36 @@ require_once __DIR__.'/controller/userPhaseController.php';
                                     }elseif($i=='wait'){
                                         $i_class = 'text-warning';
                                     }
+                                    if($k==0){
+                                        $i_phase1_status = $i;
+                                    }
                                     ?>
                                     <a class="<?php echo $i_class;?> font-weight-bolder" href="/uprocess-phase.php?pid=<?php echo $i_pro_id;?>&nsq=<?php echo $i_sq; ?>"><?php echo $i_text;?></a>
                                 </td>
                                 <?php endforeach;?>
                                 <td>
-                                    <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete user"
-                                            onclick="showModalDelete('<?php echo $item['id'];?>','<?php echo $item['name'];?>');">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
+
+                                    <?php if ($i_phase1_status=='open'): ?>
+                                        <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete user"
+                                                onclick="showModalDelete('<?php echo $item['id'];?>','<?php echo $item['name'];?>');">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    <?php endif; ?>
+
                                 </td>
                             </tr>
                         <?php endforeach;?>
                         </tbody>
                     </table>
+                    <div class="text-right">
+                        <small>
+                            <span class="text-secondary">CLOSE</span>: ปิดอัพโครงการ ,
+                            <span class="text-primary">OPEN</span>: เปิดอัพโครงการ ,
+                            <span class="text-warning">WAIT</span>: รอการตรวจสอบ ,
+                            <span class="text-success">PASS</span>: ผ่าน ,
+                            <span class="text-danger">FAIL</span>: ไม่ผ่าน
+                        </small>
+                    </div>
 
                 </div>
 

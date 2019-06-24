@@ -119,10 +119,10 @@ if(isset($result['id'])){
                     }else{
                         $i_status = 'wait';
                         if(isset($PHASE_KEY[$i['sq']])){
-                            if($PHASE_KEY[$i['phase_status']] == 'FAIL'){
+                            if($PHASE_KEY[$i['sq']]['phase_status'] == 'FAIL'){
                                 $i_status = 'fail';
                                 $this_fail = true;
-                            }elseif($PHASE_KEY[$i['phase_status']] == 'PASS'){
+                            }elseif($PHASE_KEY[$i['sq']]['phase_status'] == 'PASS'){
                                 $i_status = 'pass';
                             }
                         }

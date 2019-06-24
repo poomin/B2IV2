@@ -187,8 +187,6 @@ if(isset($result['id'])){
     $PHASES['IMAGE']= $i_image;
     $PHASES['VIDEO']= $i_video;
 
-
-
 }
 else{
     header( "location: /lscore.php" );

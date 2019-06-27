@@ -18,12 +18,14 @@ require_once __DIR__.'/../model/MainProjectModel.php';
 require_once __DIR__.'/../model/MainPhaseModel.php';
 require_once __DIR__.'/../model/MainScoreModel.php';
 require_once __DIR__.'/../model/MainBoardModel.php';
+require_once __DIR__.'/../model/MainGroupModel.php';
 require_once __DIR__.'/../model/UserModel.php';
 
 $MMain = new MainProjectModel();
 $MPhase = new MainPhaseModel();
 $MScore = new MainScoreModel();
 $MBoard = new MainBoardModel();
+$MGroup = new MainGroupModel();
 $MUser = new UserModel();
 
 $fn = $MMain->getInput('fn','');
@@ -43,6 +45,9 @@ if($fn == 'modalDelete'){
         }
         elseif ($cut[0]=='board'){
             $delete_rows = $MBoard->deleteThis($condition);
+        }
+        elseif ($cut[0]=='group'){
+            $delete_rows = $MGroup->deleteThis($condition);
         }
     }
 
@@ -139,12 +144,14 @@ elseif($fn == 'addBoard'){
     $p_main_id = $MBoard->getInput('main_id');
     $p_sq = $MBoard->getInput('sqS');
     $p_user_id = $MBoard->getInput('user_id');
+    $p_group_id = $MBoard->getInput('group_id');
 
 
     $raw = [
         'main_id'=>$p_main_id,
         'sq'=>$p_sq,
-        'user_id'=>$p_user_id
+        'user_id'=>$p_user_id,
+        'group_id'=>$p_group_id
     ];
 
 
@@ -160,9 +167,51 @@ elseif($fn == 'addBoard'){
 }
 
 
+elseif($fn == 'addGroup'){
+    $p_main_id = $MGroup->getInput('main_id');
+    $p_sq = $MGroup->getInput('sqS');
+    $group_name = $MGroup->getInput('group_name');
+
+    $raw = [
+        'main_id'=>$p_main_id,
+        'sq'=>$p_sq,
+        'group_name'=>$group_name
+    ];
+
+
+    $insert_rows = $MGroup->insertThis($raw);
+    if($insert_rows >0){
+        $_SESSION['action_status']='success';
+        $_SESSION['action_message']='Save success.';
+    }
+    else{
+        $_SESSION['action_status']='warning';
+        $_SESSION['action_message']='Save fail!!!';
+    }
+}
+
+elseif($fn == 'editGroup'){
+
+    $p_group_id = $MGroup->getInput('group_id');
+    $group_name = $MGroup->getInput('group_name');
+
+
+    $insert_rows = $MGroup->editThis(['group_name'=>$group_name],['id'=>$p_group_id]);
+    if($insert_rows >0){
+        $_SESSION['action_status']='success';
+        $_SESSION['action_message']='Edit success.';
+    }
+    else{
+        $_SESSION['action_status']='warning';
+        $_SESSION['action_message']='Edit fail!!!';
+    }
+}
+
+
 $SCORES = [];
 $BOARDS = [];
 $USERS = [];
+$GROUPS = [];
 
 $this_main_id = '';
 $this_main_year = '';
@@ -189,10 +238,17 @@ if(isset($result['id'])){
     $this_main_year = $result['main_year'];
     $this_main_name = $result['name'];
     $this_main_name_en = $result['name_en'];
+    $this_sq = $request_sq;
+
+
+    //group
+    $result = $MGroup->selectThisAll(['main_id'=>$this_main_id,'sq'=>$this_sq]);
+    if(count($result) > 0){
+        $GROUPS = $result;
+    }
 
 
     //phase
-    $this_sq = $request_sq;
     $result = $MPhase->selectThis(['main_id'=>$this_main_id,'sq'=>$this_sq]);
     if(isset($result['id'])){
         $this_phase_id = $result['id'];

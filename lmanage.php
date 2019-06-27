@@ -180,6 +180,10 @@ require_once __DIR__.'/controller/manageController.php';
                                 <i class="fa fa-edit"></i>
                                 Edit
                             </a>
+                            <a class="btn btn-info btn-sm" href="lmanage-group.php?sq=<?php echo $item['sq'];?>" data-toggle="tooltip" title="Map project and group board">
+                                <i class="fa fa-edit"></i>
+                                Map Project&Group
+                            </a>
                         </div>
                     </div>
 

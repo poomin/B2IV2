@@ -8,14 +8,16 @@
 
 require_once __DIR__.'/../model/MainProjectModel.php';
 require_once __DIR__.'/../model/MainPhaseModel.php';
+require_once __DIR__.'/../model/MainBoardModel.php';
 require_once __DIR__.'/../model/ProjectModel.php';
+require_once __DIR__.'/../model/ProjectPhaseModel.php';
 
 $MMain = new MainProjectModel();
 $MMPhase = new MainPhaseModel();
+$MBoard = new MainBoardModel();
+
 $MPro = new ProjectModel();
-
-$LOGIN_USER_ID = isset($LOGIN_USER_ID)?$LOGIN_USER_ID:0;
-
+$MPPhase = new ProjectPhaseModel();
 
 $this_main_id = $MMain->getInput('mid','0');
 $this_main_year = '';
@@ -40,33 +42,52 @@ if(isset($result['id'])) {
         $this_phase_title = $result['title'];
     }
 
-    $sql = 'SELECT pro.* FROM b2i_main_map AS mp
-LEFT JOIN b2i_main_board AS board ON board.group_id = mp.main_group_id
-LEFT JOIN b2i_project AS pro ON pro.id = mp.project_id
-WHERE mp.sq = '.$this_phase_sq.' AND board.main_id='.$this_main_id.' AND board.user_id='.$LOGIN_USER_ID;
-    $result = $MMain->sqlAll($sql);
+    $result = $MPro->selectThisAll(['main_id'=>$this_main_id]);
     if (count($result)>0){
         $PROJECTS = $result;
+    }
+
+    $count_board = 1;
+    $result = $MBoard->selectThisAll(['main_id'=>$this_main_id,'sq'=>$this_phase_sq]);
+    if(count($result)>0){
+        $count_board = count($result);
     }
 
     $KEY_SCORE = [];
     $sql = 'SELECT ps.project_id , SUM(ps.score) AS sum_score FROM b2i_project_score AS ps 
 LEFT JOIN b2i_main_score AS ms ON ps.main_score_id = ms.id
-WHERE ps.user_id = '.$LOGIN_USER_ID.' AND ms.sq = '.$this_phase_sq.' AND ms.main_id = '.$this_main_id.' GROUP BY ps.project_id';
+WHERE ms.sq = '.$this_phase_sq.' AND ms.main_id = '.$this_main_id.' GROUP BY ps.project_id';
     $result = $MMain->sqlAll($sql);
-
     if(count($result) > 0){
         foreach ($result as $key=>$item){
             $KEY_SCORE[$item['project_id']] = $item['sum_score'];
         }
     }
 
+    $Key_PHASE = [];
+    $result = $MPPhase->selectThisAll(['sq'=>$this_phase_sq]);
+    if(count($result) >0){
+        foreach ($result as $key=>$item){
+            $Key_PHASE[$item['project_id']] =$item;
+        }
+    }
+
     foreach ($PROJECTS as $key=>$item){
+
+        //score
         if (isset($KEY_SCORE[$item['id']])){
-            $PROJECTS[$key]['score'] = $KEY_SCORE[$item['id']];
+            $PROJECTS[$key]['score'] = floatval($KEY_SCORE[$item['id']]) / $count_board;
         }else{
             $PROJECTS[$key]['score'] = '-';
         }
+
+        //phase
+        if (isset( $Key_PHASE[$item['id']]['phase_status'] ) ){
+            $PROJECTS[$key]['phase_status'] = $Key_PHASE[$item['id']]['phase_status'];
+        }else{
+            $PROJECTS[$key]['phase_status'] = 'NON';
+        }
+
     }
 
 

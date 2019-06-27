@@ -9,9 +9,9 @@
 require_once __DIR__.'/_session.php';
 require_once __DIR__.'/_session_login.php';
 
-$MENU_LEFT = 'score';
+$MENU_LEFT = 'rate';
 
-require_once  __DIR__.'/controller/scoreListController.php';
+require_once  __DIR__.'/controller/rateListController.php';
 
 ?>
 
@@ -63,6 +63,7 @@ require_once  __DIR__.'/controller/scoreListController.php';
                             <th>โครงการ</th>
                             <th>โรงเรียน</th>
                             <th>ภาค</th>
+                            <th>สถานะ</th>
                             <th>คะแนน</th>
                         </tr>
                         </thead>
@@ -71,7 +72,7 @@ require_once  __DIR__.'/controller/scoreListController.php';
                             <tr>
                                 <td><?php echo ($key+1);?></td>
                                 <td>
-                                    <a href="/lscore-view.php?pid=<?php echo $item['id']; ?>&sq=<?php echo $this_phase_sq; ?>" target="_blank">
+                                    <a href="/lrate-view.php?pid=<?php echo $item['id']; ?>&sq=<?php echo $this_phase_sq; ?>" target="_blank">
                                         <?php echo $item['name'];?>
                                     </a>
                                 </td>
@@ -79,12 +80,16 @@ require_once  __DIR__.'/controller/scoreListController.php';
                                 <td><?php echo $item['project_region']; ?> </td>
                                 <td>
                                     <?php
-                                    if( $item['score'] === '-' ){
-                                        echo '<span class="text-danger">ยังไม่มีการตรวจสอบ</span>';
+                                    if($item['phase_status']=='PASS'){
+                                        echo '<span class="font-weight-bold text-success">PASS</span>';
+                                    }elseif ($item['phase_status']=='FAIL'){
+                                        echo '<span class="font-weight-bold text-danger">FAIL</span>';
                                     }else{
-                                        echo $item['score'];
+                                        echo '<span class="font-weight-bold text-secondary">'.$item['phase_status'].'</span>';
                                     }
                                     ?>
+                                </td>
+                                <td><?php echo $item['score']; ?> </td>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

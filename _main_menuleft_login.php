@@ -105,6 +105,13 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link a-nav <?php echo $MENU_LEFT == 'rate'?'active':'';?>" href="/lrate.php">
+                <i class="fa fa-balance-scale"></i>
+                ตรวจโครงการ
+            </a>
+        </li>
+
     </ul>
     <?php endif; ?>
 

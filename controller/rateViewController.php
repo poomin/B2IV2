@@ -10,26 +10,25 @@ require_once __DIR__.'/../model/MainProjectModel.php';
 require_once __DIR__.'/../model/MainPhaseModel.php';
 require_once __DIR__.'/../model/MainBoardModel.php';
 require_once __DIR__.'/../model/MainScoreModel.php';
-require_once __DIR__.'/../model/MainMapModel.php';
 
 require_once __DIR__.'/../model/ProjectModel.php';
 require_once __DIR__.'/../model/ProjectPhaseModel.php';
 require_once __DIR__.'/../model/ProjectUploadModel.php';
 require_once __DIR__.'/../model/ProjectScoreModel.php';
 require_once __DIR__.'/../model/SchoolModel.php';
-require_once __DIR__.'/../model/MainMapModel.php';
+require_once __DIR__.'/../model/UserModel.php';
 
 $MMain = new MainProjectModel();
 $MMPhase = new MainPhaseModel();
 $MMBoard = new MainBoardModel();
 $MMScore = new MainScoreModel();
-$MMap = new MainMapModel();
 
 $MPro = new ProjectModel();
 $MSchool = new SchoolModel();
 $MPhase = new ProjectPhaseModel();
 $MUpload = new ProjectUploadModel();
 $MScore = new ProjectScoreModel();
+$MUser = new UserModel();
 
 $LOGIN_USER_ID = isset($LOGIN_USER_ID)?$LOGIN_USER_ID:0;
 
@@ -47,34 +46,33 @@ $this_main_name = '';
 $this_main_name_en = '';
 
 $this_phase_name = '';
-$this_phase_score_now = (date('Y-m-d'));
+$this_phase_status = 'NON';
+$this_phase_message = '';
 $this_phase_score_start = (date('Y-m-d'));
 $this_phase_score_end = (date('Y-m-d'));
 
-$this_score_edit = false;
-$SCORE = [];
 
-$PHASE_STATUS['DOC'] = false;
-$PHASE_STATUS['PDF'] = false;
-$PHASE_STATUS['IMAGE'] = false;
-$PHASE_STATUS['VIDEO'] = false;
-$PHASES['DOC']= [];
-$PHASES['PDF']= [];
-$PHASES['IMAGE']= [];
-$PHASES['VIDEO']= [];
+$BOARD = [];
+
+if($this_pro_id =='0' || $this_pro_id =='0' ){
+    header( "location: /lrate.php" );
+    exit(0);
+}
+
 
 
 //======================= function ================
 $fn = $MPro->getInput('fn');
-if($fn=='addScore'){
-    $input_count = $MScore->getInput('count');
-    for($i=1;$i<=$input_count;$i++){
-        $input_score_point = $MScore->getInput('score_point_'.$i);
-        $input_score_id = $MScore->getInput('score_id_'.$i);
-        $result = $MScore->insertUpdateThis(
-            ['main_score_id'=>$input_score_id , 'user_id'=>$LOGIN_USER_ID , 'project_id'=>$this_pro_id, 'score'=>$input_score_point],
-            ['score'=>$input_score_point]);
-    }
+if($fn=='sendPhase'){
+    $input_status = $MPhase->getInput('phase_status');
+    $input_message = $MPhase->getInput('message');
+    $input_p_id = $this_pro_id;
+    $input_p_sq = $this_pro_sq;
+
+    $result = $MPhase->insertUpdateThis(
+        ['project_id'=>$input_p_id , 'sq'=>$input_p_sq ,'message'=>$input_message ,'phase_status'=>$input_status],
+        ['message'=>$input_message ,'phase_status'=>$input_status]
+    );
 
     $_SESSION['action_status']='success';
     $_SESSION['action_message']='Save score success.';
@@ -120,82 +118,75 @@ if(isset($result['id'])){
         $this_main_name_en = $result['name_en'];
     }
 
-    //check board can git score
-    $sql =  'SELECT * FROM b2i_main_map AS mp
-LEFT JOIN b2i_main_board AS board ON board.group_id = mp.main_group_id
-WHERE mp.sq = '.$this_pro_sq.' AND board.main_id='.$this_main_id.' AND board.user_id='.$LOGIN_USER_ID.' AND mp.project_id='.$this_pro_id;
-    $result = $MMain->sqlAll($sql);
-    if(count($result)<=0){
-        header( "location: /lscore.php" );
-        exit(0);
-    }
-
     $result = $MMPhase->selectThis(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq]);
     if(isset($result['id'])){
         $this_phase_name = $result['title'];
-        $PHASE_STATUS['DOC'] = $result['upload_doc']=='Y'?true:false;
-        $PHASE_STATUS['PDF'] = $result['upload_pdf']=='Y'?true:false;
-        $PHASE_STATUS['IMAGE'] = $result['upload_image']=='Y'?true:false;
-        $PHASE_STATUS['VIDEO'] = $result['upload_video']=='Y'?true:false;
-
         $this_phase_score_start = $result['score_date_start'];
         $this_phase_score_end = $result['score_date_end'];
-        if( (strtotime($this_phase_score_now) >= strtotime($this_phase_score_start) ) &&
-            (strtotime($this_phase_score_now) <= strtotime($this_phase_score_end)) ){
-            $this_score_edit = true;
-        }else{
-            $this_score_edit = false;
-        }
-
     }
     else{
-        header( "location: /lscore.php" );
+        header( "location: /lrate.php" );
         exit(0);
     }
 
-    $result = $MMScore->selectThisAll(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq]);
-    if(count($result) > 0){
-        $SCORE = $result;
-        foreach ($SCORE as $key => $item){
-            $result = $MScore->selectThis(['main_score_id'=>$item['id'] , 'project_id'=>$this_pro_id]);
-            if(isset($result['id'])){
-                $SCORE[$key]['score'] = $result['score'];
-            }else{
-                $SCORE[$key]['score'] = '';
-            }
+    $result = $MPhase->selectThis(['project_id'=>$this_pro_id , 'sq'=>$this_pro_sq]);
+    if(isset($result['id'])){
+        $this_phase_status = $result['phase_status'];
+        $this_phase_message = $result['message'];
+    }
+
+    $KEY_BOARD = [];
+    $result = $MUser->selectThisAll(['role'=>'board']);
+    if(count($result)>0){
+        foreach ($result as $item) {
+            $KEY_BOARD[$item['id']] = $item;
         }
     }
 
-    $i_docs = [];
-    $i_pdf = [];
-    $i_image = [];
-    $i_video = [];
-    $result = $MPhase->selectThis(['project_id'=>$this_pro_id,'sq'=>$this_pro_sq]);
-    if(isset($result['id'])){
-        $i_phase_id = $result['id'];
-        $result = $MUpload->selectThisAll(['phase_id'=>$i_phase_id]);
-        foreach ($result as $k => $i){
-            if( strtoupper($i['upload_type'])=='DOC'){
-                $i_docs[] = $i;
-            }
-            elseif (strtoupper($i['upload_type'])=='PDF'){
-                $i_pdf[] = $i;
-            }
-            elseif (strtoupper($i['upload_type'])=='IMAGE'){
-                $i_image[] = $i;
-            }
-            elseif (strtoupper($i['upload_type'])=='VIDEO'){
-                $i_video[] = $i;
-            }
-        }
+    $result = $MMBoard->selectThisAll(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq]);
+    if(count($result) > 0){
+        $BOARD = $result;
     }
-    $PHASES['DOC']= $i_docs;
-    $PHASES['PDF']= $i_pdf;
-    $PHASES['IMAGE']= $i_image;
-    $PHASES['VIDEO']= $i_video;
+
+    $SCORE_DETAIL = $MMScore->selectThisAll(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq]);
+
+
+    foreach ($BOARD as $key=>$item){
+        $BOARD[$key]['name_title'] = '';
+        $BOARD[$key]['name'] = '';
+        $BOARD[$key]['surname'] = '';
+        $BOARD[$key]['schoolname'] = '';
+
+        $i_user_id = $item['user_id'];
+
+        if(isset($KEY_BOARD[$i_user_id]['id'])){
+            $BOARD[$key]['name_title'] = $KEY_BOARD[$i_user_id]['name_title'];
+            $BOARD[$key]['name'] = $KEY_BOARD[$i_user_id]['name'];
+            $BOARD[$key]['surname'] = $KEY_BOARD[$i_user_id]['surname'];
+            $BOARD[$key]['schoolname'] = $KEY_BOARD[$i_user_id]['schoolname'];
+        }
+
+
+        $BOARD[$key]['scores'] = [];
+        $SCORES = [];
+        if(count($SCORE_DETAIL) >0){
+            $SCORES = $SCORE_DETAIL;
+            foreach ($SCORES as $k => $i){
+                $result = $MScore->selectThis(['main_score_id'=>$i['id'] , 'project_id'=>$this_pro_id]);
+                if(isset($result['id'])){
+                    $SCORES[$k]['score'] = $result['score'];
+                }else{
+                    $SCORES[$k]['score'] = '';
+                }
+            }
+            $BOARD[$key]['scores'] = $SCORES;
+        }
+
+    }
+
 
 }
 else{
-    header( "location: /lscore.php" );
+    header( "location: /lrate.php" );
     exit(0);
 }

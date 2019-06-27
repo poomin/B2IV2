@@ -7,7 +7,7 @@
  */
 
 require_once __DIR__.'/_session.php';
-require_once __DIR__.'/_session_index.php';
+require_once __DIR__.'/_session_login.php';
 
 $MENU_LEFT = 'score';
 $PHASE_STATUS['DOC'] = false;

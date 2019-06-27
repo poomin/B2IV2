@@ -2,14 +2,15 @@
 /**
  * Created by PhpStorm.
  * User: PF0T4E5G
- * Date: 16/4/2562
- * Time: 01:09 ก่อนเที่ยง
+ * Date: 8/4/2562
+ * Time: 12:54 ก่อนเที่ยง
  */
 require_once __DIR__.'/_DBPDO.php';
 
-class ProjectPhaseModel extends _DBPDO
+class MainGroupModel extends _DBPDO
 {
-    public $DB = "b2i_project_phase";
+
+    public $DB = "b2i_main_group";
 
     function insertThis($input){
         $this_db = $this->DB;
@@ -68,26 +69,6 @@ class ProjectPhaseModel extends _DBPDO
 
 
         return $rowUpdate;
-    }
-    function insertUpdateThis($input,$raw){
-        $this_db = $this->DB;
-
-        $data_sql = $this->convertArrayToInsertUpdate($input,$raw);
-        if(count($data_sql)<=0){
-            return 0;
-        }else{
-
-            //connect DB
-            $this->connect();
-            $sql_value = $data_sql['value'];
-            $sql = "INSERT INTO $this_db $sql_value";
-            $params = $data_sql['params'];
-            $lastId = $this->insert($sql,$params);
-
-            //close DB
-            $this->close();
-            return $lastId;
-        }
     }
 
     function selectThis($condition){

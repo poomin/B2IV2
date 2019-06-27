@@ -7,11 +7,11 @@
  */
 
 require_once __DIR__.'/_session.php';
-require_once __DIR__.'/_session_login.php';
+require_once __DIR__.'/_session_index.php';
 
-$MENU_LEFT = 'score';
+$MENU_LEFT = 'rate';
 
-require_once  __DIR__.'/controller/scoreController.php';
+require_once  __DIR__.'/controller/rateController.php';
 
 ?>
 
@@ -53,7 +53,7 @@ require_once  __DIR__.'/controller/scoreController.php';
                 </div>
 
                 <div class="text-center">
-                    <h5 class="h-c"> ตรวจสอบและให้คะแนนสำหรับกรรมการ </h5>
+                    <h5 class="text-primary"> กำหนดโครงการที่ผ่าน/ไม่ผ่าน การคัดเลือก (ADMIN) </h5>
                 </div>
                 <div class="pt-2">
 
@@ -62,9 +62,11 @@ require_once  __DIR__.'/controller/scoreController.php';
                         <tr>
                             <th>#</th>
                             <th>ขั้นดำเนินการ</th>
-                            <th>วันที่เริ่มให้คะแนน</th>
-                            <th>วันที่สิ้นสุดการให้คะแนน</th>
-                            <th>โครงการที่รับผิดชอบ</th>
+                            <th>วันที่เริ่ม</th>
+                            <th>วันที่สิ้นสุด</th>
+                            <th>โครงการทั้งหมด</th>
+                            <th>ผ่านคัดเลือก</th>
+                            <th>ไม่ผ่านคัดเลือก</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -72,16 +74,26 @@ require_once  __DIR__.'/controller/scoreController.php';
                         <tr>
                             <td><?php echo ($key+1);?></td>
                             <td>
-                                <a href="/lscore-list.php?mid=<?php echo $this_main_id; ?>&sq=<?php echo $item['sq']; ?>">
+                                <a href="/lrate-list.php?mid=<?php echo $this_main_id; ?>&sq=<?php echo $item['sq']; ?>">
                                     <?php echo $item['title'];?>
                                 </a>
                             </td>
                             <td><?php echo (isset($item['score_date_start']))?date('d/m/Y',strtotime($item['score_date_start'])):''; ?> </td>
                             <td><?php echo (isset($item['score_date_end']))?date('d/m/Y',strtotime($item['score_date_end'])):''; ?> </td>
                             <td>
-                                <span class="text-danger">
+                                <a class="text-secondary" href="#">
                                     <h4><?php echo $item['count_all'];?></h4>
-                                </span>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="text-success" href="#">
+                                    <h4><?php echo $item['count_pass'];?></h4>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="text-danger" href="#">
+                                    <h4><?php echo $item['count_fail'];?></h4>
+                                </a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

@@ -167,6 +167,56 @@ require_once __DIR__.'/controller/manageScoreController.php';
                     </form>
                 </div>
 
+                <hr class="style1">
+                <div class="text-center pt-5">
+                    <h5 class="font-weight-bolder">สร้างกลุ่มคณะกรรมการ</h5>
+                </div>
+                <div class="pt-3">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">ชื่อกลุ่มคณะกรรมการ</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($GROUPS as $key=>$item):?>
+                            <tr>
+                                <td><?php echo ($key+1); ?></td>
+                                <td id="textGroupId<?php echo $item['id'];?>"><?php echo $item['group_name']; ?></td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" type="button" data-toggle="tooltip" title="Edit score" onclick="editGroup('<?php echo $item['id'];?>')"><i class="fa fa-edit"></i></button>
+                                    <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete score"
+                                            onclick="showModalDelete('<?php echo 'group-'.$item['id'];?>','<?php echo $item['group_name'];?>');">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+                    <form class="pt-3" method="post">
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label for="attrGroupNameId">ชื่อกลุ่มกรรมการ</label>
+                                <input type="text" class="form-control" id="attrGroupNameId" name="group_name" placeholder="ชื่อกลุ่ม" required>
+                            </div>
+                            <div class="col-auto my-2">
+                                <label></label>
+                                <div>
+                                    <input id="groupId" type="text" name="group_id" value="" hidden>
+                                    <input id="fnGroupId" type="text" name="fn" value="addGroup" hidden>
+                                    <input type="text" name="sqS" value="<?php echo $this_sq;?>" hidden>
+                                    <input type="text" name="main_id" value="<?php echo $this_main_id;?>" hidden>
+                                    <button id="btnGroupSubmit" class="btn btn-success" type="submit">SAVE</button>
+                                    <button id="btnGroupClear" class="btn btn-secondary" type="button" onclick="clearGroup();" hidden>CLEAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
 
                 <hr class="style1">
                 <div class="text-center pt-5">
@@ -182,24 +232,45 @@ require_once __DIR__.'/controller/manageScoreController.php';
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($BOARDS as $key=>$item):?>
-                            <tr>
-                                <td><?php echo ($key+1); ?></td>
-                                <td><?php echo $item['name'].' '.$item['surname']; ?></td>
-                                <td>
-                                    <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete score"
-                                            onclick="showModalDelete('<?php echo 'board-'.$item['id'];?>','<?php echo $item['name'].' '.$item['surname'];?>');">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                        <?php foreach ($GROUPS as $k=>$i):?>
+                        <tr>
+                            <td class="text-center font-weight-bold" colspan="3"><?php echo  $i['group_name']; ?></td>
+                        </tr>
+                            <?php
+                            $i_c=0;
+                            foreach ($BOARDS as $key=>$item):
+                                if($item['group_id'] == $i['id']):
+                                ?>
+                                <tr>
+                                    <td><?php echo ($i_c+1); ?></td>
+                                    <td><?php echo $item['name'].' '.$item['surname']; ?></td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete score"
+                                                onclick="showModalDelete('<?php echo 'board-'.$item['id'];?>','<?php echo $item['name'].' '.$item['surname'];?>');">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php $i_c++; endif; endforeach;?>
+
                         <?php endforeach;?>
+
                         </tbody>
                     </table>
 
                     <form class="pt-3" method="post">
                         <div class="form-row">
-                            <div class="form-group col-md-8">
+                            <div class="form-group col-md-4">
+                                <label for="attrGroupId">กลุ่มกรรมการ</label>
+                                <select id="attrGroupId" name="group_id" class="selectpicker form-control" data-live-search="true" title="Please select a group ..." required>
+                                    <?php foreach ($GROUPS as $item): ?>
+                                        <option value="<?php echo $item['id'];?>">
+                                            <?php echo $item['group_name'];?>
+                                        </option>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label for="attrBoardId">กรรมการ</label>
                                 <select id="attrBoardId" name="user_id" class="selectpicker form-control" data-live-search="true" title="Please select a board ..." required>
                                     <?php foreach ($USERS as $item): ?>
@@ -247,6 +318,7 @@ require_once __DIR__.'/_datepicker_script.php';
 
 
 <script>
+
     $(function() {
         $('.datepicker').datepicker({
             format: 'dd/mm/yyyy',
@@ -278,6 +350,30 @@ require_once __DIR__.'/_datepicker_script.php';
         $('#btnSubmit').text('SAVE');
         $('#btnClear').attr('hidden',true);
         $('#fnId').val('addScore');
+    }
+
+
+    function editGroup(id) {
+        var text = $('#textGroupId'+id).text();
+
+        $('#attrGroupNameId').val(text);
+
+        $('#btnGroupSubmit').removeClass('btn-success');
+        $('#btnGroupSubmit').addClass('btn-warning');
+        $('#btnGroupSubmit').text('EDIT');
+        $('#btnGroupClear').attr('hidden',false);
+
+        $('#fnGroupId').val('editGroup');
+        $('#groupId').val(id);
+    }
+
+    function clearGroup() {
+        $('#attrGroupNameId').val('');
+        $('#btnGroupSubmit').removeClass('btn-warning');
+        $('#btnGroupSubmit').addClass('btn-success');
+        $('#btnGroupSubmit').text('SAVE');
+        $('#btnGroupClear').attr('hidden',true);
+        $('#fnGroupId').val('addGroup');
     }
 
 </script>

@@ -10,6 +10,7 @@ require_once __DIR__.'/../model/MainProjectModel.php';
 require_once __DIR__.'/../model/MainPhaseModel.php';
 require_once __DIR__.'/../model/MainBoardModel.php';
 require_once __DIR__.'/../model/MainScoreModel.php';
+require_once __DIR__.'/../model/MainMapModel.php';
 
 require_once __DIR__.'/../model/ProjectModel.php';
 require_once __DIR__.'/../model/ProjectPhaseModel.php';
@@ -22,6 +23,7 @@ $MMain = new MainProjectModel();
 $MMPhase = new MainPhaseModel();
 $MMBoard = new MainBoardModel();
 $MMScore = new MainScoreModel();
+$MMap = new MainMapModel();
 
 $MPro = new ProjectModel();
 $MSchool = new SchoolModel();
@@ -143,9 +145,20 @@ if(isset($result['id'])){
         }
     }
 
-    $result = $MMBoard->selectThisAll(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq]);
-    if(count($result) > 0){
-        $BOARD = $result;
+    //sol board by mapping group
+    $arrMap = [];
+    $result = $MMap->selectThisAll(['project_id'=>$this_pro_id,'sq'=>$this_pro_sq]);
+    if(count($result)>0){
+        $arrMap = $result;
+    }
+    //map group
+    foreach ($arrMap as $key=>$item){
+        $result = $MMBoard->selectThisAll(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq , 'group_id'=>$item['main_group_id'] ]);
+        if(count($result)>0){
+            foreach ($result as $k=>$i){
+                $BOARD[] = $i;
+            }
+        }
     }
 
     $SCORE_DETAIL = $MMScore->selectThisAll(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq]);
@@ -172,7 +185,7 @@ if(isset($result['id'])){
         if(count($SCORE_DETAIL) >0){
             $SCORES = $SCORE_DETAIL;
             foreach ($SCORES as $k => $i){
-                $result = $MScore->selectThis(['main_score_id'=>$i['id'] , 'project_id'=>$this_pro_id]);
+                $result = $MScore->selectThis(['main_score_id'=>$i['id'] , 'project_id'=>$this_pro_id , 'user_id'=>$i_user_id]);
                 if(isset($result['id'])){
                     $SCORES[$k]['score'] = $result['score'];
                 }else{

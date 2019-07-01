@@ -119,7 +119,7 @@ require_once  __DIR__.'/controller/rateViewController.php';
 
                     <div class="form-group">
                         <label class="label-control">คะแนนรวมทั้งหมด</label>
-                        <input class="form-control font-weight-bold" type="text"value="<?php echo $i_SCORE_SUM/ ($i_COUNT_BOARD>0?$i_COUNT_BOARD:1);?>" disabled>
+                        <input class="form-control font-weight-bold" type="text"value="<?php echo $i_SCORE_SUM;?>" disabled>
                     </div>
 
                     <p>สถานะ</p>

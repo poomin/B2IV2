@@ -157,7 +157,7 @@ WHERE mp.sq = '.$this_pro_sq.' AND board.main_id='.$this_main_id.' AND board.use
     if(count($result) > 0){
         $SCORE = $result;
         foreach ($SCORE as $key => $item){
-            $result = $MScore->selectThis(['main_score_id'=>$item['id'] , 'project_id'=>$this_pro_id]);
+            $result = $MScore->selectThis(['main_score_id'=>$item['id'] , 'project_id'=>$this_pro_id , 'user_id'=>$LOGIN_USER_ID]);
             if(isset($result['id'])){
                 $SCORE[$key]['score'] = $result['score'];
             }else{

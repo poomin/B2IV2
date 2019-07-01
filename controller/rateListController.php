@@ -47,12 +47,6 @@ if(isset($result['id'])) {
         $PROJECTS = $result;
     }
 
-    $count_board = 1;
-    $result = $MBoard->selectThisAll(['main_id'=>$this_main_id,'sq'=>$this_phase_sq]);
-    if(count($result)>0){
-        $count_board = count($result);
-    }
-
     $KEY_SCORE = [];
     $sql = 'SELECT ps.project_id , SUM(ps.score) AS sum_score FROM b2i_project_score AS ps 
 LEFT JOIN b2i_main_score AS ms ON ps.main_score_id = ms.id
@@ -76,7 +70,7 @@ WHERE ms.sq = '.$this_phase_sq.' AND ms.main_id = '.$this_main_id.' GROUP BY ps.
 
         //score
         if (isset($KEY_SCORE[$item['id']])){
-            $PROJECTS[$key]['score'] = floatval($KEY_SCORE[$item['id']]) / $count_board;
+            $PROJECTS[$key]['score'] = floatval($KEY_SCORE[$item['id']]);
         }else{
             $PROJECTS[$key]['score'] = '-';
         }

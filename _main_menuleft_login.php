@@ -83,6 +83,32 @@
     <?php endif; ?>
 
     <?php if(isset($LOGIN_USER_ROLE) && ($LOGIN_USER_ROLE=='admin') ): ?>
+
+        <ul class="nav flex-column mb-2">
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>อบรม</span>
+                <div class="d-flex align-items-center text-muted">
+                    <i class="fa fa-sticky-note"></i>
+                </div>
+            </h6>
+
+            <li class="nav-item">
+                <a class="nav-link a-nav <?php echo $MENU_LEFT == 'training-set'?'active':'';?>" href="/ltraining.php">
+                    <i class="fa fa-edit"></i>
+                    สร้าง/จัดการ
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link a-nav <?php echo $MENU_LEFT == 'training-list'?'active':'';?>" href="#">
+                    <i class="fa fa-sticky-note-o"></i>
+                    สมาชิกเข้าร่วม
+                </a>
+            </li>
+
+        </ul>
+
+
     <ul class="nav flex-column mb-2">
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
             <span>จัดการโครงการ</span>
@@ -182,7 +208,7 @@
         <li class="nav-item">
             <a class="nav-link a-nav <?php echo $MENU_LEFT == 'upost'?'active':'';?>" href="/upost.php">
                 <i class="fa fa-envelope-o"></i>
-                ประกาศถึง
+                อบรม
             </a>
         </li>
 

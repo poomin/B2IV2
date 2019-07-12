@@ -270,9 +270,13 @@ else{
 //--------------------------------------------------------
 
 $this_phase_id = '';
+$this_phase_message = '';
+$this_phase_status = '';
 $result = $MProPhase->selectThis(['project_id'=>$this_pro_id,'sq'=>$this_mp_sq]);
 if($result['id']){
     $this_phase_id = $result['id'];
+    $this_phase_status = $result['phase_status'];
+    $this_phase_message = $result['message'];
 }
 else{
     if ($_STATUS=='open'){

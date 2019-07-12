@@ -49,7 +49,7 @@ require_once __DIR__.'/controller/upostController.php';
             <div class="col-9 p-5 bg-white">
 
                 <div class="p-0">
-                    <h2 class="h-c"><i class="fa fa-envelope-o icon-zoom"></i> ประกาศถึง</h2>
+                    <h2 class="h-c"><i class="fa fa-envelope-o icon-zoom"></i> ยืนยันอบรม </h2>
                     <hr class="style1">
                 </div>
                 <div>
@@ -88,6 +88,58 @@ require_once __DIR__.'/controller/upostController.php';
                                             $i_class = 'text-warning';
                                             $i_text = 'รอการตรวจสอบจาก Admin';
                                         }
+                                    ?>
+                                    <span class="font-weight-bold <?php echo $i_class; ?>">
+                                        <?php echo $i_text; ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="p-1" style="margin-top: 100px;">
+                    <h4 class="h-c"><i class="fa fa-envelope-o icon-zoom"></i> อบรมที่เคยเข้าร่วม </h4>
+                    <hr class="style1">
+                </div>
+                <div>
+                    <table class="this-table table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Project</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ( $TRAINING_HISTORY as $key=>$item): ?>
+                            <tr>
+                                <td> <?php echo ($key+1);?> </td>
+                                <td>
+                                    <a href="upost-view.php?tid=<?php echo $item['id'];?>">
+                                        <?php echo $item['training_title']; ?>
+                                    </a>
+                                </td>
+                                <td> <?php echo $item['training_status']=="PASS"?$item['name']:'บุคคลทั่วไป'; ?> </td>
+                                <td>
+                                    <?php
+                                    $i_class = 'text-secondary';
+                                    $i_text = 'ยังไม่ยืนยันเข้าร่วมอบรม';
+                                    if($item['training_status']=='PASS'){
+                                        $i_class = 'text-success';
+                                        $i_text = 'ยืนยันเรียบร้อย';
+                                    }
+                                    elseif ($item['training_status']=='FAIL'){
+                                        $i_class = 'text-danger';
+                                        $i_text = 'ไม่อนุมัติ';
+                                    }
+                                    elseif ($item['training_status']=='WAIT'){
+                                        $i_class = 'text-warning';
+                                        $i_text = 'รอการตรวจสอบจาก Admin';
+                                    }
                                     ?>
                                     <span class="font-weight-bold <?php echo $i_class; ?>">
                                         <?php echo $i_text; ?>

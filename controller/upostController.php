@@ -151,3 +151,17 @@ if($LOGIN_USER_ID!= 0 && isset($result['id']) ){
     }
 
 }
+
+
+
+$TRAINING_HISTORY = [];
+$sql ="SELECT t.id, tm.member_type , t.training_status , p.name ,mt.training_title FROM b2i_training_member tm
+LEFT JOIN b2i_training t ON tm.training_id = t.id
+LEFT JOIN b2i_main_training mt ON t.main_training_id = mt.id
+LEFT JOIN b2i_project p ON t.project_id = p.id
+WHERE tm.user_id = ".$LOGIN_USER_ID." AND mt.date_end < CURDATE();";
+$result = $MMain->sqlAll($sql);
+if(count($result)>0){
+    $TRAINING_HISTORY= $result;
+}
+

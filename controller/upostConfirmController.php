@@ -336,6 +336,20 @@ if(isset($result['id'])) {
             $this_t_driver = $result['driver'];
             $this_t_status = $result['training_status'];
             $this_t_state = $result['training_state'];
+
+            $dateTime = $result['checkin_datetime'];
+            $cutDateTime = explode(" ",$dateTime);
+            if(count($cutDateTime)>1){
+                $dmy = $cutDateTime[0];
+                $hn = $cutDateTime[1];
+                $cutDmy = explode("-",$dmy);
+                $cutHn = explode(":",$hn);
+                $c_d = $cutDmy[0];
+                $c_m = $cutDmy[1];
+                $c_y = $cutDmy[2];
+                $c_h = $cutHn[0];
+                $c_n = $cutHn[1];
+            }
         }
         if($this_t_id!=0){
             foreach ($STUDENT as $key=>$item){
@@ -378,7 +392,10 @@ if(isset($result['id'])) {
         }
 
         //check not pass
-        $result = $MPMember->selectThisAll(['user_id'=>$LOGIN_USER_ID]);
+        $sql = "SELECT pm.* FROM b2i_project_member pm 
+        LEFT JOIN b2i_project p ON pm.project_id = p.id
+        WHERE pm.user_id= ".$LOGIN_USER_ID." AND p.main_id = ".$this_m_pro_id;
+        $result = $MMain->sqlAll($sql);
         if(count($result) > 0){
             $check = false;
             foreach ($result as $key=>$item){
@@ -422,6 +439,20 @@ if(isset($result['id'])) {
             $this_t_driver = $result['driver'];
             $this_t_status = $result['training_status'];
             $this_t_state = $result['training_state'];
+
+            $dateTime = $result['checkin_datetime'];
+            $cutDateTime = explode(" ",$dateTime);
+            if(count($cutDateTime)>1){
+                $dmy = $cutDateTime[0];
+                $hn = $cutDateTime[1];
+                $cutDmy = explode("-",$dmy);
+                $cutHn = explode(":",$hn);
+                $c_d = $cutDmy[0];
+                $c_m = $cutDmy[1];
+                $c_y = $cutDmy[2];
+                $c_h = $cutHn[0];
+                $c_n = $cutHn[1];
+            }
         }
         if($this_t_id!=0){
             foreach ($TEACHER as $key=>$item){

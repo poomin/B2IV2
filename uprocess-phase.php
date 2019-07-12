@@ -80,6 +80,16 @@ require_once __DIR__.'/controller/userPhaseUploadController.php';
                     <?php require_once __DIR__.'/_alert.php';?>
                 </div>
 
+                <?php if($this_phase_status=="PASS"):?>
+                <div class="pt-1">
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">Pass</h4>
+                        <hr>
+                        <pre><?php echo $this_phase_message;?></pre>
+                    </div>
+                </div>
+                <?php endif;?>
+
                 <!-- upload doc -->
                 <?php if(strtoupper($this_mp_doc)=='Y'): ?>
                 <div class="pt-3">

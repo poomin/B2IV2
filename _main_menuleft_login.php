@@ -100,7 +100,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link a-nav <?php echo $MENU_LEFT == 'training-list'?'active':'';?>" href="#">
+                <a class="nav-link a-nav <?php echo $MENU_LEFT == 'training-list'?'active':'';?>" href="/ltrainings.php">
                     <i class="fa fa-sticky-note-o"></i>
                     สมาชิกเข้าร่วม
                 </a>

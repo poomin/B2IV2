@@ -10,7 +10,7 @@ require_once __DIR__.'/_session_login.php';
 
 $MENU_LEFT = 'training-list';
 
-require_once __DIR__.'/controller/trainingsController.php';
+require_once __DIR__.'/controller/trainingsListController.php';
 
 ?>
 
@@ -73,10 +73,10 @@ require_once __DIR__.'/controller/trainingsController.php';
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Title</th>
-                            <th>Date Start</th>
-                            <th>Date Edit</th>
-                            <th>Count</th>
+                            <th>Detail</th>
+                            <th>School</th>
+                            <th>Region</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -84,13 +84,37 @@ require_once __DIR__.'/controller/trainingsController.php';
                         <?php foreach ( $TRAINING as $key=>$item): ?>
                             <tr>
                                 <td> <?php echo ($key+1);?> </td>
-                                <td> <?php echo $item['training_title']; ?> </td>
-                                <td> <?php echo date('d/m/Y',strtotime($item['date_start'])); ?> </td>
-                                <td> <?php echo date('d/m/Y',strtotime($item['date_end'])); ?> </td>
-                                <td> <?php echo $item['count'];?></td>
+                                <td> <?php echo $item['name']; ?> </td>
+                                <td> <?php echo $item['school']; ?> </td>
+                                <td> <?php echo $item['region']; ?> </td>
                                 <td>
-                                    <a class="btn btn-info btn-sm" href="ltrainings-list.php?tid=<?php echo $item['id'];?>" data-toggle="tooltip" title="List Training">
-                                        <i class="fa fa-send"></i>
+                                    <?php
+                                    $i_t_status = $item['training_status'];
+                                    $i_class = 'text-secondary';
+                                    $i_text = 'ยังไม่ยืนยันเข้าร่วมอบรม';
+                                    if($i_t_status=='PASS'){
+                                        $i_class = 'text-success';
+                                        $i_text = 'ยืนยันเรียบร้อย';
+                                    }
+                                    elseif ($i_t_status=='FAIL'){
+                                        $i_class = 'text-danger';
+                                        $i_text = 'ไม่อนุมัติ';
+                                    }
+                                    elseif ($i_t_status=='WAIT'){
+                                        $i_class = 'text-warning';
+                                        $i_text = 'รอการตรวจสอบจาก Admin';
+                                    }
+                                    ?>
+                                    <span class="font-weight-bold <?php echo $i_class; ?>">
+                                        <?php echo $i_text; ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success btn-sm" href="ltrainings-active.php?tid=<?php echo $item['id'];?>" data-toggle="tooltip" title="Active Training" target="_blank">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                    <a class="btn btn-warning btn-sm" href="ltrainings-edit.php?tid=<?php echo $item['id'];?>" data-toggle="tooltip" title="Edit Training" target="_blank">
+                                        <i class="fa fa-edit"></i>
                                     </a>
                                 </td>
                             </tr>

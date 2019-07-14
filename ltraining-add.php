@@ -72,10 +72,10 @@ require_once __DIR__.'/controller/trainingAddController.php';
                     <div class="form-group offset-1">
                         <label class="label-control" for="trainingGroupInputId">กำหนดผู้เข้าร่วมโครงการ</label>
                         <select class="form-control" id="trainingGroupInputId">
-                            <option value="PASS" > ทีมที่ผ่านเข้ารอบ </option>
-                            <option value="TEACHER" > ครู (ที่ไม่ผ่านเข้ารอบ) </option>
-                            <option value="STUDENT" > นักเรียน (ที่ไม่ผ่านเข้ารอบ) </option>
-                            <option value="ALL" > ทั้งหมด </option>
+                            <option value="PASS" <?php echo $this_t_group=='PASS'?'selected':'';?> > ทีมที่ผ่านเข้ารอบ </option>
+                            <option value="TEACHER" <?php echo $this_t_group=='TEACHER'?'selected':'';?> > ครู (ที่ไม่ผ่านเข้ารอบ) </option>
+                            <option value="STUDENT" <?php echo $this_t_group=='STUDENT'?'selected':'';?> > นักเรียน (ที่ไม่ผ่านเข้ารอบ) </option>
+                            <option value="ALL" <?php echo $this_t_group=='ALL'?'selected':'';?> > ทั้งหมด </option>
                         </select>
                     </div>
                     <div class="form-group offset-1">

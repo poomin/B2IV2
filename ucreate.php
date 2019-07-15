@@ -11,6 +11,7 @@ require_once __DIR__.'/_session_login.php';
 $MENU_LEFT = 'ucreate';
 
 require_once __DIR__.'/controller/userCreateController.php';
+//edit disabled 190719 เอาออก
 
 ?>
 
@@ -61,22 +62,22 @@ require_once __DIR__.'/controller/userCreateController.php';
 
                         <div class="form-group">
                             <label class="label-control">ชื่อโครงการ</label>
-                            <input class="form-control" type="text" name="name" value="<?php echo $this_pro_name;?>" required <?php echo $DISABLE;?>>
+                            <input class="form-control" type="text" name="name" value="<?php echo $this_pro_name;?>" required <?php echo $DISABLE;?> disabled>
                             <div class="invalid-feedback">
                                 กรุณากรอกชื่อโครงการ
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="label-control">ชื่อโครงการ(ภาษาอังกฤษ)</label>
-                            <input class="form-control" type="text" name="name_en" value="<?php echo $this_pro_name_en;?>" required <?php echo $DISABLE;?>>
+                            <input class="form-control" type="text" name="name_en" value="<?php echo $this_pro_name_en;?>" required <?php echo $DISABLE;?> disabled >
                             <div class="invalid-feedback">
                                 กรุณากรอกชื่อโครงการ (ภาษาอังกฤษ)
                             </div>
                         </div>
-
+                        <!-- cherry 190819 -->
                         <div class="form-group pt-3">
                             <label class="label-control" for="idSchool">โรงเรียน / สถานศึกษา </label>
-                            <select id="idSchool" name="school_name" class="selectpicker form-control" data-live-search="true" title="Please select a school ..." required <?php echo $DISABLE;?>>
+                            <select id="idSchool" name="school_name" class="selectpicker form-control" data-live-search="true" title="Please select a school ..." required <?php echo $DISABLE;?> disabled>
                                 <?php foreach ($SCHOOLS as $item): ?>
                                     <option value="<?php echo $item['school_name'];?>" <?php echo $item['school_name']==$this_school?'selected':'';?> >
                                         <?php echo $item['school_name'].'('.$item['province'].')';?>
@@ -101,7 +102,8 @@ require_once __DIR__.'/controller/userCreateController.php';
                                 <div class="col-8">
                                     <input type="text" class="form-control" value="<?php echo $item['name_title'].''.$item['name'].' '.$item['surname'].' ( '.$item['schoolname'].' )';?>" disabled>
                                 </div>
-                                <div class="col-4">
+                                <!-- cherry 190819 -->
+                                <div class="col-4" hidden>
                                     <button class="btn btn-danger" type="button" onclick="deleteStudent('<?php echo $item['user_id'];?>');" <?php echo $DISABLE;?> >
                                         <i class="fa fa-remove"></i>
                                     </button>
@@ -160,8 +162,9 @@ require_once __DIR__.'/controller/userCreateController.php';
                             }?>
                             <input id="studentListId" type="text" name="studentList" value="<?php echo $studentList; ?>" hidden>
 
-                            <?php if($PHASE_EDIT): ?>
-                                <?php if($EDIT):?>
+                            <!-- cherry -->
+                            <?php if($PHASE_EDIT || true): ?>
+                                <?php if($EDIT || true):?>
                                     <input type="text" name="pro_id" value="<?php echo $PID;?>" hidden>
                                     <input type="text" name="fn" value="editProject" hidden>
                                     <button type="submit" class="btn btn-lg sr-button btn-warning" <?php echo $DISABLE;?> >UPDATE</button>

@@ -149,11 +149,14 @@ if($LOGIN_USER_ID!= 0 && isset($result['id']) ){
         $result = $MMain->sqlAll($sql);
         if (count($result) > 0) {
             $i_confirm = $result[0]['training_confirm'];
-            if ($i_confirm == 'Y') {
-                $TRAINING[$key]['confirm'] == 'PASS';
-            } else {
-                $TRAINING[$key]['confirm'] == 'FAIL';
+            if($TRAINING[$key]['confirm'] == 'PASS'){
+                if ($i_confirm == 'Y') {
+                    $TRAINING[$key]['confirm'] = 'PASS';
+                } else {
+                    $TRAINING[$key]['confirm'] = 'FAIL';
+                }
             }
+
         }
     }
 

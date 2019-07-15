@@ -140,13 +140,20 @@ if($LOGIN_USER_ID!= 0 && isset($result['id']) ){
             }//endfor
         }
 
+        //echo json_encode($TRAINING);exit;
+
     }
 
-    foreach ($TRAINING as $key => $item){
-        $sql = 'SELECT t.training_confirm FROM b2i_training_member AS tm  LEFT JOIN b2i_training AS t ON tm.training_id = t.id WHERE tm.user_id = '.$LOGIN_USER_ID.' AND t.id = '.$item['training_id'];
+    foreach ($TRAINING as $key => $item) {
+        $sql = 'SELECT t.training_confirm FROM b2i_training_member AS tm  LEFT JOIN b2i_training AS t ON tm.training_id = t.id WHERE tm.user_id = ' . $LOGIN_USER_ID . ' AND t.id = ' . $item['training_id'];
         $result = $MMain->sqlAll($sql);
-        if(count($result)>0){
-            $TRAINING[$key]['confirm'] = $result[0]['training_confirm'];
+        if (count($result) > 0) {
+            $i_confirm = $result[0]['training_confirm'];
+            if ($i_confirm == 'Y') {
+                $TRAINING[$key]['confirm'] == 'PASS';
+            } else {
+                $TRAINING[$key]['confirm'] == 'FAIL';
+            }
         }
     }
 
@@ -161,6 +168,7 @@ LEFT JOIN b2i_main_training mt ON t.main_training_id = mt.id
 LEFT JOIN b2i_project p ON t.project_id = p.id
 WHERE tm.user_id = ".$LOGIN_USER_ID." AND mt.date_end < CURDATE();";
 $result = $MMain->sqlAll($sql);
+
 if(count($result)>0){
     $TRAINING_HISTORY= $result;
 }

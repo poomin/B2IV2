@@ -74,17 +74,18 @@ require_once __DIR__.'/controller/upostController.php';
                                 <td> <?php echo $item['project_name']; ?> </td>
                                 <td>
                                     <?php
+                                        $i_confirm = $item['confirm'];
                                         $i_class = 'text-secondary';
                                         $i_text = 'ยังไม่ยืนยันเข้าร่วมอบรม';
-                                        if($item['confirm']=='PASS'){
+                                        if($i_confirm=='PASS'){
                                             $i_class = 'text-success';
                                             $i_text = 'ยืนยันเรียบร้อย';
                                         }
-                                        elseif ($item['confirm']=='FAIL'){
+                                        elseif ($i_confirm=='FAIL'){
                                             $i_class = 'text-danger';
                                             $i_text = 'ไม่อนุมัติ';
                                         }
-                                        elseif ($item['confirm']=='WAIT'){
+                                        elseif ($i_confirm=='WAIT'){
                                             $i_class = 'text-warning';
                                             $i_text = 'รอการตรวจสอบจาก Admin';
                                         }

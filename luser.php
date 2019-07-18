@@ -109,6 +109,11 @@ require_once __DIR__.'/controller/userController.php';
                                 onclick="showModalDelete('<?php echo $item_id;?>','<?php echo $item_text;?>');">
                                     <i class="fa fa-remove"></i>
                                 </button>
+
+                                    <button class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Login"
+                                            onclick="fnLoginByAdmin('<?php echo $item['id'];?>');">
+                                        <i class="fa fa-key"></i>
+                                    </button>
                                 <?php endif; ?>
 
                             </td>
@@ -145,6 +150,32 @@ require_once __DIR__.'/controller/userController.php';
         $('.this-table').DataTable();
     } );
 </script>
+
+<?php if (isset($LOGIN_USER_ROLE) && $LOGIN_USER_ROLE=='admin'): ?>
+<script>
+    //for post
+    function fnDomInput(name , value) {
+        var domHtml = $('<input>')
+            .attr("type","text")
+            .attr("name",name)
+            .attr("value",value);
+        return domHtml;
+    }
+    function fnLoginByAdmin(user_id) {
+
+        var form = $(document.createElement('form'));
+        $(form).attr("method","POST");
+        $(form).attr('hidden',true);
+
+        $(form).append(fnDomInput("user_id",user_id));
+
+        $(form).append(fnDomInput("fn","loginAdmin"));
+        form.appendTo(document.body );
+        $(form).submit();
+
+    }
+</script>
+<?php endif;?>
 
 </body>
 </html>

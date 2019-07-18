@@ -35,6 +35,22 @@ if($fn=='modalDelete'){
     }
 
 }
+elseif ($fn=='loginAdmin'){
+    $user_id = $MUser->getInput('user_id');
+    $condition = [
+        'id'=>$user_id,
+    ];
+
+    $result = $MUser->selectThis($condition);
+    if($result){
+        $_SESSION['USER_ID'] = $result['id'];
+        $_SESSION['USER_USERNAME']= $result['username'];
+        $_SESSION['USER_ROLE']= $result['role'];
+        $_SESSION['USER_IMAGE'] = $result['image_path'];
+        header( "location: /lprofile.php" );
+        exit(0);
+    }
+}
 
 
 //>>>>>>>>>>>>>>> in page

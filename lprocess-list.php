@@ -93,7 +93,7 @@ require_once  __DIR__.'/controller/processListController.php';
                                 </td>
                                 <td>
                                     <?php if (isset($LOGIN_USER_ROLE) && $LOGIN_USER_ROLE =='admin'):?>
-                                    <a class="btn btn-info btn-sm" href="lprocess-project.php?pid=<?php echo $item['id']; ?>">
+                                    <a class="btn btn-info btn-sm" href="lprocess-project.php?pid=<?php echo $item['id']; ?>" target="_blank">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <?php endif;?>

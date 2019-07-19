@@ -65,6 +65,7 @@ require_once  __DIR__.'/controller/processListController.php';
                             <th>โรงเรียน</th>
                             <th>ภาค</th>
                             <th>status</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -89,6 +90,13 @@ require_once  __DIR__.'/controller/processListController.php';
                                         echo '<h5 class="text-secondary">NON</h5>';
                                     }
                                     ?>
+                                </td>
+                                <td>
+                                    <?php if (isset($LOGIN_USER_ROLE) && $LOGIN_USER_ROLE =='admin'):?>
+                                    <a class="btn btn-info btn-sm" href="lprocess-project.php?pid=<?php echo $item['id']; ?>">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <?php endif;?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

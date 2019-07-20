@@ -116,6 +116,12 @@ require_once __DIR__.'/controller/trainingsListController.php';
                                     <a class="btn btn-warning btn-sm" href="ltrainings-edit.php?tid=<?php echo $item['id'];?>" data-toggle="tooltip" title="Edit Training" target="_blank">
                                         <i class="fa fa-edit"></i>
                                     </a>
+                                    <?php if($this_main_t_group=='PASS'):?>
+                                    <a class="btn btn-secondary btn-sm" href="ltrainings-confirm.php?pid=<?php echo $item['project_id'];?>&tid=<?php echo $item['main_training_id'];?>" data-toggle="tooltip" title="Change Member" target="_blank">
+                                        <i class="fa fa-user"></i>
+                                    </a>
+                                    <?php endif;?>
+                                    
                                 </td>
                             </tr>
                         <?php endforeach;?>

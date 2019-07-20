@@ -10,7 +10,7 @@ require_once __DIR__.'/_session_login.php';
 
 $MENU_LEFT = 'training-list';
 
-require_once __DIR__.'/controller/trainingsController.php';
+require_once __DIR__ . '/controller/trainingsConfirmsController.php';
 
 ?>
 
@@ -73,11 +73,10 @@ require_once __DIR__.'/controller/trainingsController.php';
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Title</th>
-                            <th>Date Start</th>
-                            <th>Date Edit</th>
-                            <th>Confirm</th>
-                            <th>Wait</th>
+                            <th>Project</th>
+                            <th>School</th>
+                            <th>Region</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -85,20 +84,18 @@ require_once __DIR__.'/controller/trainingsController.php';
                         <?php foreach ( $TRAINING as $key=>$item): ?>
                             <tr>
                                 <td> <?php echo ($key+1);?> </td>
-                                <td> <?php echo $item['training_title']; ?> </td>
-                                <td> <?php echo date('d/m/Y',strtotime($item['date_start'])); ?> </td>
-                                <td> <?php echo date('d/m/Y',strtotime($item['date_end'])); ?> </td>
-                                <td class="text-success font-weight-bold"> <?php echo $item['confirm'];?></td>
-                                <td class="text-secondary font-weight-bold"> <?php echo $item['wait'];?></td>
+                                <td> <?php echo $item['name']; ?> </td>
+                                <td> <?php echo $item['project_school']; ?> </td>
+                                <td> <?php echo $item['project_region']; ?> </td>
                                 <td>
-                                    <a class="btn btn-info btn-sm" href="ltrainings-list.php?tid=<?php echo $item['id'];?>" data-toggle="tooltip" title="Confirm">
-                                        <i class="fa fa-send"></i>
+                                    <span class="font-weight-bold text-secondary">
+                                        ยังไม่ยืนยันเข้าร่วมอบรม
+                                    </span>
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning btn-sm" href="ltrainings-confirm.php?pid=<?php echo $item['id'];?>&tid=<?php echo $this_main_t_id; ?>" data-toggle="tooltip" title="Confirm" target="_blank">
+                                        <i class="fa fa-edit"></i>
                                     </a>
-                                    <?php if($item['training_group']=='PASS'):?>
-                                        <a class="btn btn-warning btn-sm" href="ltrainings-confirms.php?tid=<?php echo $item['id'];?>" data-toggle="tooltip" title="Wait">
-                                            <i class="fa fa-hourglass-3"></i>
-                                        </a>
-                                    <?php endif;?>
                                 </td>
                             </tr>
                         <?php endforeach;?>

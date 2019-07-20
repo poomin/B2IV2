@@ -120,7 +120,7 @@ require_once __DIR__.'/controller/upostController.php';
                             <tr>
                                 <td> <?php echo ($key+1);?> </td>
                                 <td>
-                                    <a href="upost-view.php?tid=<?php echo $item['training_id'];?>">
+                                    <a href="upost-view.php?tid=<?php echo $item['id'];?>">
                                         <?php echo $item['training_title']; ?>
                                     </a>
                                 </td>

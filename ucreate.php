@@ -62,14 +62,14 @@ require_once __DIR__.'/controller/userCreateController.php';
 
                         <div class="form-group">
                             <label class="label-control">ชื่อโครงการ</label>
-                            <input class="form-control" type="text" name="name" value="<?php echo $this_pro_name;?>" required <?php echo $DISABLE;?> disabled>
+                            <input class="form-control" type="text" name="name" value="<?php echo $this_pro_name;?>" required <?php echo $DISABLE;?> >
                             <div class="invalid-feedback">
                                 กรุณากรอกชื่อโครงการ
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="label-control">ชื่อโครงการ(ภาษาอังกฤษ)</label>
-                            <input class="form-control" type="text" name="name_en" value="<?php echo $this_pro_name_en;?>" required <?php echo $DISABLE;?> disabled >
+                            <input class="form-control" type="text" name="name_en" value="<?php echo $this_pro_name_en;?>" required <?php echo $DISABLE;?> >
                             <div class="invalid-feedback">
                                 กรุณากรอกชื่อโครงการ (ภาษาอังกฤษ)
                             </div>
@@ -77,7 +77,7 @@ require_once __DIR__.'/controller/userCreateController.php';
                         <!-- cherry 190819 -->
                         <div class="form-group pt-3">
                             <label class="label-control" for="idSchool">โรงเรียน / สถานศึกษา </label>
-                            <select id="idSchool" name="school_name" class="selectpicker form-control" data-live-search="true" title="Please select a school ..." required <?php echo $DISABLE;?> disabled>
+                            <select id="idSchool" name="school_name" class="selectpicker form-control" data-live-search="true" title="Please select a school ..." required <?php echo $DISABLE;?> >
                                 <?php foreach ($SCHOOLS as $item): ?>
                                     <option value="<?php echo $item['school_name'];?>" <?php echo $item['school_name']==$this_school?'selected':'';?> >
                                         <?php echo $item['school_name'].'('.$item['province'].')';?>
@@ -88,7 +88,7 @@ require_once __DIR__.'/controller/userCreateController.php';
 
                         <div class="form-group pt-3 pb-3">
                             <label class="label-control">อาจารย์ / ที่ปรึกษาโครงการ</label>
-                            <input class="form-control" type="text" name="adviser" value="<?php echo $this_name_title.''.$this_name.' '.$this_surname;?>" required disabled>
+                            <input class="form-control" type="text" name="adviser" value="<?php echo $this_name_title.''.$this_name.' '.$this_surname;?>" required >
                             <div class="invalid-feedback">
                                 กรุณากรอก อาจารย์ / ที่ปรึกษาโครงการ
                             </div>
@@ -102,8 +102,8 @@ require_once __DIR__.'/controller/userCreateController.php';
                                 <div class="col-8">
                                     <input type="text" class="form-control" value="<?php echo $item['name_title'].''.$item['name'].' '.$item['surname'].' ( '.$item['schoolname'].' )';?>" disabled>
                                 </div>
-                                <!-- cherry 190819 -->
-                                <div class="col-4" hidden>
+
+                                <div class="col-4">
                                     <button class="btn btn-danger" type="button" onclick="deleteStudent('<?php echo $item['user_id'];?>');" <?php echo $DISABLE;?> >
                                         <i class="fa fa-remove"></i>
                                     </button>
@@ -163,8 +163,8 @@ require_once __DIR__.'/controller/userCreateController.php';
                             <input id="studentListId" type="text" name="studentList" value="<?php echo $studentList; ?>" hidden>
 
                             <!-- cherry -->
-                            <?php if($PHASE_EDIT || true): ?>
-                                <?php if($EDIT || true):?>
+                            <?php if($PHASE_EDIT): ?>
+                                <?php if($EDIT):?>
                                     <input type="text" name="pro_id" value="<?php echo $PID;?>" hidden>
                                     <input type="text" name="fn" value="editProject" hidden>
                                     <button type="submit" class="btn btn-lg sr-button btn-warning" <?php echo $DISABLE;?> >UPDATE</button>

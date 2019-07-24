@@ -105,7 +105,7 @@ if($fn=='createProject'){
 
 }
 elseif($fn=='editProject'){
-    $p_project_id = $MPro->getInput('pro_id');
+    $p_project_id = $MPro->getInput('pro_id',0);
 
     $p_main_id = $MPro->getInput('main_id');
     $p_name = $MPro->getInput('name');

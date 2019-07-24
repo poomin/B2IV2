@@ -29,7 +29,7 @@ if(isset($result['id'])){
             if($item['training_group']=='PASS'){
                 $result = $MT->selectAllThis(['main_training_id'=>$item['id']]);
                 $i_confirm = count($result);
-                $sq ='SELECT pp.id FROM b2i_project AS p LEFT JOIN b2i_project_phase AS pp ON p.id = pp.id 
+                $sq ='SELECT pp.id FROM b2i_project AS p LEFT JOIN b2i_project_phase AS pp ON p.id = pp.project_id 
 WHERE pp.phase_status = "PASS" AND p.main_id = '.$this_main_pro_id.' AND pp.sq='.$item['sq'];
                 $result = $MMain->sqlAll($sq);
                 $i_all = count($result);

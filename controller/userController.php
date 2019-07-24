@@ -16,7 +16,7 @@ $USERS = [];
 $fn = $MUser->getInput('fn');
 if($fn=='modalDelete'){
 
-    $user_id = $MUser->getInput('delete_id');
+    $user_id = $MUser->getInput('delete_id',0);
 
     $condition = [
         'id'=>$user_id

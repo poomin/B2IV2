@@ -13,7 +13,7 @@ $IMAGES = [];
 $fn = $MWebImage->getInput('fn');
 if($fn=='modalDelete'){
 
-    $image_id = $MWebImage->getInput('delete_id');
+    $image_id = $MWebImage->getInput('delete_id',0);
 
     $condition = [
         'id'=>$image_id

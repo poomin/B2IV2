@@ -15,7 +15,7 @@ $fn = $MHall->getInput('fn');
 
 if($fn=='modalDelete'){
 
-    $hall_id = $MHall->getInput('delete_id');
+    $hall_id = $MHall->getInput('delete_id',0);
 
     $condition = [
         'id'=>$hall_id

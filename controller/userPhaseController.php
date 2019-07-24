@@ -22,7 +22,7 @@ $MProPhase = new ProjectPhaseModel();
 $fn = $MPro->getInput('fn');
 if($fn=='modalDelete'){
 
-    $user_id = $MPro->getInput('delete_id');
+    $user_id = $MPro->getInput('delete_id',0);
 
     $condition = [
         'id'=>$user_id

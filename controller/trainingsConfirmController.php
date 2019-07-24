@@ -58,6 +58,8 @@ if($fn=='addConfirmPass'){
     $result = $MTrain->selectThis(['main_training_id'=> $it['main_training_id'],'project_id'=> $it['project_id']]);
     if(isset($result['id'])){
         $lastId = $result['id'];
+    }else{
+        $lastId = 0;
     }
 
     $resultDelete = $MTMember->deleteThis(['training_id'=>$lastId]);

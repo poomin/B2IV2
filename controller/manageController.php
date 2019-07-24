@@ -21,7 +21,7 @@ $PHASE = [];
 $fn = $MPhase->getInput('fn');
 if($fn=='modalDelete'){
 
-    $delete_id = $MPhase->getInput('delete_id');
+    $delete_id = $MPhase->getInput('delete_id',0);
 
     $condition = [
         'id'=>$delete_id

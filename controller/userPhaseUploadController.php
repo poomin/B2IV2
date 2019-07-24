@@ -132,7 +132,7 @@ elseif($fn=='addVideo'){
 
 elseif($fn=='modalDelete'){
 
-    $delete_id = $MProUpload->getInput('delete_id');
+    $delete_id = $MProUpload->getInput('delete_id',0);
 
     $condition = [
         'id'=>$delete_id

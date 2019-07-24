@@ -14,7 +14,7 @@ $NEWS = [];
 $fn = $MNews->getInput('fn');
 if($fn=='modalDelete'){
 
-    $news_id = $MNews->getInput('delete_id');
+    $news_id = $MNews->getInput('delete_id',0);
 
     $condition = [
         'id'=>$news_id

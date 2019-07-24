@@ -86,7 +86,7 @@ elseif($fn=='modalActive'){
 }
 elseif($fn=='modalDelete'){
 
-    $delete_id = $MMain->getInput('delete_id');
+    $delete_id = $MMain->getInput('delete_id',0);
 
     $condition = [
         'id'=>$delete_id

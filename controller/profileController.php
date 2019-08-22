@@ -117,3 +117,15 @@ if($result){
 
 
 
+// >>>>>>>>>>>>>>> set default to section <<<<<<<<<<<<<<<<<<<<<<<<<
+//count question
+require_once __DIR__.'/../model/QuestionModel.php';
+$LMQ = new QuestionModel();
+$condition = [
+    'admin_read'=>'N'
+];
+$result = $LMQ->selectThisAll($condition);
+$COUNT_QUESTION = count($result);
+$_SESSION['COUNT_QUESTION'] = $COUNT_QUESTION;
+
+

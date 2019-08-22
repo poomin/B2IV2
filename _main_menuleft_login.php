@@ -5,6 +5,8 @@
  * Date: 28/3/2562
  * Time: 06:48 หลังเที่ยง
  */
+
+$COUNT_QUESTION = isset($COUNT_QUESTION)?$COUNT_QUESTION:0;
 ?>
 <div class="sidebar-sticky">
 
@@ -69,6 +71,16 @@
             <a class="nav-link a-nav <?php echo $MENU_LEFT == 'user'?'active':'';?>" href="/luser.php">
                 <i class="fa fa-users"></i>
                 จัดการสมาชิก
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link a-nav <?php echo $MENU_LEFT == 'lquestion'?'active':'';?>" href="/lquestion.php">
+                <i class="fa fa-question-circle-o"></i>
+                ถาม-ตอบ
+                <?php if($COUNT_QUESTION>0):?>
+                    <span class="badge badge-danger"><?php echo $COUNT_QUESTION;?></span>
+                <?php endif;?>
             </a>
         </li>
 
@@ -209,6 +221,13 @@
             <a class="nav-link a-nav <?php echo $MENU_LEFT == 'upost'?'active':'';?>" href="/upost.php">
                 <i class="fa fa-envelope-o"></i>
                 อบรม
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link a-nav <?php echo $MENU_LEFT == 'uquestion'?'active':'';?>" href="/uquestion.php">
+                <i class="fa fa-question-circle-o"></i>
+                ถาม-ตอบ
             </a>
         </li>
 

@@ -421,8 +421,14 @@ require_once __DIR__.'/controller/userPhaseUploadController.php';
                         </div>
                     </form>
                     <div class="text-center" id="uploadVideoId">
-                        <button class="btn btn-info btn-lg" type="button" onclick="showLoadVideo();">
-                            <i class="fa fa-file-video-o"></i> Upload
+                        <button class="btn btn-danger btn-lg" type="button" onclick="showLoadVideo();">
+                            <i class="fa fa-youtube"></i> Youtube
+                        </button>
+                        <button class="btn btn-success btn-lg" type="button" onclick="showLoadVideoGoogle();">
+                            <i class="fa fa-google-plus"></i> Google
+                        </button>
+                        <button class="btn btn-primary btn-lg" type="button" onclick="showLoadVideoFacebook();">
+                            <i class="fa fa-facebook"></i> Facebook
                         </button>
                     </div>
                     <?php endif; ?>
@@ -729,6 +735,7 @@ require_once __DIR__.'/modal_youtube.php';
         $('#formImageId').attr('hidden',true);
     }
 
+    //youtube
     function showLoadVideo() {
         $('#input_youtube').val('');
         $('#modalURLYoutube').modal();
@@ -759,6 +766,66 @@ require_once __DIR__.'/modal_youtube.php';
             }
         }
     }
+    //google
+    function showLoadVideoGoogle() {
+        $('#input_google').val('');
+        $('#modalURLGoogle').modal();
+    }
+    function addUrlGoogle() {
+        $('#modalURLGoogle').modal('hide');
+        var src = $('#input_google').val();
+        src = cutUrlGoogle(src);
+        if(src=='' || src==undefined){
+            alert("กรุณาตรวจสอบ URL");
+        }else{
+            $('#videoShow').attr('src',src);
+            $('#pathVideoId').attr('value',src);
+            $('#uploadVideoId').attr('hidden',true);
+            $('#formVideoId').attr('hidden',false);
+        }
+    }
+    function cutUrlGoogle(str) {
+        var iframe= document.createElement('div');
+        iframe.innerHTML = str;
+        var src = $(iframe).find("iframe").first().attr("src");
+        console.log(src);
+        if(src==undefined){
+            return '';
+        }else{
+            return  src;
+        }
+    }
+    //facebook
+    function showLoadVideoFacebook() {
+        $('#input_facebook').val('');
+        $('#modalURLFacebook').modal();
+    }
+    function addUrlFacebook() {
+        $('#modalURLFacebook').modal('hide');
+        var src = $('#input_facebook').val();
+        src = cutUrlFacebook(src);
+        if(src=='' || src==undefined){
+            alert("กรุณาตรวจสอบ URL");
+        }else{
+            $('#videoShow').attr('src',src);
+            $('#pathVideoId').attr('value',src);
+            $('#uploadVideoId').attr('hidden',true);
+            $('#formVideoId').attr('hidden',false);
+        }
+    }
+    function cutUrlFacebook(str) {
+        var iframe= document.createElement('div');
+        iframe.innerHTML = str;
+        var src = $(iframe).find("iframe").first().attr("src");
+        console.log(src);
+        if(src==undefined){
+            return '';
+        }else{
+            return  src;
+        }
+    }
+
+
     function cancelSaveVideo() {
         $("#file_video").val("");
         $('#uploadVideoId').attr('hidden',false);

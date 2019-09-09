@@ -28,7 +28,7 @@ if(!isset($LOGIN_USER_ID)){
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" style="margin-top: -50px;" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse justify-content-end" style="margin-top: -50px;" id="navbarNavDropdown">
 <!--            <ul class="nav nav-fill w-100">-->
             <ul class="navbar-nav" style="background-color: #F2F2F2;">
                 <li class="nav-item">

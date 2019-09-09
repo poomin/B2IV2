@@ -29,7 +29,7 @@ require_once __DIR__.'/controller/indexController.php';
     <?php require_once __DIR__.'/_main_menutop.php';?>
 
     <div style="margin-top: -80px;">
-        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade row" data-ride="carousel">
             <div class="carousel-inner" id="TestGame">
                 <div class="carousel-item active">
                     <img src="./images/photo-banner-1.png" class="d-block w-100" alt="...">
@@ -62,9 +62,16 @@ require_once __DIR__.'/controller/indexController.php';
                     <img src="./images/photo-banner-10.png" class="d-block w-100" alt="...">
                 </div>
             </div>
-            <a class="slide-register" href="/index-register.php">
-                <img class="image-zoom" src="./images/Application-Icon.png">
-            </a>
+<!--            <div class="row">-->
+<!--                <a class="slide-register" href="/index-register.php">-->
+<!--                    <img class="image-zoom" src="./images/Application-Icon.png">-->
+<!--                </a>-->
+<!--            </div>-->
+
+
+            <div class="col-4 col-md-4 slide-register" onclick="fnClickImgRegister()">
+                <img class="image-zoom img-fluid" src="./images/Application-Icon.png">
+            </div>
         </div>
     </div>
 
@@ -94,6 +101,10 @@ require_once __DIR__.'/controller/indexController.php';
             interval: 2000
         })
     });
+    
+    function fnClickImgRegister() {
+        window.location.href = "/index-register.php";
+    }
 
 </script>
 

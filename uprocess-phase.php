@@ -358,7 +358,7 @@ require_once __DIR__.'/controller/userPhaseUploadController.php';
                 <?php if(strtoupper($this_mp_video)=='Y'): ?>
                 <div class="pt-3">
                     <div class="p-3">
-                        <h5>อัพโหลดวีดีโอ (url youtube)</h5>
+                        <h5>อัพโหลดวีดีโอ ( < > ฝัง )</h5>
                     </div>
 
                     <table class="this-table table table-striped table-bordered w-100">
@@ -376,7 +376,7 @@ require_once __DIR__.'/controller/userPhaseUploadController.php';
                                 <td><?php echo ($key+1); ?></td>
                                 <td class="text-center">
                                     <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe id="videoShow" class="embed-responsive-item" src="<?php echo $item['upload_path'];?>" ></iframe>
+                                        <iframe class="embed-responsive-item" src="<?php echo $item['upload_path'];?>" ></iframe>
                                     </div>
                                 </td>
                                 <td>
@@ -744,7 +744,7 @@ require_once __DIR__.'/modal_youtube.php';
         $('#modalURLYoutube').modal('hide');
         var src = $('#input_youtube').val();
         var src = cutUrlYoutube(src);
-        if(src=='no'){
+        if(src=='' || src==undefined){
             alert("กรุณาตรวจสอบ URL");
         }else{
             $('#videoShow').attr('src',src);
@@ -754,16 +754,14 @@ require_once __DIR__.'/modal_youtube.php';
         }
     }
     function cutUrlYoutube(str) {
-        var str2 = "embed";
-        if(str.indexOf(str2) != -1){
-            return str;
+        var iframe= document.createElement('div');
+        iframe.innerHTML = str;
+        var src = $(iframe).find("iframe").first().attr("src");
+        console.log(src);
+        if(src==undefined){
+            return '';
         }else{
-            var cut = str.split('?v=');
-            if(cut.length >1){
-                return 'https://www.youtube.com/embed/'+cut['1'];
-            }else{
-                return 'no';
-            }
+            return  src;
         }
     }
     //google

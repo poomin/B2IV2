@@ -18,7 +18,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input class="form-control" id="input_youtube" type="text" value="">
+                <textarea rows="4" class="form-control" id="input_youtube" value=""></textarea>
+                <p>ฝังรายการ</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="addUrlYoutube();">Add</button>

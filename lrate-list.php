@@ -68,9 +68,9 @@ require_once  __DIR__.'/controller/rateListController.php';
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($PROJECTS as $key=>$item): ?>
+                        <?php $c=1; foreach ($PROJECTS as $key=>$item): ?>
                             <tr>
-                                <td><?php echo ($key+1);?></td>
+                                <td><?php echo ($c++);?></td>
                                 <td>
                                     <a href="/lrate-view.php?pid=<?php echo $item['id']; ?>&sq=<?php echo $this_phase_sq; ?>" target="_blank">
                                         <?php echo $item['name'];?>

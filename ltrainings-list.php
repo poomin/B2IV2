@@ -54,9 +54,9 @@ require_once __DIR__.'/controller/trainingsListController.php';
                             <h2 class="h-c"><i class="fa fa-sticky-note-o icon-zoom"></i> สมาชิกเข้าร่วมอบรม </h2>
                         </div>
                         <div class="col-4 text-right">
-                            <a class="btn btn-success btn-sm" href="ltraining-add.php">
-                                <i class="fa fa-plus"></i> Add
-                            </a>
+<!--                            <a class="btn btn-success btn-sm" href="ltraining-add.php">-->
+<!--                                <i class="fa fa-plus"></i> Add-->
+<!--                            </a>-->
                         </div>
                     </div>
                     <hr class="style1">

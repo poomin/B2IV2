@@ -51,9 +51,9 @@ require_once __DIR__.'/controller/manageController.php';
                             <h2 class="h-c"><i class="fa fa-gear icon-zoom"></i> กำหนดโครงการ</h2>
                         </div>
                         <div class="col-4 text-right">
-                            <a class="btn btn-success btn-sm" href="/lmanage-phase.php" data-toggle="tooltip" title="Add face">
-                                <i class="fa fa-plus"></i> Add Face
-                            </a>
+<!--                            <a class="btn btn-success btn-sm" href="/lmanage-phase.php" data-toggle="tooltip" title="Add face">-->
+<!--                                <i class="fa fa-plus"></i> Add Face-->
+<!--                            </a>-->
                         </div>
                     </div>
 
@@ -63,6 +63,12 @@ require_once __DIR__.'/controller/manageController.php';
                 <!-- alert status -->
                 <div class="p-1">
                     <?php require_once __DIR__.'/_alert.php';?>
+                </div>
+
+                <div class="text-right mb-2">
+                    <a class="btn btn-success btn-sm" href="/lmanage-phase.php" data-toggle="tooltip" title="Add face">
+                        <i class="fa fa-plus"></i> Add Face
+                    </a>
                 </div>
 
                 <div class="p-0 text-center">

@@ -48,9 +48,9 @@ require_once __DIR__.'/controller/mainProject.php';
                             <h2 class="h-c"><i class="fa fa-gear icon-zoom"></i> Active / สร้างโครงการ</h2>
                         </div>
                         <div class="col-4 text-right">
-                            <button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-target="#modalAddMainProject">
-                                <i class="fa fa-plus"></i> Add
-                            </button>
+<!--                            <button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-target="#modalAddMainProject">-->
+<!--                                <i class="fa fa-plus"></i> Add-->
+<!--                            </button>-->
                         </div>
                     </div>
                     <hr class="style1">
@@ -61,6 +61,11 @@ require_once __DIR__.'/controller/mainProject.php';
                     <?php require_once __DIR__.'/_alert.php';?>
                 </div>
 
+                <div class="text-right mb-2">
+                    <button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-target="#modalAddMainProject">
+                        <i class="fa fa-plus"></i> Add
+                    </button>
+                </div>
 
                 <div class="p-0">
                     <table class="this-table table table-bordered">

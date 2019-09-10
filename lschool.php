@@ -45,16 +45,7 @@ require_once __DIR__.'/controller/schoolController.php';
             <div class="col-9 p-5 bg-white">
 
                 <div class="p-0">
-                    <div class="row">
-                        <div class="col-8">
-                            <h2 class="h-c"><i class="fa fa-university icon-zoom"></i> จัดการโรงเรียน</h2>
-                        </div>
-                        <div class="col-4 text-right">
-                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalAddSchool">
-                                <i class="fa fa-plus"></i> Add
-                            </button>
-                        </div>
-                    </div>
+                    <h2 class="h-c"><i class="fa fa-university icon-zoom"></i> จัดการโรงเรียน</h2>
                     <hr class="style1">
                 </div>
 
@@ -62,6 +53,13 @@ require_once __DIR__.'/controller/schoolController.php';
                 <div class="p-1">
                     <?php require_once __DIR__.'/_alert.php';?>
                 </div>
+
+                <div class="text-right mb-2">
+                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalAddSchool">
+                        <i class="fa fa-plus"></i> Add
+                    </button>
+                </div>
+
 
                 <div class="p-0">
 

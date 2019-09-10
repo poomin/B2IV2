@@ -84,6 +84,24 @@ WHERE ms.sq = '.$this_phase_sq.' AND ms.main_id = '.$this_main_id.' GROUP BY ps.
 
     }
 
+    //clear phase
+    if(intval($this_phase_sq)>1){
+        $PASS_PHASE = [];
+        $result = $MPPhase->selectThisAll(['sq'=> (intval($this_phase_sq)-1) , 'phase_status'=>'PASS']);
+        if(count($result) >0){
+            foreach ($result as $key=>$item){
+                $PASS_PHASE[] =$item['project_id'];
+            }
+        }
+
+        foreach ($PROJECTS as $key=>$item){
+            $i_project_id = $item['id'];
+            if(! in_array($i_project_id,$PASS_PHASE)){
+                unset($PROJECTS[$key]);
+            }
+        }
+    }
+
 
 
 

@@ -194,6 +194,20 @@ elseif($fn == 'editNews'){
 
 
 }
+elseif ($fn=='loadNews'){
+    require_once __DIR__.'/../model/NewsModel.php';
+    $MNews = new NewsModel();
+
+    $page = $MNews->getInput('page');
+    $page = ($page==0)?1*5:$page*5;
+    $sql = ' order by create_at DESC limit '.$page.' , 5 ';
+
+    $result = $MNews->selectSqlAll($sql);
+
+    echo json_encode(['status'=>true , 'result'=>$result]);
+    exit(0);
+
+}
 
 //>>>>>>>>>>>>> Hall
 elseif ($fn=='addHall'){
@@ -288,6 +302,56 @@ elseif ($fn=='loadHall'){
 
 
     echo json_encode(['status'=>true , 'result'=>$result]);
+    exit(0);
+
+
+}
+
+//>>>>>>>>>>>>> picture , pictures
+elseif ($fn=='addWebPicture'){
+    require_once __DIR__.'/../model/PicturesModel.php';
+    $MPics = new PicturesModel();
+
+    $web_id = $MPics->getInput('wid');
+    $web_image = $MPics->getInput('src');
+
+    $update_rows =  $MPics->insertThis(['activity_id'=>$web_id , 'picture_path'=>$web_image]);
+
+    if($update_rows > 0){
+        echo json_encode(['status'=>true]);
+        exit(0);
+    }else{
+        echo json_encode(['status'=>false]);
+        exit(0);
+    }
+
+
+}
+elseif ($fn=='loadPicture'){
+    require_once __DIR__.'/../model/PictureModel.php';
+    require_once __DIR__.'/../model/PicturesModel.php';
+
+    $MPic = new PictureModel();
+    $MPics = new PicturesModel();
+
+    $PICS = [];
+
+    $page = $MPic->getInput('page');
+    $page = ($page==0)?1*9:$page*9;
+    $sql = ' order by create_at DESC limit '.$page.' , 9 ';
+
+    $PICS = $MPic->selectSqlAll($sql);
+    foreach ($PICS as $key=>$item){
+        $PICS[$key]["pictures"] = [];
+        $sql = ' ORDER BY create_at DESC LIMIT 3 ';
+        $result = $MPics->selectSqlAll($sql);
+        if(count($result)>0){
+            $PICS[$key]["pictures"] = $result;
+        }
+    }
+
+
+    echo json_encode(['status'=>true , 'result'=>$PICS]);
     exit(0);
 
 

@@ -11,9 +11,7 @@ $MNews = new NewsModel();
 
 $NEWS = [];
 
-
-
-$sql = " ORDER BY news_pin ASC , create_at DESC LIMIT 10 ";
+$sql = " ORDER BY news_pin ASC , create_at DESC LIMIT 5 ";
 $result = $MNews->selectSqlAll($sql);
 if(count($result)>0){
     $NEWS = $result;

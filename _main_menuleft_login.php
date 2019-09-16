@@ -42,6 +42,13 @@ $COUNT_QUESTION = isset($COUNT_QUESTION)?$COUNT_QUESTION:0;
         </li>
 
         <li class="nav-item">
+            <a class="nav-link a-nav <?php echo $MENU_LEFT == 'picture'?'active':'';?>" href="/lpicture.php">
+                <i class="fa fa-image"></i>
+                ภาพกิจกรรม
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link a-nav <?php echo $MENU_LEFT == 'hall'?'active':'';?>" href="/lhall.php">
                 <i class="fa fa-file-video-o"></i>
                 Hall for fame

@@ -34,8 +34,7 @@ require_once __DIR__.'/controller/indexNewsController.php';
         <div class="pt-2">
             <p>&nbsp;</p>
         </div>
-        <div class="p-0">
-
+        <div class="p-0" id="showLoadPageId">
 
             <?php foreach ($NEWS as $key=>$item):?>
                 <div class="alert-warning shadow-lg p-3 m-5 rounded">
@@ -51,7 +50,6 @@ require_once __DIR__.'/controller/indexNewsController.php';
                                     <?php echo strip_tags($item['detail']);?>
                                 </span>
                                 <a href="/index-news-read.php?nid=<?php echo $item['id'];?>">อ่านต่อ</a>
-
                             </p>
                         </div>
                     </div>
@@ -68,6 +66,10 @@ require_once __DIR__.'/controller/indexNewsController.php';
             <?php endforeach;?>
         </div>
 
+        <div class="pr-5 pl-5 pb-2">
+            <button id="loadPageId" attr="1" class="btn btn-info btn-lg btn-block" type="button" onclick="loadMore()" > Load More </button>
+        </div>
+
 
 
     </div>
@@ -81,6 +83,82 @@ require_once __DIR__.'/controller/indexNewsController.php';
 
 <?php require_once __DIR__.'/_main_script.php';?>
 
+<script>
+
+    function convertDate(inputFormat) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        var d = new Date(inputFormat);
+        return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+    }
+
+    function loadMore() {
+        $('#loadPageId').attr('disabled',true);
+        $('#loadPageId').html("Load ....... ");
+        var count = $('#loadPageId').attr('attr');
+        var req = $.ajax({
+            type: 'POST',
+            url: './service/API.php',
+            data: {
+                fn: 'loadNews',
+                page: count
+            },
+            dataType: 'JSON'
+        });
+        req.done(function (res) {
+            if(res.status){
+                var result = res.result;
+                var pic;
+                var str = '';
+                console.log(res);
+                for(var i = (result.length -1) ; i>=0;i--){
+
+                    str+= '<div class="alert-warning shadow-lg p-3 m-5 rounded">';
+                    str+= '<div class="post-body row">';
+                    str+= '<div class="col-4 border-0 text-center">';
+                    str+= '<img class="image-zoom rounded" src="'+result[i].image+'" alt="B2i new" style="width: 250px; height: auto;">';
+                    str+= '</div>';
+                    str+= '<div class="col-8 border-0">';
+                    str+= '<h5 class="font-weight-bolder">'+result[i].title+'</h5>';
+                    str+= '<hr>';
+                    str+= '<p>';
+                    str+= '<span class="crop-text">'+jQuery(result[i].detail).text()+'</span>';
+                    str+= '<a href="/index-news-read.php?nid='+result[i].id+'">อ่านต่อ</a>';
+                    str+= '</p>';
+                    str+= '</div>';
+                    str+= '</div>';
+                    str+= '<hr>';
+                    str+= '<div class="post-footer">';
+                    str+= '<span class="text-dark">';
+                    str+= '<i class="fa fa-calendar"></i> '+convertDate(result[i].create_at);
+                    str+= '<i class="fa fa-eye" style="padding-left: 10px;"></i>'+result[i].view_count;
+                    str+= '<i class="fa fa-comments" style="padding-left: 10px;"></i>'+result[i].comment_count;
+                    str+= '<i class="fa fa-pencil" style="padding-left: 10px;"></i>'+result[i].news_type;
+                    str+= '</span>';
+                    str+= '</div>';
+                    str+= '</div>';
+
+                }
+                if(str==''){
+                    $('#loadPageId').attr('disabled',true);
+                    $('#loadPageId').html("Load Max");
+                }else{
+                    if(result.length < 10 ){
+                        $('#loadPageId').attr('disabled',true);
+                        $('#loadPageId').html("Load Max");
+                    }else {
+                        $('#loadPageId').attr('disabled',false);
+                        $('#loadPageId').html("Load More");
+                    }
+                    $('#loadPageId').attr('attr',(parseInt(count)+1));
+                    $('#showLoadPageId').append(str);
+                }
+
+            }else{
+                alert('Load Page false!!!!');
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

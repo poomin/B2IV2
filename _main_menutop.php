@@ -41,6 +41,9 @@ if(!isset($LOGIN_USER_ID)){
                     <a class="nav-link a-menu <?php echo $MENU_LEFT == 'h-hall'?'active':'';?>" href="/index-hall.php">HALL FOR FAME</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link a-menu <?php echo $MENU_LEFT == 'h-picture'?'active':'';?>" href="/index-picture.php">ภาพกิจกรรม</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link a-menu <?php echo $MENU_LEFT == 'h-news'?'active':'';?>" href="/index-news.php">ข่าว / ประกาศ</a>
                 </li>
                 <li class="nav-item">

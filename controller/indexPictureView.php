@@ -16,7 +16,7 @@ $this_detail = '';
 $this_date = '';
 $PICTURES = [];
 
-$pid = $MPic->getInput('id',0);
+$pid = $MPic->getInput('hid',0);
 
 $result = $MPic->selectThis(['id'=>$pid]);
 if(isset($result['id'])){

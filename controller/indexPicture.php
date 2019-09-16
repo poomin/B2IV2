@@ -20,7 +20,7 @@ if(count($result)>0){
     $ACTIVITY = $result;
     foreach ($ACTIVITY as $key=>$item){
         $ACTIVITY[$key]["pictures"] = [];
-        $sql = ' ORDER BY create_at DESC LIMIT 3 ';
+        $sql = ' WHERE activity_id= '.$item['id'].' ORDER BY create_at DESC LIMIT 3 ';
         $result = $MPics->selectSqlAll($sql);
         if(count($result)>0){
             $ACTIVITY[$key]["pictures"] = $result;

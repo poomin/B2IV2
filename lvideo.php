@@ -8,9 +8,9 @@
 require_once __DIR__.'/_session.php';
 require_once __DIR__.'/_session_login.php';
 
-$MENU_LEFT = 'picture';
+$MENU_LEFT = 'video';
 
-require_once __DIR__.'/controller/pictureController.php';
+require_once __DIR__.'/controller/videoController.php';
 
 ?>
 
@@ -46,7 +46,7 @@ require_once __DIR__.'/controller/pictureController.php';
             <div class="col-9 p-5 bg-white">
 
                 <div class="p-0">
-                    <h2 class="h-c"><i class="fa fa-image icon-zoom"></i> ภาพกิจกรรม </h2>
+                    <h2 class="h-c"><i class="fa fa-video-camera icon-zoom"></i> วิดีโอกิจกรรม </h2>
                     <hr class="style1">
                 </div>
 
@@ -56,7 +56,7 @@ require_once __DIR__.'/controller/pictureController.php';
                 </div>
 
                 <div class="text-right mb-2">
-                    <button class="btn btn-success btn-sm" type="button" data-toggle="tooltip" title="Add Picture" onclick="showModalCreateActivityPicture()">
+                    <button class="btn btn-success btn-sm" type="button" data-toggle="tooltip" title="Add Picture" onclick="showModalCreateActivityVideo()">
                         <i class="fa fa-plus"></i> Add
                     </button>
                 </div>
@@ -73,7 +73,7 @@ require_once __DIR__.'/controller/pictureController.php';
                         </tr>
                         </thead>
                         <tbody>
-                        <?php $c=1; foreach ($PICTURES as $key=>$item): ?>
+                        <?php $c=1; foreach ($VIDEOS as $key=>$item): ?>
                             <tr>
                                 <td> <?php echo ($c++); ?> </td>
                                 <td> <?php echo $item['title']; ?> </td>
@@ -83,8 +83,7 @@ require_once __DIR__.'/controller/pictureController.php';
                                     $item_id = $item['id'];
                                     $item_text = 'ภาพกิจกรรม <strong>'.$item['title'].'</strong>';
                                     ?>
-
-                                    <a class="btn btn-warning btn-sm" href="/lpicture-edit.php?pid=<?php echo $item['id'];?>" data-toggle="tooltip" title="Edit picture">
+                                    <a class="btn btn-warning btn-sm" href="/lvideo-edit.php?vid=<?php echo $item['id'];?>" data-toggle="tooltip" title="Edit picture">
                                         <i class="fa fa-edit"></i>
                                     </a>
 
@@ -117,7 +116,7 @@ require_once __DIR__.'/controller/pictureController.php';
 <?php
 
 require_once __DIR__.'/modal_delete.php';
-require_once __DIR__.'/modal_picture.php';
+require_once __DIR__.'/modal_video.php';
 
 ?>
 
@@ -136,14 +135,14 @@ require_once __DIR__.'/_datatable_script.php';
         $('.this-table').DataTable();
     } );
 
-    function showModalCreateActivityPicture() {
-        $("#modalCreateActivityPicture").modal();
+    function showModalCreateActivityVideo() {
+        $("#modalCreateActivityVideo").modal();
     }
     
-    function createActivityPicture() {
+    function createActivityVideo() {
         var title = $("#input_activity_title").val();
         if(title=='' || title==undefined){
-            alert("Please input 'ชื่อภาพกิจกรรม'")
+            alert("Please input 'ชื่อวิดีโอกิจกรรม'")
         }else{
             var form = $(document.createElement('form'));
             $(form).attr("method","POST");

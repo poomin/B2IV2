@@ -33,8 +33,6 @@ if($fn == 'addUserImage'){
     exit(0);
 }
 
-
-
 //>>>>>>>>>>>>> WEB
 elseif($fn == 'addEditWebInfo'){
     require_once __DIR__.'/../model/WebModel.php';
@@ -131,6 +129,36 @@ elseif ($fn=='addWebImage'){
 
 }
 
+//>>>>>>>>>>>> VIDEO
+elseif ($fn=='loadVideo'){
+    require_once __DIR__.'/../model/VideoModel.php';
+    require_once __DIR__.'/../model/VideosModel.php';
+
+    $MVideo = new VideoModel();
+    $MVideos = new VideosModel();
+
+    $VIDEOS = [];
+
+    $page = $MVideo->getInput('page');
+    $page = ($page==0)?1*10:$page*10;
+    $sql = ' order by create_at DESC limit '.$page.' , 10 ';
+
+    $VIDEOS = $MVideo->selectSqlAll($sql);
+    foreach ($VIDEOS as $key=>$item){
+        $VIDEOS[$key]["pictures"] = '';
+        $sql = '  WHERE activity_id= '.$item['id'].' ORDER BY create_at DESC LIMIT 1 ';
+        $result = $MVideos->selectSqlAll($sql);
+        if(count($result)>0){
+            $VIDEOS[$key]["video"] = $result[0]['video_path'];
+        }
+    }
+
+
+    echo json_encode(['status'=>true , 'result'=>$VIDEOS]);
+    exit(0);
+
+
+}
 
 //>>>>>>>>>>>>> News
 elseif($fn == 'addNews'){
@@ -343,7 +371,7 @@ elseif ($fn=='loadPicture'){
     $PICS = $MPic->selectSqlAll($sql);
     foreach ($PICS as $key=>$item){
         $PICS[$key]["pictures"] = [];
-        $sql = ' ORDER BY create_at DESC LIMIT 3 ';
+        $sql = ' WHERE activity_id= '.$item['id'].'  ORDER BY create_at DESC LIMIT 3 ';
         $result = $MPics->selectSqlAll($sql);
         if(count($result)>0){
             $PICS[$key]["pictures"] = $result;

@@ -50,7 +50,7 @@ require_once __DIR__.'/controller/upostConfirmController.php';
             <div class="col-9 p-5 bg-white">
 
                 <div class="p-0">
-                    <h2 class="h-c"><i class="fa fa-envelope-o icon-zoom"></i> ยืนยันเข้าร่วมอบรม</h2>
+                    <h2 class="h-c"><i class="fa fa-envelope-o icon-zoom"></i> ยืนยันเข้าร่วมโครงการ</h2>
                     <hr class="style1">
                 </div>
 
@@ -72,21 +72,21 @@ require_once __DIR__.'/controller/upostConfirmController.php';
                         <div class="form-inline offset-3">
                             <div class="custom-control custom-radio my-1 mr-sm-2">
                                 <input name="training_confirm" value="Y" type="radio" class="custom-control-input" id="trainingConfirmYId" <?php echo $this_t_confirm=='Y'?'checked':''; ?> >
-                                <label class="custom-control-label" for="trainingConfirmYId"> ยืนยันเข้าร่วมอบรม </label>
+                                <label class="custom-control-label" for="trainingConfirmYId"> เข้าร่วม </label>
                             </div>
                             <div class="custom-control custom-radio my-1 mr-sm-2 ml-5">
                                 <input name="training_confirm" value="N" type="radio" class="custom-control-input" id="trainingConfirmNId" <?php echo $this_t_confirm=='N'?'checked':''; ?> >
-                                <label class="custom-control-label" for="trainingConfirmNId"> ไม่เข้าร่วมอบรม </label>
+                                <label class="custom-control-label" for="trainingConfirmNId"> ไม่เข้าร่วม </label>
                             </div>
                         </div>
                     </div>
                     <div class="pt-3">
                         <div class="form-group">
                             <label for="confirmStateId" class="font-weight-bold text-primary">
-                                สถานที่จัดอมรม
+                                สถานที่จัดโครงการ
                             </label>
                             <select id="confirmStateId" class="form-control">
-                                <option value="">กรุณาเลือกศูนย์อบรม</option>
+                                <option value="">กรุณาเลือก</option>
                                 <?php foreach ($STATE as $k=>$i):?>
                                     <option value="<?php echo $i;?>" <?php echo $i==$this_t_state?'selected':''; ?> > <?php echo $i;?> </option>
                                 <?php endforeach;?>
@@ -449,7 +449,7 @@ require_once __DIR__ . '/_main_script.php';
             var shirtActive = $("#defaultShirtActiveId").val();
 
             if( trainingState==='' || trainingState===undefined  ){
-                alert("กรุณาเลือกศูนย์อบรม");
+                alert("กรุณาเลือกสถานที่จัดโครงการ");
                 $("#confirmStateId").focus();
             }
             else{

@@ -234,7 +234,7 @@ $COUNT_QUESTION = isset($COUNT_QUESTION)?$COUNT_QUESTION:0;
         <li class="nav-item">
             <a class="nav-link a-nav <?php echo $MENU_LEFT == 'upost'?'active':'';?>" href="/upost.php">
                 <i class="fa fa-envelope-o"></i>
-                อบรม
+                อบรม/โครงการ
             </a>
         </li>
 

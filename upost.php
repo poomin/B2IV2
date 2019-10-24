@@ -49,7 +49,7 @@ require_once __DIR__.'/controller/upostController.php';
             <div class="col-9 p-5 bg-white">
 
                 <div class="p-0">
-                    <h2 class="h-c"><i class="fa fa-envelope-o icon-zoom"></i> ยืนยันอบรม </h2>
+                    <h2 class="h-c"><i class="fa fa-envelope-o icon-zoom"></i> ยืนยันเข้ารวม </h2>
                     <hr class="style1">
                 </div>
                 <div>
@@ -102,7 +102,7 @@ require_once __DIR__.'/controller/upostController.php';
 
 
                 <div class="p-1" style="margin-top: 100px;">
-                    <h4 class="h-c"><i class="fa fa-envelope-o icon-zoom"></i> อบรมที่เคยเข้าร่วม </h4>
+                    <h4 class="h-c"><i class="fa fa-envelope-o icon-zoom"></i> ประวัติเข้าร่วมโครงการ </h4>
                     <hr class="style1">
                 </div>
                 <div>

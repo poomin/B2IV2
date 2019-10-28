@@ -74,7 +74,7 @@ require_once __DIR__.'/controller/uquestionController.php';
                         </a>
                     </div>
                 </div>
-                <div class="p-0">
+                <div class="p-0 mt-2">
                     <table class="this-table table table-bordered">
                         <thead>
                         <tr>

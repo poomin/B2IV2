@@ -68,7 +68,7 @@ require_once __DIR__.'/controller/uquestionController.php';
                 </div>
 
                 <div class="row">
-                    <div class="col-6 text-right">
+                    <div class="col-12 text-right">
                         <a class="btn btn-success btn-sm" href="/uquestion-add.php" type="button" data-toggle="tooltip" title="Add question">
                             <i class="fa fa-plus"></i> สอบถามปัญหา
                         </a>

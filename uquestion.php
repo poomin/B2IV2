@@ -53,11 +53,11 @@ require_once __DIR__.'/controller/uquestionController.php';
                         <div class="col-8">
                             <h2 class="h-c"><i class="fa fa-question-circle-o icon-zoom"></i> ถาม-ตอบ </h2>
                         </div>
-                        <div class="col-4 text-right">
-                            <a class="btn btn-success btn-sm" href="/uquestion-add.php" type="button" data-toggle="tooltip" title="Add question">
-                                <i class="fa fa-plus"></i> สอบถามปัญหา
-                            </a>
-                        </div>
+<!--                        <div class="col-4 text-right">-->
+<!--                            <a class="btn btn-success btn-sm" href="/uquestion-add.php" type="button" data-toggle="tooltip" title="Add question">-->
+<!--                                <i class="fa fa-plus"></i> สอบถามปัญหา-->
+<!--                            </a>-->
+<!--                        </div>-->
                     </div>
                     <hr class="style1">
                 </div>
@@ -67,6 +67,13 @@ require_once __DIR__.'/controller/uquestionController.php';
                     <?php require_once __DIR__.'/_alert.php';?>
                 </div>
 
+                <div class="row">
+                    <div class="col-6 text-right">
+                        <a class="btn btn-success btn-sm" href="/uquestion-add.php" type="button" data-toggle="tooltip" title="Add question">
+                            <i class="fa fa-plus"></i> สอบถามปัญหา
+                        </a>
+                    </div>
+                </div>
                 <div class="p-0">
                     <table class="this-table table table-bordered">
                         <thead>

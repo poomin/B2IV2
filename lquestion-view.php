@@ -9,6 +9,14 @@ require_once __DIR__.'/_session.php';
 require_once __DIR__.'/_session_login.php';
 
 $MENU_LEFT = 'lquestion';
+$this_title = '';
+$this_detail = '';
+$this_create_at = '';
+
+$this_name = '';
+$this_school = '';
+$this_role = '';
+$this_region = '';
 require_once __DIR__.'/controller/questionViewController.php';
 
 ?>
@@ -61,6 +69,12 @@ require_once __DIR__.'/controller/questionViewController.php';
                         <p class="mb-0">
                             <?php echo str_replace("\n","<br>",$this_detail);?>
                         </p>
+
+                        <hr class="mt-5">
+                        <small><i class="fa fa-user"></i> <?php echo $this_name;?></small>
+                        <small class="ml-2"><i class="fa fa-mortar-board"></i> <?php echo $this_role;?> </small>
+                        <small class="ml-2"><i class="fa fa-institution"></i> โรงเรียน <?php echo $this_school;?> </small>
+                        <small class="ml-2"><i class="fa fa-wifi"></i> ภาค <?php echo $this_region;?> </small>
                     </div>
                 </div>
 
@@ -85,7 +99,10 @@ require_once __DIR__.'/controller/questionViewController.php';
                         <div class="alert <?php echo $i_alert; ?>" role="alert">
                             <p> <strong> <?php echo $i_name; ?></strong> <i class="fa fa-calendar ml-2"></i> <?php echo $i_create_at; ?> </p>
                             <hr>
-                            <p class="mb-0"><?php echo $i_comment; ?></p>
+                            <p class="mb-0" id="commentId<?php echo $item['id'];?>"><?php echo $i_comment; ?></p>
+                            <hr class="mt-2">
+                            <button class="btn btn-warning btn-sm" type="button" data-toggle="tooltip" title="edit" onclick="showModalEditComment('<?php echo $item['id'];?>')"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm"  type="button" data-toggle="tooltip" title="delete" onclick="showModalDelete('<?php echo $item['id'];?>','<?php echo 'comment ID:'.$item['id'];?>')"> <i class="fa fa-remove"></i></button>
                         </div>
                     </div>
 
@@ -131,10 +148,53 @@ require_once __DIR__.'/controller/questionViewController.php';
 
 require_once __DIR__.'/_main_script.php';
 
+require_once __DIR__.'/modal_delete.php';
+
 ?>
 
-<script>
 
+<div class="modal fade" id="modalEditComment" tabindex="-1" role="dialog" aria-labelledby="modalLabelEditComment" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-warning">
+                <h5 class="modal-title" id="modalLabelEditComment"> Modal Edit Comment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form class="pt-3" method="post">
+                    <textarea id="modalCommentInput" class="form-control" name="comment" rows="15"></textarea>
+                    <div class="data-send" hidden>
+                        <input id="modalCommentIdInput" type="text" name="comment_id" value="" hidden>
+                        <input type="text" name="fn" value="editComment" hidden>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function showModalEditComment(comment_id) {
+        var comment = $("#commentId"+comment_id).html();
+        $("#modalCommentInput").val(comment);
+        $("#modalCommentIdInput").val(comment_id);
+        $("#modalEditComment").modal({
+            keyboard:false,
+            backdrop:'static'
+        });
+    }
 </script>
 
 </body>

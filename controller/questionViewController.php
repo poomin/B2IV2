@@ -2,7 +2,9 @@
 
 require_once __DIR__.'/../model/QuestionModel.php';
 require_once __DIR__.'/../model/QuestionCommentModel.php';
+require_once __DIR__.'/../model/UserModel.php';
 
+$MU = new UserModel();
 $MQuestion = new QuestionModel();
 $MQComment = new QuestionCommentModel();
 
@@ -11,6 +13,12 @@ $question_id = $MQuestion->getInput('qid',0);
 $this_title = '';
 $this_detail = '';
 $this_create_at = '';
+
+$this_name = '';
+$this_school = '';
+$this_role = '';
+$this_region = '';
+
 $COMMENTS = [];
 
 
@@ -47,6 +55,32 @@ if($fn=='addComment'){
     }
 
 }
+elseif ($fn=='editComment'){
+    $_comment_id = $MQComment->getInput('comment_id',0);
+    $_comment = $MQComment->getInput('comment',0);
+    $last_id = $MQComment->editThis(['comment_text'=>$_comment],['id'=>$_comment_id]);
+    if($last_id >0){
+        $_SESSION['action_status']='success';
+        $_SESSION['action_message']='Edit comment success.';
+    }
+    else{
+        $_SESSION['action_status']='warning';
+        $_SESSION['action_message']='Edit comment fail!!!';
+    }
+}
+
+elseif ($fn=='modalDelete'){
+    $_comment_id = $MQComment->getInput('delete_id',0);
+    $last_id = $MQComment->deleteThis(['id'=>$_comment_id]);
+    if($last_id >0){
+        $_SESSION['action_status']='success';
+        $_SESSION['action_message']='Delete comment success.';
+    }
+    else{
+        $_SESSION['action_status']='warning';
+        $_SESSION['action_message']='Delete comment fail!!!';
+    }
+}
 
 
 //>>>>>>>>>>>>>> view
@@ -60,6 +94,16 @@ if(isset($result['id'])){
     $this_detail = $result['detail'];
     $this_create_at = $result['create_at'];
     $this_admin_read = $result['admin_read'];
+    $this_user_id = $result['user_id'];
+
+    //user comment
+    $result = $MU->selectThis(['id'=>$this_user_id]);
+    if(isset($result['id'])){
+        $this_name = $result['name_title'].''.$result['name'].' '.$result['surname'];
+        $this_school = $result['schoolname'];
+        $this_role = $result['role'];
+        $this_region = $result['schoolregion'];
+    }
 
     //update user read
     if($this_admin_read=='N'){

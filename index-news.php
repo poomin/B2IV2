@@ -39,10 +39,10 @@ require_once __DIR__.'/controller/indexNewsController.php';
             <?php foreach ($NEWS as $key=>$item):?>
                 <div class="alert-warning shadow-lg p-3 m-5 rounded">
                     <div class="post-body row">
-                        <div class="col-4 border-0 text-center">
+                        <div class="col-12 col-md-4 border-0 text-center">
                             <img class="image-zoom rounded" src="<?php echo $item['image'];?>" alt="B2i new" style="width: 250px; height: auto;">
                         </div>
-                        <div class="col-8 border-0">
+                        <div class="col-12 col-md-8 border-0">
                             <h5 class="font-weight-bolder"><?php echo $item['title'];?></h5>
                             <hr>
                             <p>

@@ -41,7 +41,7 @@ require_once __DIR__.'/controller/indexNewsReadController.php';
             <div class="shadow-lg p-3 m-5 bg-white rounded">
                 <div class="post-body pt-5">
                     <div class="border-0 text-center">
-                        <img class="image-zoom rounded" src="<?php echo $this_image;?>" alt="B2i new" style="width: 350px; height: auto;">
+                        <img class="image-zoom img-fluid rounded" src="<?php echo $this_image;?>" alt="B2i new" style="width: 350px; height: auto;">
                     </div>
                     <div class="border-0 m-5">
                         <div class="p-0">

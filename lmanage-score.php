@@ -113,62 +113,6 @@ require_once __DIR__.'/controller/manageScoreController.php';
 
                 <hr class="style1">
                 <div class="text-center pt-5">
-                    <h5 class="font-weight-bolder">เกณฑ์การให้คะแนน</h5>
-                </div>
-                <div class="pt-3">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">เกณฑ์</th>
-                            <th scope="col">คะแนนเต็ม</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($SCORES as $key=>$item):?>
-                            <tr>
-                                <td><?php echo ($key+1); ?></td>
-                                <td id="textTdId<?php echo $item['id'];?>"><?php echo $item['score_text']; ?></td>
-                                <td id="scoreTdId<?php echo $item['id'];?>"><?php echo $item['score_point']; ?></td>
-                                <td>
-                                    <button class="btn btn-warning btn-sm" type="button" data-toggle="tooltip" title="Edit score" onclick="editScore('<?php echo $item['id'];?>')"><i class="fa fa-edit"></i></button>
-                                    <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete score"
-                                            onclick="showModalDelete('<?php echo 'score-'.$item['id'];?>','<?php echo $item['score_text'];?>');">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        <?php endforeach;?>
-                        </tbody>
-                    </table>
-                    <form class="pt-3" method="post">
-                        <div class="form-row">
-                            <div class="form-group col-md-8">
-                                <label for="attrScoreTextId">เกณฑ์</label>
-                                <input type="text" class="form-control" id="attrScoreTextId" name="score_text" placeholder="เกณฑ์" required>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="attrScorePointId">คะแนนเต็ม</label>
-                                <input type="text" class="form-control" id="attrScorePointId" name="score_point" placeholder="0" required>
-                            </div>
-                            <div class="col-auto my-2">
-                                <label></label>
-                                <div>
-                                    <input id="scoreId" type="text" name="score_id" value="" hidden>
-                                    <input id="fnId" type="text" name="fn" value="addScore" hidden>
-                                    <input type="text" name="sqS" value="<?php echo $this_sq;?>" hidden>
-                                    <input type="text" name="main_id" value="<?php echo $this_main_id;?>" hidden>
-                                    <button id="btnSubmit" class="btn btn-success" type="submit">SAVE</button>
-                                    <button id="btnClear" class="btn btn-secondary" type="button" onclick="clearScore();" hidden>CLEAR</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <hr class="style1">
-                <div class="text-center pt-5">
                     <h5 class="font-weight-bolder">สร้างกลุ่มคณะกรรมการ</h5>
                 </div>
                 <div class="pt-3">
@@ -216,7 +160,6 @@ require_once __DIR__.'/controller/manageScoreController.php';
                         </div>
                     </form>
                 </div>
-
 
                 <hr class="style1">
                 <div class="text-center pt-5">
@@ -294,6 +237,85 @@ require_once __DIR__.'/controller/manageScoreController.php';
 
                 </div>
 
+
+                <hr class="style1">
+                <div class="text-center pt-5">
+                    <h5 class="font-weight-bolder">เกณฑ์การให้คะแนน</h5>
+                </div>
+                <div class="pt-3">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">เกณฑ์</th>
+                            <th scope="col">คะแนนเต็ม</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($GROUPS as $k=>$i):?>
+                            <tr>
+                                <td class="text-center font-weight-bold" colspan="4"><?php echo  $i['group_name']; ?></td>
+                            </tr>
+
+                            <?php
+                            $i_c=0;
+                            foreach ($SCORES as $key=>$item):
+                                if($item['group_id'] == $i['id']):
+                                ?>
+                                <tr>
+                                    <td><?php echo ($i_c+1); ?></td>
+                                    <td id="textTdId<?php echo $item['id'];?>"><?php echo $item['score_text']; ?></td>
+                                    <td id="scoreTdId<?php echo $item['id'];?>"><?php echo $item['score_point']; ?></td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm" type="button" data-toggle="tooltip" title="Edit score" onclick="editScore('<?php echo $item['id'];?>')"><i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" title="Delete score"
+                                                onclick="showModalDelete('<?php echo 'score-'.$item['id'];?>','<?php echo $item['score_text'];?>');">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php $i_c++; endif; endforeach;?>
+                        <?php endforeach;?>
+                        </tbody>
+
+                    </table>
+
+                    <form class="pt-3" method="post">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="attrScoreGroupId">กลุ่มกรรมการ</label>
+                                <select id="attrScoreGroupId" name="group_id" class="selectpicker form-control" data-live-search="true" title="Please select a group ..." required>
+                                    <?php foreach ($GROUPS as $item): ?>
+                                        <option value="<?php echo $item['id'];?>">
+                                            <?php echo $item['group_name'];?>
+                                        </option>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="attrScoreTextId">เกณฑ์</label>
+                                <input type="text" class="form-control" id="attrScoreTextId" name="score_text" placeholder="เกณฑ์" required>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="attrScorePointId">คะแนนเต็ม</label>
+                                <input type="text" class="form-control" id="attrScorePointId" name="score_point" placeholder="0" required>
+                            </div>
+                            <div class="col-auto my-2">
+                                <label></label>
+                                <div>
+                                    <input id="scoreId" type="text" name="score_id" value="" hidden>
+                                    <input id="fnId" type="text" name="fn" value="addScore" hidden>
+                                    <input type="text" name="sqS" value="<?php echo $this_sq;?>" hidden>
+                                    <input type="text" name="main_id" value="<?php echo $this_main_id;?>" hidden>
+                                    <button id="btnSubmit" class="btn btn-success" type="submit">SAVE</button>
+                                    <button id="btnClear" class="btn btn-secondary" type="button" onclick="clearScore();" hidden>CLEAR</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
             </div>
 
         </div>
@@ -331,8 +353,10 @@ require_once __DIR__.'/_datepicker_script.php';
         var text = $('#textTdId'+id).text();
         var score = $('#scoreTdId'+id).text();
 
+
         $('#attrScoreTextId').val(text);
         $('#attrScorePointId').val(score);
+
         $('#btnSubmit').removeClass('btn-success');
         $('#btnSubmit').addClass('btn-warning');
         $('#btnSubmit').text('EDIT');

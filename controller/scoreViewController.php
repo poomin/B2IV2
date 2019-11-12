@@ -10,7 +10,7 @@ require_once __DIR__.'/../model/MainProjectModel.php';
 require_once __DIR__.'/../model/MainPhaseModel.php';
 require_once __DIR__.'/../model/MainBoardModel.php';
 require_once __DIR__.'/../model/MainScoreModel.php';
-require_once __DIR__.'/../model/MainMapModel.php';
+//require_once __DIR__.'/../model/MainMapModel.php';
 
 require_once __DIR__.'/../model/ProjectModel.php';
 require_once __DIR__.'/../model/ProjectPhaseModel.php';
@@ -153,7 +153,13 @@ WHERE mp.sq = '.$this_pro_sq.' AND board.main_id='.$this_main_id.' AND board.use
         exit(0);
     }
 
-    $result = $MMScore->selectThisAll(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq]);
+
+    $result = $MMBoard->selectThis(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq , 'user_id'=>$LOGIN_USER_ID]);
+    $this_group_id = 0;
+    if(isset($result['group_id'])){
+        $this_group_id = $result['group_id'];
+    }
+    $result = $MMScore->selectThisAll(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq , 'group_id'=>$this_group_id]);
     if(count($result) > 0){
         $SCORE = $result;
         foreach ($SCORE as $key => $item){

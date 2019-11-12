@@ -163,7 +163,6 @@ if(isset($result['id'])){
 
     $SCORE_DETAIL = $MMScore->selectThisAll(['main_id'=>$this_main_id , 'sq'=>$this_pro_sq]);
 
-
     foreach ($BOARD as $key=>$item){
         $BOARD[$key]['name_title'] = '';
         $BOARD[$key]['name'] = '';
@@ -181,9 +180,15 @@ if(isset($result['id'])){
 
 
         $BOARD[$key]['scores'] = [];
+        $i_group_id = $BOARD[$key]['group_id'];
         $SCORES = [];
         if(count($SCORE_DETAIL) >0){
-            $SCORES = $SCORE_DETAIL;
+            //$SCORES = $SCORE_DETAIL;
+            foreach ($SCORE_DETAIL as $k=>$i){
+                if($i_group_id==$i['group_id']){
+                    $SCORES[] = $i;
+                }
+            }
             foreach ($SCORES as $k => $i){
                 $result = $MScore->selectThis(['main_score_id'=>$i['id'] , 'project_id'=>$this_pro_id , 'user_id'=>$i_user_id]);
                 if(isset($result['id'])){

@@ -68,12 +68,14 @@ elseif($fn == 'addScore'){
     $p_sq = $MScore->getInput('sqS');
     $p_score_text = $MScore->getInput('score_text');
     $p_score_point = $MScore->getInput('score_point');
+    $p_group_id = $MScore->getInput('group_id');
 
     $raw = [
-      'main_id'=>$p_main_id,
-      'sq'=>$p_sq,
-      'score_text'=>$p_score_text,
-      'score_point'=>$p_score_point,
+        'main_id'=>$p_main_id,
+        'sq'=>$p_sq,
+        'score_text'=>$p_score_text,
+        'score_point'=>$p_score_point,
+        'group_id'=>$p_group_id,
     ];
 
 
@@ -92,10 +94,12 @@ elseif($fn == 'editScore'){
     $p_score_id = $MScore->getInput('score_id');
     $p_score_text = $MScore->getInput('score_text');
     $p_score_point = $MScore->getInput('score_point');
+    $p_group_id = $MScore->getInput('group_id');
 
     $raw = [
         'score_text'=>$p_score_text,
         'score_point'=>$p_score_point,
+        'group_id'=>$p_group_id,
     ];
     $condition = [
       'id'=>$p_score_id
@@ -263,6 +267,7 @@ if(isset($result['id'])){
     }
 
     //score
+    $strSql = "";
     $result = $MScore->selectThisAll(['main_id'=>$this_main_id,'sq'=>$this_sq]);
     if(count($result)>0){
         $SCORES = $result;
